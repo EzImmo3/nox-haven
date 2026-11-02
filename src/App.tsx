@@ -1,0 +1,451 @@
+
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { ChangeEvent } from 'react';
+import { Activity, ArrowDownToLine, ArrowUpFromLine, BookOpen, Brain, CalendarDays, Check, ChevronRight, CircleHelp, Clock3, FileText, GraduationCap, LayoutDashboard, Moon, MoreHorizontal, Pencil, Plus, Search, Sun, Target, Trash2, TrendingUp, X, RotateCcw, Bookmark, Layers, AlertTriangle, BarChart3, Play, Sparkles, Wifi, WifiOff } from 'lucide-react';
+import { DEFAULT_SUBJECTS, EMPTY_DATA, getGeneralAverage, getSubjectAverage, loadData, makeId, migrateData, PROFILE_KEY, today, isoNow, scheduleFlashcardReview, projectRequiredGrade, isValidDateKey } from './data';
+import type { ErrorEntry, Flashcard, Grade, RevisionNote, StudyData, StudySession } from './types';
+import { CURRICULUM_SUBJECTS, curriculumGroupLabel } from './curriculum';
+import { CHAPTER_RESOURCES, type ChapterResource } from './chapterResources';
+import { LEARNING_CONTENT } from './learningContent';
+import { loadPrimaryData, savePrimaryData, savePrimaryPreferences, saveLegacyData, subscribeToRemoteChanges } from './storage';
+import { buildDailyStudyPlan, buildWeeklyStudyPlan, getWeeklyLearningSummary, getWeeklyPlanSummary, normalizeDailyCapacity, rankChapterRecommendations } from './learningEngine';
+import { buildCalendarFile } from './calendar';
+import { getStableOptionOrder } from './quizOptions.mjs';
+
+type Tab = 'cockpit'|'library'|'subjects'|'notes'|'cards'|'quiz'|'errors'|'planning'|'stats';
+const fmt=(v:number|null)=>v===null?'—':`${v.toFixed(2).replace('.',',')}/20`;
+const due=(s:string)=>s.slice(0,10)<=today();
+const ask=(label:string,initial='')=>window.prompt(label,initial);
+const subjectName=(d:StudyData,id:string)=>d.subjects.find(s=>s.id===id)?.name??'Matière inconnue';
+const tags=(s:string)=>s.split(',').map(x=>x.trim()).filter(Boolean);
+
+function exportCalendar(tasks:StudyData['tasks'],subjects:StudyData['subjects']){
+ if(!tasks.length)return false;
+ const content=buildCalendarFile(tasks,subjects);
+ if(!content.includes('BEGIN:VEVENT'))return false;
+ const blob=new Blob([content],{type:'text/calendar;charset=utf-8'});
+ const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='nox-haven-planning.ics';document.body.appendChild(link);link.click();link.remove();window.setTimeout(()=>URL.revokeObjectURL(url),1000);return true;
+}
+
+function ChapterResourceView({resource,onAddCards}:{resource:ChapterResource;onAddCards:()=>void}){
+ const [revealed,setRevealed]=useState<number[]>([]);
+ const [answers,setAnswers]=useState<Record<number,number>>({});
+ const [checked,setChecked]=useState<number[]>([]);
+ const [showCorrections,setShowCorrections]=useState<number[]>([]);
+ return <div className="learning-resource">
+  <div className="learning-resource-head"><span className="resource-kicker">COURS SPÉCIFIQUE · TERMINALE 2026–2027</span><h3>{resource.title}</h3></div>
+  <section className="learning-section"><h4><Target size={16}/> Objectifs d’apprentissage</h4><ul>{resource.objectives.map((x,i)=><li key={i}>{x}</li>)}</ul></section>
+  <section className="learning-section"><h4><BookOpen size={16}/> Cours approfondi</h4>{resource.course.map((part,i)=><div key={i}><h5>{part.heading}</h5>{part.body.map((paragraph,j)=><p key={j}>{paragraph}</p>)}</div>)}</section>
+  <section className="learning-section"><h4><Sparkles size={16}/> À retenir</h4><ul>{resource.keyPoints.map((x,i)=><li key={i}>{x}</li>)}</ul></section>
+  <section className="learning-section"><h4><GraduationCap size={16}/> Méthode de travail</h4><ol>{resource.method.map((x,i)=><li key={i}>{x}</li>)}</ol></section>
+  <section className="learning-section"><div className="panel-heading"><h4><Layers size={16}/> Flashcards · {resource.flashcards.length}</h4><button className="secondary-btn" onClick={onAddCards}>Ajouter à mes révisions SM-2</button></div><div className="learning-cards">{resource.flashcards.map((card,i)=><div className="learning-flashcard" key={i}><strong>{card.front}</strong>{revealed.includes(i)?<p>{card.back}</p>:<button className="text-btn" onClick={()=>setRevealed(v=>[...v,i])}>Afficher la réponse</button>}{revealed.includes(i)&&<button className="text-btn" onClick={()=>setRevealed(v=>v.filter(x=>x!==i))}>Masquer</button>}</div>)}</div></section>
+  <section className="learning-section"><h4><Check size={16}/> Quiz · {resource.quiz.length} questions</h4>{resource.quiz.map((q,i)=><div className="learning-question" key={i}><span className="category-label">{q.level}</span><strong>{i+1}. {q.question}</strong>{getStableOptionOrder(q.choices.length,`${resource.title}|${i}|${q.question}`).map((originalIndex,displayIndex)=><label className={`learning-choice ${checked.includes(i)&&originalIndex===q.answer?'correct-choice':''}`} key={originalIndex}><input type="radio" name={`chapter-${resource.title}-${i}`} aria-label={`Question ${i+1}, proposition ${displayIndex+1}`} checked={answers[i]===originalIndex} onChange={()=>{setAnswers(v=>({...v,[i]:originalIndex}));setChecked(v=>v.filter(x=>x!==i));}}/>{q.choices[originalIndex]}</label>)}<div className="learning-question-actions"><button className="secondary-btn" disabled={answers[i]===undefined} onClick={()=>setChecked(v=>v.includes(i)?v:[...v,i])}>Vérifier</button>{checked.includes(i)&&<p className={answers[i]===q.answer?'answer-correct':'answer-wrong'}>{answers[i]===q.answer?'Bonne réponse. ':'Réponse incorrecte. '}{q.explanation}</p>}</div></div>)}</section>
+  <section className="learning-section"><h4><Pencil size={16}/> Exercices corrigés · {resource.exercises.length}</h4>{resource.exercises.map((exercise,i)=><div className="learning-question" key={i}><span className="category-label">{exercise.level}</span><strong>{exercise.title}</strong><p>{exercise.statement}</p><p><strong>Compétences :</strong> {exercise.skills.join(' · ')}</p><button className="secondary-btn" onClick={()=>setShowCorrections(v=>v.includes(i)?v.filter(x=>x!==i):[...v,i])}>{showCorrections.includes(i)?'Masquer la correction':'Afficher la correction détaillée'}</button>{showCorrections.includes(i)&&<p className="answer-correct">{exercise.correction}</p>}</div>)}</section>
+  <p className="muted-count">{resource.sourceNote}</p>
+ </div>;
+}
+
+export default function App(){
+ const [data,setData]=useState<StudyData>(()=>loadData());
+ const [dataReady,setDataReady]=useState(false);
+ const [storageMode,setStorageMode]=useState<'indexeddb'|'fallback'|'loading'|'error'>('loading');
+ const [storageConflict,setStorageConflict]=useState(false);
+ const [profileReady,setProfileReady]=useState(()=>localStorage.getItem(PROFILE_KEY)==='done');
+ const [setupSpecialties,setSetupSpecialties]=useState<string[]>(()=>['maths-spe','ses-spe']);
+ const [setupOption,setSetupOption]=useState<string>('maths-exp');
+ const [setupLvb,setSetupLvb]=useState<string>('espagnol');
+ const [targetAverage,setTargetAverage]=useState<number|null>(()=>{const raw=localStorage.getItem('studyflow_target_average_v1');const value=raw===null?NaN:Number(raw);return Number.isFinite(value)&&value>=0&&value<=20?value:null;});
+ const [setupTarget,setSetupTarget]=useState<string>(()=>{const raw=localStorage.getItem('studyflow_target_average_v1');const value=raw===null?NaN:Number(raw);return Number.isFinite(value)&&value>=0&&value<=20?String(value):'';});
+ const [tab,setTab]=useState<Tab>('cockpit');
+ const [mobileMore,setMobileMore]=useState(false);
+ const mobileMoreTriggerRef=useRef<HTMLButtonElement|null>(null);
+ const mobileMorePanelRef=useRef<HTMLDivElement|null>(null);
+ useEffect(()=>{if(!mobileMore)return;const panel=mobileMorePanelRef.current;const trigger=mobileMoreTriggerRef.current;const firstAction=panel?.querySelector<HTMLButtonElement>('button');const previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';firstAction?.focus();const onKeyDown=(event:KeyboardEvent)=>{if(event.key==='Escape'){event.preventDefault();setMobileMore(false);return;}if(event.key==='Tab'&&panel){const items=Array.from(panel.querySelectorAll<HTMLElement>('button:not([disabled]),a[href],[tabindex]:not([tabindex="-1"])'));if(!items.length){event.preventDefault();return;}const first=items[0] as HTMLElement,last=items[items.length-1] as HTMLElement;if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}}};const onFocusIn=(event:FocusEvent)=>{if(panel&&event.target instanceof Node&&!panel.contains(event.target))firstAction?.focus();};window.addEventListener('keydown',onKeyDown);document.addEventListener('focusin',onFocusIn);return()=>{window.removeEventListener('keydown',onKeyDown);document.removeEventListener('focusin',onFocusIn);document.body.style.overflow=previousOverflow;trigger?.focus();};},[mobileMore]);
+ const [librarySubjectId,setLibrarySubjectId]=useState('');
+ const [librarySearch,setLibrarySearch]=useState('');
+ const [chapterProgress,setChapterProgress]=useState<Record<string,'started'|'mastered'>>(()=>{try{return JSON.parse(localStorage.getItem('studyflow_chapter_progress_v1')||'{}')}catch{return {}}});
+ const [selectedChapter,setSelectedChapter]=useState<{subjectId:string;chapterId:string}|null>(null);
+ const [dark,setDark]=useState(()=>localStorage.getItem('studyflow_theme')!=='light');
+ const [isOnline,setIsOnline]=useState(()=>navigator.onLine);
+ useEffect(()=>{const online=()=>setIsOnline(true);const offline=()=>setIsOnline(false);window.addEventListener('online',online);window.addEventListener('offline',offline);return()=>{window.removeEventListener('online',online);window.removeEventListener('offline',offline);};},[]);
+ const [search,setSearch]=useState('');
+ const [notice,setNotice]=useState('');
+ const [settings,setSettings]=useState(false);
+ const [storageReport,setStorageReport]=useState<{usage:number|null;quota:number|null;persistent:boolean|null;message:string}|null>(null);
+ const [storageCheckBusy,setStorageCheckBusy]=useState(false);
+ const importRef=useRef<HTMLInputElement>(null);
+ const [reviewQueue,setReviewQueue]=useState<string[]>([]);
+ const [reviewIndex,setReviewIndex]=useState(0);
+ const [revealed,setRevealed]=useState(false);
+ const [sessionStart,setSessionStart]=useState<number|null>(null);
+ const [reviewCorrectCount,setReviewCorrectCount]=useState(0);
+ const [quiz,setQuiz]=useState<{ids:string[];index:number;answers:number[]}|null>(null);
+ const [quizDuration,setQuizDuration]=useState(10);
+ const [quizRemaining,setQuizRemaining]=useState<number|null>(null);
+ const [quizMode,setQuizMode]=useState<'entrainement'|'examen'>('entrainement');
+ const [weeklyGoal,setWeeklyGoal]=useState(()=>{const n=Number(localStorage.getItem('studyflow_weekly_goal_v1'));return Number.isInteger(n)&&n>=1&&n<=30?n:5;});
+ useEffect(()=>{if(quizRemaining===null||quizRemaining<=0)return;const timer=window.setInterval(()=>setQuizRemaining(v=>v===null?null:Math.max(0,v-1)),1000);return()=>window.clearInterval(timer);},[quizRemaining!==null&&quizRemaining>0]);
+ const [errorFilter,setErrorFilter]=useState<'all'|'todo'|'working'|'mastered'>('all');
+ const [taskFilter,setTaskFilter]=useState<'all'|'todo'|'done'>('todo');
+ const [dailyCapacity,setDailyCapacity]=useState(()=>{try{return normalizeDailyCapacity(localStorage.getItem('studyflow_daily_capacity_v1'));}catch{return 60;}});
+ useEffect(()=>subscribeToRemoteChanges(kind=>{setStorageConflict(true);setNotice(kind==='data'?'NOX HAVEN a été modifié dans un autre onglet. Recharge cette page avant de continuer pour éviter un écrasement.':'Les préférences ont changé dans un autre onglet. Recharge cette page avant de continuer.');}),[]);
+ useEffect(()=>{let active=true;loadPrimaryData().then(result=>{if(!active)return;setData(result.data);setProfileReady(result.preferences.profileReady);setChapterProgress(result.preferences.chapterProgress);setTargetAverage(result.preferences.targetAverage);setSetupTarget(result.preferences.targetAverage===null?'':String(result.preferences.targetAverage));setWeeklyGoal(result.preferences.weeklyGoal);setDailyCapacity(result.preferences.dailyCapacity);setDark(result.preferences.dark);setStorageMode('indexeddb');setDataReady(true);if(result.migrated||result.preferencesMigrated)setNotice('Tes anciennes données et préférences ont été transférées vers le nouveau stockage.');}).catch(error=>{console.warn('NOX HAVEN IndexedDB:',error);if(!active)return;setStorageMode('error');setDataReady(false);setNotice('Impossible de lire le stockage NOX HAVEN. Aucune sauvegarde automatique ne sera effectuée afin de protéger tes données.');});return()=>{active=false;};},[]);
+ useEffect(()=>{if(!dataReady||storageConflict)return;let active=true;if(storageMode==='indexeddb'){savePrimaryData(data).catch(error=>{console.error('NOX HAVEN save:',error);if(active)setNotice('La sauvegarde IndexedDB a échoué. Exporte tes données avant de continuer.');});}else if(storageMode==='fallback'){try{saveLegacyData(data);}catch{setNotice('Sauvegarde locale impossible : exporte tes données.');}}return()=>{active=false;};},[data,dataReady,storageMode,storageConflict]);
+ useEffect(()=>{if(!dataReady||storageMode!=='indexeddb'||storageConflict)return;let active=true;savePrimaryPreferences({profileReady,chapterProgress,targetAverage,weeklyGoal,dailyCapacity,dark}).catch(error=>{console.error('NOX HAVEN preferences:',error);if(active)setNotice('La sauvegarde de tes préférences a échoué. Exporte tes données.');});return()=>{active=false;};},[dataReady,storageMode,profileReady,chapterProgress,targetAverage,weeklyGoal,dailyCapacity,dark,storageConflict]);
+ useEffect(()=>{document.documentElement.dataset.theme=dark?'dark':'light';if(dataReady&&storageMode==='fallback')localStorage.setItem('studyflow_theme',dark?'dark':'light');},[dark,dataReady,storageMode]);
+ useEffect(()=>{if(!notice)return;const t=setTimeout(()=>setNotice(''),3500);return()=>clearTimeout(t);},[notice]);
+ const activeSubjects=data.subjects.filter(s=>s.active!==false);
+ const avg=getGeneralAverage(data), graded=activeSubjects.filter(s=>s.includeInAverage&&getSubjectAverage(s.id,data.grades)!==null);
+ const weakestGradedSubject=[...graded].sort((a,b)=>(getSubjectAverage(a.id,data.grades)??20)-(getSubjectAverage(b.id,data.grades)??20))[0];
+ const targetGap=targetAverage!==null&&avg!==null?Math.max(0,targetAverage-avg):null;
+ const curriculumChapters=CURRICULUM_SUBJECTS.flatMap(subject=>subject.chapters.map(chapter=>({subject,chapter,status:chapterProgress[chapter.id]??'pending'})));
+ const masteredChapters=curriculumChapters.filter(item=>item.status==='mastered').length;
+ const startedChapters=curriculumChapters.filter(item=>item.status==='started').length;
+ const recommendations=rankChapterRecommendations(curriculumChapters.map(item=>({id:item.chapter.id,title:item.chapter.title,subjectId:item.subject.id,status:item.status})),data.flashcards,data.errors,today());
+ const recommendedChapter=recommendations[0];
+ const weeklySummary=getWeeklyLearningSummary(data.sessions,today());
+ const dailyPlan=buildDailyStudyPlan({cards:data.flashcards,errors:data.errors,recommendations:recommendations.map(({id,title,subjectId,status})=>({id,title,subjectId,status})),tasks:data.tasks,today:today()});
+ const weeklyPlan=buildWeeklyStudyPlan({cards:data.flashcards,errors:data.errors,recommendations:recommendations.map(({id,title,subjectId,status})=>({id,title,subjectId,status})),tasks:data.tasks,today:today(),dailyCapacityMinutes:dailyCapacity});
+ const weeklyPlanSummary=getWeeklyPlanSummary(weeklyPlan,data.tasks,today(),dailyCapacity);
+ const chapterCompletion=curriculumChapters.length?Math.round(masteredChapters/curriculumChapters.length*100):0;
+ const dueCards=data.flashcards.filter(c=>due(c.dueAt));
+ const recentSessions=[...data.sessions].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,7);
+ const totalMinutes=data.sessions.reduce((n,s)=>n+s.durationMinutes,0);
+ const weekSessions=data.sessions.filter(session=>{const start=new Date(weeklySummary.startDate+'T00:00:00');const date=new Date(session.date+'T12:00:00');return date>=start&&date<=new Date(weeklySummary.endDate+'T23:59:59');}).length;
+ const studyStreak=(()=>{const dates=new Set(data.sessions.map(session=>session.date));let cursor=new Date();cursor.setHours(12,0,0,0);if(!dates.has(today()))cursor.setDate(cursor.getDate()-1);let count=0;while(dates.has(`${cursor.getFullYear()}-${String(cursor.getMonth()+1).padStart(2,'0')}-${String(cursor.getDate()).padStart(2,'0')}`)){count++;cursor.setDate(cursor.getDate()-1);}return count;})();
+ const [projectionSubject,setProjectionSubject]=useState('maths-spe');
+ const [projectionScore,setProjectionScore]=useState('');
+ const [projectionOutOf,setProjectionOutOf]=useState('20');
+ const [projectionCoefficient,setProjectionCoefficient]=useState('1');
+ const projectedAverage=(()=>{const score=Number(projectionScore),outOf=Number(projectionOutOf),coefficient=Number(projectionCoefficient);if(projectionScore.trim()===''||!Number.isFinite(score)||!Number.isFinite(outOf)||!Number.isFinite(coefficient)||outOf<=0||coefficient<=0||score<0||score>outOf)return null;const hypothetical:Grade={id:'projection-only',subjectId:projectionSubject,title:'Simulation',score,outOf,coefficient,date:today(),comment:'',status:'normal',bonusThreshold:10};return getGeneralAverage({...data,grades:[...data.grades,hypothetical]});})();
+ const filtered=(q:string)=>q.toLocaleLowerCase().trim();
+ const visibleNotes=data.notes.filter(n=>`${n.title} ${n.chapter} ${n.content} ${n.tags.join(' ')} ${subjectName(data,n.subjectId)}`.toLocaleLowerCase().includes(filtered(search)));
+ const visibleCards=data.flashcards.filter(c=>`${c.front} ${c.back} ${c.chapter} ${c.tags.join(' ')} ${subjectName(data,c.subjectId)}`.toLocaleLowerCase().includes(filtered(search)));
+ const visibleErrors=data.errors.filter(e=>(errorFilter==='all'||e.status===errorFilter)&&`${e.title} ${e.chapter} ${e.mistake} ${subjectName(data,e.subjectId)}`.toLocaleLowerCase().includes(filtered(search)));
+ function update<T extends keyof StudyData>(key:T,items:StudyData[T]){setData(p=>({...p,[key]:items}));}
+ function chooseSubject(defaultId:string){
+  const list=data.subjects.filter(s=>s.active!==false);
+  const raw=ask(`Choisis une matière en indiquant son numéro ou son nom :\n${list.map((s,i)=>`${i+1}. ${s.name}`).join('\n')}`,String(Math.max(1,list.findIndex(s=>s.id===defaultId)+1)));
+  if(raw===null)return null;
+  const index=Number(raw)-1;
+  if(Number.isInteger(index)&&index>=0&&index<list.length)return list[index].id;
+  return list.find(s=>s.id===raw||s.name.toLocaleLowerCase()===raw.toLocaleLowerCase())?.id??'';
+ }
+ function simulateNextGrade(subject: StudyData['subjects'][number]){
+  if(subject.calculationMode!=='normal') { setNotice('La simulation de note est disponible pour les matières à moyenne normale.'); return; }
+  const targetRaw=ask(`Moyenne visée en ${subject.name} (sur 20)`,String((getSubjectAverage(subject.id,data.grades)??12).toFixed(1)));
+  if(targetRaw===null)return;
+  const target=Number(targetRaw.replace(',','.'));
+  if(!Number.isFinite(target)||target<0||target>20){setNotice('Entre une moyenne cible comprise entre 0 et 20.');return;}
+  const outRaw=ask('Barème de la prochaine évaluation','20');if(outRaw===null)return;
+  const outOf=Number(outRaw.replace(',','.'));
+  const coefRaw=ask('Coefficient de la prochaine évaluation','1');if(coefRaw===null)return;
+  const coefficient=Number(coefRaw.replace(',','.'));
+  try{
+   const result=projectRequiredGrade(subject.id,data.grades,target,outOf,coefficient);
+   const score=result.requiredScore;
+   if(score<=0)setNotice(`Tu as déjà atteint la moyenne visée de ${target}/20 dans cette matière, même avec une note de 0 à la prochaine évaluation.`);
+   else if(!result.possible)setNotice(`Pour atteindre ${target}/20, il faudrait ${score.toFixed(2).replace('.',',')}/${outOf} : objectif impossible avec une seule évaluation de ce barème. Répartis l'effort sur plusieurs notes.`);
+   else setNotice(`Pour atteindre ${target}/20, vise au moins ${score.toFixed(2).replace('.',',')}/${outOf} à la prochaine évaluation (coefficient ${coefficient}).`);
+  }catch{setNotice('Vérifie le barème et le coefficient saisis.');}
+ }
+ function addSubject(){
+  const name=ask('Nom de la nouvelle matière');if(!name?.trim())return;
+  const modeRaw=ask('Statut de la matière : normal, bonus ou exclu','normal');if(modeRaw===null)return;
+  const mode=modeRaw.trim().toLowerCase();if(!['normal','bonus','exclu','exclue'].includes(mode)){setNotice('Statut invalide.');return;}
+  const calculationMode=mode==='normal'?'normal':mode==='bonus'?'bonus':'excluded';
+  const weightRaw=ask('Poids dans la moyenne générale (matière normale)','1');if(weightRaw===null)return;
+  const weight=Number(weightRaw.replace(',','.'));if(!Number.isFinite(weight)||weight<=0){setNotice('Poids invalide.');return;}
+  let bonusThreshold=10,bonusCoefficient=1;
+  if(calculationMode==='bonus'){
+   const t=ask('Seuil à dépasser pour obtenir des points bonus','10');if(t===null)return;
+   const c=ask('Coefficient des points bonus','3');if(c===null)return;
+   bonusThreshold=Number(t.replace(',','.'));bonusCoefficient=Number(c.replace(',','.'));
+   if(!Number.isFinite(bonusThreshold)||bonusThreshold<0||bonusThreshold>20||!Number.isFinite(bonusCoefficient)||bonusCoefficient<=0){setNotice('Paramètres de bonus invalides.');return;}
+  }
+  update('subjects',[...data.subjects,{id:makeId(),name:name.trim(),category:'autre',weight,includeInAverage:calculationMode!=='excluded',active:true,calculationMode,bonusThreshold,bonusCoefficient}]);setNotice('Matière ajoutée.');
+ }
+ function editSubject(s:StudyData['subjects'][number]){
+  const name=ask('Nom de la matière',s.name);if(name===null)return;
+  const modeRaw=ask('Statut : normal, bonus ou exclu',s.calculationMode==='excluded'?'exclu':s.calculationMode);if(modeRaw===null)return;
+  const mode=modeRaw.trim().toLowerCase();if(!['normal','bonus','exclu','exclue'].includes(mode)){setNotice('Statut invalide.');return;}
+  const calculationMode=mode==='normal'?'normal':mode==='bonus'?'bonus':'excluded';
+  const weightRaw=ask('Poids dans la moyenne générale (matière normale)',String(s.weight));if(weightRaw===null)return;
+  const weight=Number(weightRaw.replace(',','.'));if(!name.trim()||!Number.isFinite(weight)||weight<=0){setNotice('Nom ou poids invalide.');return;}
+  let bonusThreshold=s.bonusThreshold??10,bonusCoefficient=s.bonusCoefficient??1;
+  if(calculationMode==='bonus'){
+   const t=ask('Seuil à dépasser pour obtenir des points bonus',String(bonusThreshold));if(t===null)return;
+   const c=ask('Coefficient des points bonus',String(bonusCoefficient));if(c===null)return;
+   bonusThreshold=Number(t.replace(',','.'));bonusCoefficient=Number(c.replace(',','.'));
+   if(!Number.isFinite(bonusThreshold)||bonusThreshold<0||bonusThreshold>20||!Number.isFinite(bonusCoefficient)||bonusCoefficient<=0){setNotice('Paramètres de bonus invalides.');return;}
+  }
+  update('subjects',data.subjects.map(x=>x.id===s.id?{...x,name:name.trim(),weight,includeInAverage:calculationMode!=='excluded',calculationMode,bonusThreshold,bonusCoefficient}:x));setNotice('Matière modifiée.');
+ }
+ function deleteSubject(s:StudyData['subjects'][number]){
+  if(!confirm(`Supprimer ${s.name} et ses notes, fiches, cartes et erreurs associées ?`))return;
+  setData(p=>({...p,subjects:p.subjects.filter(x=>x.id!==s.id),grades:p.grades.filter(x=>x.subjectId!==s.id),notes:p.notes.filter(x=>x.subjectId!==s.id),flashcards:p.flashcards.filter(x=>x.subjectId!==s.id),errors:p.errors.filter(x=>x.subjectId!==s.id)}));setNotice('Matière et contenus associés supprimés.');
+ }
+ function editGrade(g:Grade){
+  const title=ask('Nom de l’évaluation',g.title);if(title===null)return;
+  const scoreRaw=ask('Note obtenue',String(g.score));if(scoreRaw===null)return;
+  const outRaw=ask('Barème',String(g.outOf));if(outRaw===null)return;
+  const coefRaw=ask('Coefficient',String(g.coefficient));if(coefRaw===null)return;
+  const statusRaw=ask('Statut de la note : normal, facultative ou bonus',g.status);if(statusRaw===null)return;
+  const status=statusRaw.trim().toLowerCase();if(!['normal','facultative','bonus'].includes(status)){setNotice('Statut de note invalide.');return;}
+  let bonusThreshold=g.bonusThreshold??10;
+  if(status==='bonus'){const t=ask('Seuil à dépasser pour obtenir des points bonus',String(bonusThreshold));if(t===null)return;bonusThreshold=Number(t.replace(',','.'));if(!Number.isFinite(bonusThreshold)||bonusThreshold<0||bonusThreshold>20){setNotice('Seuil bonus invalide.');return;}}
+  const score=Number(scoreRaw.replace(',','.')),outOf=Number(outRaw.replace(',','.')),coefficient=Number(coefRaw.replace(',','.'));
+  if(!title.trim()||!Number.isFinite(score)||!Number.isFinite(outOf)||!Number.isFinite(coefficient)||outOf<=0||score<0||score>outOf||coefficient<=0){setNotice('Valeurs de note invalides.');return;}
+  update('grades',data.grades.map(x=>x.id===g.id?{...x,title:title.trim(),score,outOf,coefficient,status:status as Grade['status'],bonusThreshold}:x));setNotice('Note modifiée.');
+ }
+ function addGrade(subjectId:string){
+  const title=ask('Nom de l’évaluation');if(!title?.trim())return;
+  const raw=ask('Note obtenue (ex. 15,5)','');if(raw===null)return;
+  const score=Number(raw.replace(',','.')),outRaw=ask('Barème','20');if(outRaw===null)return;
+  const outOf=Number(outRaw.replace(',','.')),coefRaw=ask('Coefficient','1');if(coefRaw===null)return;
+  const coefficient=Number(coefRaw.replace(',','.'));
+  const statusRaw=ask('Statut de la note : normal, facultative ou bonus','normal');if(statusRaw===null)return;
+  const status=statusRaw.trim().toLowerCase();if(!['normal','facultative','bonus'].includes(status)){setNotice('Statut de note invalide.');return;}
+  let bonusThreshold=10;
+  if(status==='bonus'){const t=ask('Seuil à dépasser pour obtenir des points bonus','10');if(t===null)return;bonusThreshold=Number(t.replace(',','.'));if(!Number.isFinite(bonusThreshold)||bonusThreshold<0||bonusThreshold>20){setNotice('Seuil bonus invalide.');return;}}
+  if(!Number.isFinite(score)||!Number.isFinite(outOf)||!Number.isFinite(coefficient)||outOf<=0||score<0||score>outOf||coefficient<=0){setNotice('Note, barème ou coefficient invalide.');return;}
+  const g:Grade={id:makeId(),subjectId,title:title.trim(),score,outOf,coefficient,date:today(),comment:'',status:status as Grade['status'],bonusThreshold};
+  update('grades',[g,...data.grades]);setNotice('Note ajoutée.');
+ }
+ function addNote(){
+  const title=ask('Titre de la fiche');if(!title?.trim())return;
+  const subjectId=chooseSubject(data.subjects[0]?.id??'')??'';
+  if(!data.subjects.some(s=>s.id===subjectId)){setNotice('Identifiant de matière invalide.');return;}
+  const chapter=ask('Chapitre / thème','')??'',content=ask('Contenu de la fiche (tu peux structurer avec des titres et listes)','')??'',tag=ask('Mots-clés séparés par des virgules','')??'';
+  update('notes',[{id:makeId(),subjectId,title:title.trim(),chapter,content,tags:tags(tag),favorite:false,createdAt:isoNow(),updatedAt:isoNow()},...data.notes]);setNotice('Fiche enregistrée.');
+ }
+ function editNote(n:RevisionNote){
+  const title=ask('Titre',n.title);if(title===null)return;
+  const chapter=ask('Chapitre',n.chapter);if(chapter===null)return;
+  const content=ask('Contenu',n.content);if(content===null)return;
+  const tag=ask('Mots-clés séparés par des virgules',n.tags.join(', '));if(tag===null)return;
+  update('notes',data.notes.map(x=>x.id===n.id?{...x,title,chapter,content,tags:tags(tag),updatedAt:isoNow()}:x));setNotice('Fiche modifiée.');
+ }
+ function addCard(){
+  const front=ask('Recto : question ou notion');if(!front?.trim())return;
+  const back=ask('Verso : réponse ou explication');if(!back?.trim())return;
+  const subjectId=chooseSubject(data.subjects[0]?.id??'')??'';
+  if(!data.subjects.some(s=>s.id===subjectId)){setNotice('Identifiant de matière invalide.');return;}
+  const chapter=ask('Chapitre','')??'',tag=ask('Mots-clés séparés par des virgules','')??'';
+  update('flashcards',[{id:makeId(),subjectId,chapter,front:front.trim(),back:back.trim(),tags:tags(tag),createdAt:isoNow(),dueAt:isoNow(),interval:0,ease:2.5,repetitions:0,lapses:0,lastReviewedAt:null},...data.flashcards]);setNotice('Flashcard créée.');
+ }
+ function editCard(c:Flashcard){
+  const front=ask('Recto',c.front);if(front===null)return;const back=ask('Verso',c.back);if(back===null)return;
+  const chapter=ask('Chapitre',c.chapter);if(chapter===null)return;
+  update('flashcards',data.flashcards.map(x=>x.id===c.id?{...x,front,back,chapter}:x));setNotice('Flashcard modifiée.');
+ }
+ function addError(){
+  const title=ask('Titre de l’erreur (ex. confusion entre dérivée et primitive)');if(!title?.trim())return;
+  const subjectId=chooseSubject(data.subjects[0]?.id??'')??'';
+  if(!data.subjects.some(s=>s.id===subjectId)){setNotice('Identifiant de matière invalide.');return;}
+  const chapter=ask('Chapitre','')??'',mistake=ask('Quelle erreur as-tu commise ?','')??'',explanation=ask('Pourquoi était-ce une erreur ?','')??'',method=ask('Quelle méthode correcte appliquer la prochaine fois ?','')??'';
+  update('errors',[{id:makeId(),subjectId,chapter,title:title.trim(),mistake,explanation,method,status:'todo',createdAt:isoNow(),updatedAt:isoNow()},...data.errors]);setNotice('Erreur ajoutée au carnet.');
+ }
+ function editError(e:ErrorEntry){
+  const mistake=ask('Erreur commise',e.mistake);if(mistake===null)return;const explanation=ask('Explication',e.explanation);if(explanation===null)return;const method=ask('Méthode correcte',e.method);if(method===null)return;
+  update('errors',data.errors.map(x=>x.id===e.id?{...x,mistake,explanation,method,updatedAt:isoNow()}:x));setNotice('Carnet mis à jour.');
+ }
+ function addChapterCards(subjectId:string,chapterTitle:string,resource:ChapterResource){
+  const existing=new Set(data.flashcards.filter(card=>card.subjectId===subjectId&&card.chapter===chapterTitle).map(card=>`${card.front.trim().toLocaleLowerCase()}\u0000${card.back.trim().toLocaleLowerCase()}`));
+  const fresh=resource.flashcards.filter(card=>!existing.has(`${card.front.trim().toLocaleLowerCase()}\u0000${card.back.trim().toLocaleLowerCase()}`));
+  if(!fresh.length){setNotice('Toutes les flashcards de ce chapitre sont déjà dans tes révisions.');return;}
+  const created:Flashcard[]=fresh.map(card=>({id:makeId(),subjectId,chapter:chapterTitle,front:card.front,back:card.back,tags:['bibliothèque','cours'],createdAt:isoNow(),dueAt:isoNow(),interval:0,ease:2.5,repetitions:0,lapses:0,lastReviewedAt:null}));
+  setData(p=>({...p,flashcards:[...created,...p.flashcards]}));
+  setNotice(`${created.length} flashcard(s) ajoutée(s) à tes révisions espacées.`);
+ }
+ function startReview(ids=dueCards.map(c=>c.id)){
+  const knownIds=new Set(data.flashcards.map(card=>card.id));
+  const queue=[...new Set(ids)].filter(id=>knownIds.has(id));
+  if(!queue.length){setNotice('Aucune flashcard valide à réviser pour le moment.');return;}
+  setReviewQueue(queue);setReviewIndex(0);setReviewCorrectCount(0);setRevealed(false);setSessionStart(Date.now());setTab('cards');
+ }
+ function rateCard(quality:0|1|2|3){
+  const id=reviewQueue[reviewIndex],c=data.flashcards.find(x=>x.id===id);if(!c)return;
+  const updated=scheduleFlashcardReview(c,quality);
+  setData(p=>({...p,flashcards:p.flashcards.map(x=>x.id===id?updated:x)}));
+  const next=reviewIndex+1;
+  const correctCount=reviewCorrectCount+(quality>0?1:0);
+  setReviewCorrectCount(correctCount);
+  if(next>=reviewQueue.length){
+   const minutes=sessionStart?Math.max(1,Math.round((Date.now()-sessionStart)/60000)):1;
+   const reviewed=reviewQueue.length;
+   const session:StudySession={id:makeId(),date:today(),startedAt:new Date(sessionStart??Date.now()).toISOString(),durationMinutes:minutes,cardsReviewed:reviewed,correct:correctCount,mode:'flashcards'};
+   setData(p=>({...p,sessions:[session,...p.sessions]}));setReviewQueue([]);setSessionStart(null);setRevealed(false);setNotice(`Session terminée : ${reviewed} carte(s) révisée(s), ${correctCount} rappel(s) réussi(s).`);
+  }else{setReviewIndex(next);setRevealed(false);}
+ }
+
+ function startQuiz(){
+  const seen=new Set<string>();
+  const pool=data.flashcards.filter(card=>{const answer=card.back.trim().toLocaleLowerCase();if(!answer||seen.has(answer))return false;seen.add(answer);return true;});
+  if(pool.length<2){setNotice('Il faut au moins deux flashcards avec des réponses différentes pour générer un quiz fiable.');return;}
+  const shuffled=[...pool];for(let i=shuffled.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]];}
+  const selected=shuffled.slice(0,Math.min(10,pool.length));
+  setQuiz({ids:selected.map(c=>c.id),index:0,answers:[]});setSessionStart(Date.now());setQuizRemaining(quizMode==='examen'?quizDuration*60:null);setTab('quiz');
+ }
+ function answerQuiz(index:number){
+  if(!quiz)return;const answers=[...quiz.answers,index];
+  if(quiz.index+1>=quiz.ids.length){
+   const score=answers.reduce((n,a)=>n+(a===0?1:0),0);
+   const session:StudySession={id:makeId(),date:today(),startedAt:new Date(sessionStart??Date.now()).toISOString(),durationMinutes:sessionStart?Math.max(1,Math.ceil((Date.now()-sessionStart)/60000)):1,cardsReviewed:quiz.ids.length,correct:score,mode:'quiz'};
+   update('sessions',[session,...data.sessions]);setQuiz({ids:quiz.ids,index:quiz.index,answers});setSessionStart(null);setQuizRemaining(null);setNotice(`Quiz terminé : ${score}/${quiz.ids.length}.`);
+  }else setQuiz({...quiz,index:quiz.index+1,answers});
+ }
+ function addTask(){
+  const title=ask('Objectif de révision');if(!title?.trim())return;
+  const subjectId=chooseSubject(activeSubjects[0]?.id??'');if(!subjectId)return;
+  const chapter=ask('Chapitre ou notion (facultatif)','');if(chapter===null)return;
+  const dueDate=ask('Date prévue (AAAA-MM-JJ)',today());if(dueDate===null)return;
+  if(!isValidDateKey(dueDate)){setNotice('Date invalide. Utilise le format AAAA-MM-JJ.');return;}
+  const durationRaw=ask('Durée prévue en minutes','30');if(durationRaw===null)return;const durationMinutes=Number(durationRaw);
+  if(!Number.isInteger(durationMinutes)||durationMinutes<5||durationMinutes>600){setNotice('Durée invalide (5 à 600 minutes).');return;}
+  update('tasks',[{id:makeId(),title:title.trim(),subjectId,chapter:chapter.trim(),dueDate,durationMinutes,completed:false,createdAt:isoNow()},...data.tasks]);setNotice('Séance ajoutée au planning.');
+ }
+ async function inspectStorage(){
+  if(storageCheckBusy)return;setStorageCheckBusy(true);
+  try{
+   const storageManager=navigator.storage;
+   if(!storageManager){setStorageReport({usage:null,quota:null,persistent:null,message:'Ce navigateur ne fournit pas l’API de gestion du stockage.'});return;}
+   const [estimate,persistent]=await Promise.all([storageManager.estimate().catch(()=>null),storageManager.persisted().catch(()=>null)]);
+   let granted=persistent;
+   if(persistent===false&&typeof storageManager.persist==='function'){try{granted=await storageManager.persist();}catch{granted=false;}}
+   setStorageReport({usage:typeof estimate?.usage==='number'?estimate.usage:null,quota:typeof estimate?.quota==='number'?estimate.quota:null,persistent:granted,message:granted===true?'Le navigateur a accordé la conservation persistante.':granted===false?'Le navigateur n’a pas accordé la conservation persistante. Les exports réguliers restent indispensables.':'État de conservation persistante indisponible.'});
+  }catch(error){setStorageReport({usage:null,quota:null,persistent:null,message:error instanceof Error?error.message:'Impossible de vérifier le stockage.'});}
+  finally{setStorageCheckBusy(false);}
+ }
+ async function exportData(){
+  try{
+   const payload={data,targetAverage,chapterProgress,weeklyGoal,dailyCapacity,dark,profileReady};
+   const canonical=JSON.stringify(payload);
+   const checksum=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(canonical));
+   const checksumHex=Array.from(new Uint8Array(checksum),byte=>byte.toString(16).padStart(2,'0')).join('');
+   const backup={format:'studyflow-backup',backupVersion:1,appVersion:'5.11.0',exportedAt:isoNow(),payload,checksum:{algorithm:'SHA-256',value:checksumHex}};
+   const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`nox-haven-sauvegarde-${today()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);setNotice('Sauvegarde exportée avec son empreinte SHA-256. Conserve ce fichier dans un autre emplacement.');
+  }catch(error){setNotice(error instanceof Error?`Export impossible : ${error.message}`:'Export impossible.');}
+ }
+ async function importData(e:ChangeEvent<HTMLInputElement>){
+  const f=e.target.files?.[0];if(!f)return;
+  try{
+   const MAX_BACKUP_BYTES=25*1024*1024;
+   if(f.size===0)throw new Error('Le fichier de sauvegarde est vide.');
+   if(f.size>MAX_BACKUP_BYTES)throw new Error('Sauvegarde trop volumineuse (maximum 25 Mo).');
+   const raw:unknown=JSON.parse(await f.text());
+   const envelope=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw as Record<string,unknown>:null;
+   let source:Record<string,unknown>;
+   if(envelope?.format==='studyflow-backup'){
+    if(envelope.backupVersion!==1||!envelope.payload||typeof envelope.payload!=='object'||Array.isArray(envelope.payload))throw new Error('Version de sauvegarde NOX HAVEN non prise en charge.');
+    const payload=envelope.payload as Record<string,unknown>;
+    const checksum=envelope.checksum as {algorithm?:unknown;value?:unknown}|undefined;
+    if(checksum?.algorithm!=='SHA-256'||typeof checksum.value!=='string'||!/^[a-f0-9]{64}$/i.test(checksum.value))throw new Error('Empreinte de sauvegarde absente ou invalide.');
+    const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(payload)));
+    const actual=Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,'0')).join('');
+    if(actual!==checksum.value)throw new Error('Sauvegarde altérée ou incomplète : aucune donnée n’a été importée.');
+    source=payload;
+   }else if(envelope){source=envelope;}else{throw new Error('Le fichier ne contient pas une sauvegarde NOX HAVEN valide.');}
+   const rawData=source.data&&typeof source.data==='object'?source.data:source;
+   const parsed=migrateData(rawData);
+   if(!confirm('Cette sauvegarde remplacera toutes les données actuelles. Continuer ?'))return;
+   const knownChapterIds=new Set(CURRICULUM_SUBJECTS.flatMap(subject=>subject.chapters.map(chapter=>chapter.id)));
+   const rawProgress=source.chapterProgress;
+   const importedProgress:Record<string,'started'|'mastered'>={};
+   if(rawProgress&&typeof rawProgress==='object'&&!Array.isArray(rawProgress))for(const [id,value] of Object.entries(rawProgress as Record<string,unknown>))if(knownChapterIds.has(id)&&(value==='started'||value==='mastered'))importedProgress[id]=value;
+   const importedTarget=typeof source.targetAverage==='number'&&Number.isFinite(source.targetAverage)&&source.targetAverage>=0&&source.targetAverage<=20?source.targetAverage:null;
+   const importedWeeklyGoal=typeof source.weeklyGoal==='number'&&Number.isInteger(source.weeklyGoal)&&source.weeklyGoal>=1&&source.weeklyGoal<=30?source.weeklyGoal:5;
+   const importedCapacity=typeof source.dailyCapacity==='number'&&[30,45,60,90,120].includes(source.dailyCapacity)?source.dailyCapacity:60;
+   const importedDark=typeof source.dark==='boolean'?source.dark:true;
+   const importedProfileReady=typeof source.profileReady==='boolean'?source.profileReady:source[PROFILE_KEY]==='done';
+   setData(parsed);setChapterProgress(importedProgress);setTargetAverage(importedTarget);setSetupTarget(importedTarget===null?'':String(importedTarget));setWeeklyGoal(importedWeeklyGoal);setDailyCapacity(importedCapacity);setDark(importedDark);setProfileReady(importedProfileReady);
+   if(importedTarget===null)localStorage.removeItem('studyflow_target_average_v1');else localStorage.setItem('studyflow_target_average_v1',String(importedTarget));
+   setNotice('Sauvegarde restaurée. Vérifie tes matières et tes préférences.');
+  }catch(err){setNotice(err instanceof Error?err.message:'Fichier illisible.');}finally{e.target.value='';}
+ }
+ function reset(){if(confirm('Réinitialiser toutes les données ? Exporte une sauvegarde avant.')){setData({...EMPTY_DATA,subjects:DEFAULT_SUBJECTS.map(s=>({...s}))});setChapterProgress({});setTargetAverage(null);setSetupTarget('');setWeeklyGoal(5);setQuiz(null);setQuizRemaining(null);localStorage.removeItem('studyflow_target_average_v1');localStorage.removeItem('studyflow_weekly_goal_v1');setNotice('Données réinitialisées.');}}
+ const currentCard=reviewQueue.length?data.flashcards.find(c=>c.id===reviewQueue[reviewIndex]):undefined;
+ const quizCard=quiz?data.flashcards.find(c=>c.id===quiz.ids[quiz.index]):undefined;
+ const quizOptions=useMemo(()=>{if(!quizCard)return[];const correct=quizCard.back.trim();const sameChapter=data.flashcards.filter(c=>c.id!==quizCard.id&&c.subjectId===quizCard.subjectId&&c.chapter===quizCard.chapter);const sameSubject=data.flashcards.filter(c=>c.id!==quizCard.id&&c.subjectId===quizCard.subjectId);const candidates=[...sameChapter,...sameSubject,...data.flashcards.filter(c=>c.id!==quizCard.id)];const seen=new Set([correct.toLocaleLowerCase()]);const unique:string[]=[];for(const card of candidates){const answer=card.back.trim(),key=answer.toLocaleLowerCase();if(answer&& !seen.has(key)){seen.add(key);unique.push(answer);}}const hash=(quizCard.id+'|'+quizCard.front).split('').reduce((n,ch)=>((n*31)+ch.charCodeAt(0))>>>0,7);const shuffled=unique.map((value,index)=>({value,rank:((hash^(index*2654435761))>>>0)})).sort((a,b)=>a.rank-b.rank).slice(0,3).map(x=>x.value);return [correct,...shuffled].sort((a,b)=>{const ah=(hash+a.length*17+a.charCodeAt(0))>>>0;const bh=(hash+b.length*17+b.charCodeAt(0))>>>0;return ah-bh;});},[quizCard?.id,quizCard?.back,quizCard?.subjectId,quizCard?.chapter,data.flashcards]);
+ function saveProgramme(){
+  if(setupSpecialties.length!==2){setNotice('Sélectionne exactement deux spécialités.');return;}
+  const parsedTarget=Number(setupTarget.replace(',','.'));
+  if(setupTarget.trim()===''||!Number.isFinite(parsedTarget)||parsedTarget<0||parsedTarget>20){setNotice('Indique une moyenne cible comprise entre 0 et 20.');return;}
+  setTargetAverage(parsedTarget);localStorage.setItem('studyflow_target_average_v1',String(parsedTarget));
+  const selected=new Set([...setupSpecialties,...(setupOption?[setupOption]:[]), 'philo','histoire-geo','emc','anglais',setupLvb,'ens-scientifique','eps']);
+  const merged=DEFAULT_SUBJECTS.map(base=>{const existing=data.subjects.find(s=>s.id===base.id);return {...base,...existing,active:selected.has(base.id)};});
+  const custom=data.subjects.filter(s=>!DEFAULT_SUBJECTS.some(b=>b.id===s.id));
+  setData(p=>({...p,subjects:[...merged,...custom.map(s=>({...s,active:true}))]}));
+  localStorage.setItem(PROFILE_KEY,'done');setProfileReady(true);setNotice('Ton programme est enregistré.');
+ }
+ if(!dataReady)return <div className="setup-screen"><div className="setup-card"><div className="brand-mark setup-mark"><img src="./icons/nox-haven-192.png" alt="" /></div><div className="eyebrow">NOX HAVEN</div><h1>Préparation de ton espace…</h1><p className="setup-intro">Chargement sécurisé de tes données locales. Ne ferme pas cette page.</p></div></div>;
+ if(storageMode==='error')return <div className="setup-screen"><div className="setup-card"><div className="brand-mark setup-mark"><img src="./icons/nox-haven-192.png" alt="" /></div><div className="eyebrow">PROTECTION DES DONNÉES</div><h1>Lecture du stockage impossible.</h1><p className="setup-intro">NOX HAVEN n'a pas réussi à ouvrir tes données locales. Pour éviter d'écraser une sauvegarde existante, l'application a suspendu les écritures automatiques. Ferme les autres onglets NOX HAVEN, puis réessaie.</p><button className="primary-btn setup-submit" onClick={()=>window.location.reload()}>Réessayer <ChevronRight size={16}/></button></div></div>;
+ if(!profileReady)return <div className="setup-screen"><div className="setup-card"><div className="brand-mark setup-mark"><img src="./icons/nox-haven-192.png" alt="" /></div><div className="eyebrow">BIENVENUE SUR NOX HAVEN</div><h1>Construisons ton espace de Terminale.</h1><p className="setup-intro">Choisis les enseignements que tu suis et la moyenne que tu souhaites atteindre. NOX HAVEN adaptera ses conseils à ton objectif.</p><h2>1. Tes deux spécialités</h2><div className="setup-options">{[['hggsp-spe','HGGSP'],['maths-spe','Mathématiques'],['pc-spe','Physique-chimie'],['svt-spe','SVT'],['ses-spe','SES']].map(([id,label])=><label className="setup-choice" key={id}><input type="checkbox" checked={setupSpecialties.includes(id)} onChange={e=>setSetupSpecialties(v=>e.target.checked?[...v,id]:v.filter(x=>x!==id))}/><span>{label}</span></label>)}</div><div className="setup-count">{setupSpecialties.length}/2 spécialités sélectionnées</div><h2>2. Ton option (facultatif)</h2><div className="setup-options two">{[['','Aucune'],['maths-exp','Mathématiques expertes'],['maths-comp','Mathématiques complémentaires']].map(([id,label])=><label className="setup-choice" key={id||'none'}><input type="radio" name="option" checked={setupOption===id} onChange={()=>setSetupOption(id)}/><span>{label}</span></label>)}</div><h2>3. Ta LVB</h2><div className="setup-options two">{[['espagnol','Espagnol'],['allemand','Allemand']].map(([id,label])=><label className="setup-choice" key={id}><input type="radio" name="lvb" checked={setupLvb===id} onChange={()=>setSetupLvb(id)}/><span>{label}</span></label>)}</div><h2>4. Quelle moyenne générale vises-tu ?</h2><p className="setup-intro">C’est ton objectif personnel, pas une note imposée. Tu pourras le modifier plus tard.</p><label className="setup-target-label"><span>Moyenne cible sur 20</span><input type="text" inputMode="decimal" placeholder="Ex. 14,5" value={setupTarget} onChange={e=>setSetupTarget(e.target.value)}/></label><div className="setup-common"><strong>Déjà inclus automatiquement</strong><p>Philosophie, Histoire-géographie, EMC, Anglais (LVA), Enseignement scientifique et EPS.</p></div><button className="primary-btn setup-submit" onClick={saveProgramme}>Créer mon espace NOX HAVEN <ChevronRight size={16}/></button><p className="setup-foot">Tes notes et tes données existantes sont conservées.</p></div></div>;
+  const nav:[Tab,string,any][]=[['cockpit','Cockpit',LayoutDashboard],['library','Bibliothèque',BookOpen],['subjects','Matières & notes',BookOpen],['notes','Fiches de révision',FileText],['cards','Flashcards',Layers],['quiz','Quiz',Brain],['errors','Carnet d’erreurs',AlertTriangle],['planning','Planning',CalendarDays],['stats','Statistiques',BarChart3]];
+ return <div className="app-shell">
+  <a className="skip-link" href="#studyflow-main">Aller directement au contenu principal</a>
+  <aside className="sidebar" aria-label="Navigation principale"><div className="brand"><div className="brand-mark"><img src="./icons/nox-haven-192.png" alt="" /></div><div><strong>NOX HAVEN</strong><span>RÉVISE · COMPRENDS · PROGRESSE</span></div></div><div className="nav-label">ESPACE DE TRAVAIL</div>
+   <div className="desktop-nav">{nav.map(([id,label,Icon])=><button key={id} className={`nav-item ${tab===id?'active':''}`} aria-current={tab===id?'page':undefined} onClick={()=>{setTab(id);setSearch('');}}><Icon size={17}/>{label}</button>)}</div>
+   <div className="sidebar-bottom"><div className="sidebar-tip"><div className="tip-icon"><Target size={17}/></div><strong>{targetAverage===null?'Définis ton objectif':`Cap sur ${targetAverage.toLocaleString('fr-FR')}/20`}</strong><p>La régularité compte plus que les journées parfaites.</p></div><div className="profile"><div className="avatar">N</div><div><strong>Mon espace</strong><span>Année scolaire 2026–2027</span></div><button className="icon-btn" aria-label="Paramètres" onClick={()=>setSettings(v=>!v)}><MoreHorizontal size={19}/></button></div></div>
+  </aside>
+  <nav className="mobile-dock" aria-label="Navigation mobile">
+   {([['cockpit','Accueil',LayoutDashboard],['library','Cours',BookOpen],['quiz','Quiz',Brain],['planning','Planning',CalendarDays],['more','Plus',MoreHorizontal]] as const).map(([id,label,Icon])=><button ref={id==='more'?mobileMoreTriggerRef:undefined} key={id} className={`mobile-dock-item ${(id==='more'?mobileMore:tab===id)?'active':''}`} aria-current={id!=='more'&&tab===id?'page':undefined} aria-expanded={id==='more'?mobileMore:undefined} aria-haspopup={id==='more'?'dialog':undefined} aria-controls={id==='more'?'mobile-more-panel':undefined} onClick={()=>{if(id==='more'){setMobileMore(v=>!v);return;}setMobileMore(false);setTab(id);setSearch('');}}><Icon size={20}/><span>{label}</span></button>)}
+  </nav>
+  {mobileMore&&<><button className="mobile-more-backdrop" aria-label="Fermer le menu" onClick={()=>{setMobileMore(false);}}/><div ref={mobileMorePanelRef} className="mobile-more-panel" id="mobile-more-panel" role="dialog" aria-modal="true" aria-label="Autres rubriques"><div className="mobile-more-heading"><strong>Autres rubriques</strong><button type="button" className="mobile-more-close" aria-label="Fermer les autres rubriques" onClick={()=>{setMobileMore(false);}}><X size={18}/></button></div>{nav.filter(([id])=>!['cockpit','library','quiz','planning'].includes(id)).map(([id,label,Icon])=><button key={id} className={tab===id?'active':''} aria-current={tab===id?'page':undefined} onClick={()=>{setTab(id);setSearch('');setMobileMore(false);}}><Icon size={18}/>{label}</button>)}<button onClick={()=>{setSettings(true);setMobileMore(false);}}><MoreHorizontal size={18}/>Paramètres & données</button></div></>}
+  <main className="main-area" id="studyflow-main" tabIndex={-1}>
+   <header className="topbar"><div className="breadcrumb">NOX HAVEN <span>/</span> {nav.find(n=>n[0]===tab)?.[1]}</div><div className="top-actions"><span className={`connection-chip ${isOnline?'is-online':'is-offline'}`} role="status" aria-live="polite">{isOnline?<Wifi size={14}/>:<WifiOff size={14}/>}<span>{isOnline?'En ligne':'Hors ligne'}</span></span><span className="date-chip"><CalendarDays size={15}/>{new Intl.DateTimeFormat('fr-FR',{dateStyle:'medium'}).format(new Date())}</span><button className="icon-btn" onClick={()=>setDark(v=>!v)} aria-label="Changer le thème">{dark?<Sun size={18}/>:<Moon size={18}/>}</button></div></header>
+   {settings&&<div className="settings-pop"><strong>Paramètres & données</strong><button onClick={()=>{setSetupSpecialties(data.subjects.filter(s=>s.category==='specialite'&&s.active!==false).map(s=>s.id));setSetupOption(data.subjects.find(s=>s.category==='option'&&s.active!==false)?.id??'');setSetupLvb(data.subjects.find(s=>(s.id==='espagnol'||s.id==='allemand')&&s.active!==false)?.id??'espagnol');setSetupTarget(targetAverage===null?'':String(targetAverage));setProfileReady(false);setSettings(false);}}><GraduationCap size={16}/> Modifier mon programme et mon objectif</button><button onClick={exportData}><ArrowDownToLine size={16}/> Exporter toutes les données</button><button onClick={inspectStorage} disabled={storageCheckBusy} aria-label={storageCheckBusy?'Vérification du stockage en cours':'Vérifier la protection du stockage'}><Activity size={16}/> {storageCheckBusy?'Vérification…':'Vérifier la protection du stockage'}</button>{storageReport&&<div className="storage-report" role="status"><strong>{storageReport.persistent===true?'Conservation persistante accordée':storageReport.persistent===false?'Conservation persistante non accordée':'État du stockage'}</strong><span>{storageReport.message}</span>{storageReport.usage!==null&&<span>Espace utilisé : {(storageReport.usage/1024/1024).toFixed(1)} Mo{storageReport.quota!==null?` sur ${(storageReport.quota/1024/1024).toFixed(1)} Mo estimés`:''}.</span>}</div>}<button onClick={()=>importRef.current?.click()}><ArrowUpFromLine size={16}/> Importer une sauvegarde</button><button className="danger-text" onClick={reset}><Trash2 size={16}/> Réinitialiser</button><input ref={importRef} type="file" accept=".json,application/json" hidden onChange={importData}/></div>}
+   <div className="page-content">
+    {tab==='cockpit'&&<>
+     <div className="page-heading"><div><div className="eyebrow">TON ANNÉE, TON RYTHME</div><h1>Ton espace de progression.</h1><p>Résultats scolaires et apprentissage réunis au même endroit.</p></div><button className="primary-btn" onClick={()=>startReview()}><Play size={16}/> Réviser maintenant</button></div>
+     <section className="stats-grid">
+      <Stat label="Moyenne générale" value={fmt(avg)} icon={<GraduationCap/>} foot={targetAverage===null?'Objectif à définir':`Objectif personnel : ${targetAverage.toLocaleString('fr-FR')}/20`}/>
+      <Stat label="Cartes à réviser" value={String(dueCards.length)} icon={<Brain/>} foot={`${data.flashcards.length} cartes créées`}/>
+      <Stat label="Fiches de cours" value={String(data.notes.length)} icon={<FileText/>} foot={`${data.notes.filter(n=>n.favorite).length} favorites`}/>
+      <Stat label="Temps de révision" value={`${Math.floor(totalMinutes/60)}h ${totalMinutes%60}m`} icon={<Clock3/>} foot={`${data.sessions.length} sessions enregistrées`}/>
+     </section>
+     <section className="panel chapter-progress-panel"><div className="panel-heading"><div><h2>Maîtrise du programme</h2><p>Ton avancement sur les {curriculumChapters.length} chapitres et repères du catalogue.</p></div><BookOpen size={20}/></div><div className="metric-line"><span>Chapitres maîtrisés</span><strong>{masteredChapters}/{curriculumChapters.length} · {chapterCompletion}%</strong></div><div className="progress-track" role="progressbar" aria-label="Progression des chapitres maîtrisés" aria-valuemin={0} aria-valuemax={100} aria-valuenow={chapterCompletion}><div className="progress-fill" style={{width:`${chapterCompletion}%`}}/></div><div className="metric-line"><span>En cours</span><strong>{startedChapters}</strong></div>{recommendedChapter&&<div className="chapter-recommendation"><div><span className="category-label">PROCHAINE ÉTAPE CONSEILLÉE</span><strong>{recommendedChapter.title}</strong><p>{subjectName(data,recommendedChapter.subjectId)} · {recommendedChapter.signal.label} · {recommendedChapter.signal.reasons.join(' · ')}</p></div><button className="secondary-btn" onClick={()=>{setTab('library');setLibrarySubjectId(recommendedChapter.subjectId);setSelectedChapter({subjectId:recommendedChapter.subjectId,chapterId:recommendedChapter.id});}}>Ouvrir le chapitre <ChevronRight size={15}/></button></div>}</section>
+     <div className="content-grid">
+      <section className="panel"><div className="panel-heading"><div><h2>À faire aujourd’hui</h2><p>Les prochaines actions utiles.</p></div><Sparkles size={20}/></div>
+       <div className="priority-list"><Action label="Réviser les flashcards dues" detail={`${dueCards.length} carte(s) en attente`} onClick={()=>startReview()}/><Action label="Compléter tes fiches" detail={`${data.notes.length} fiche(s) enregistrée(s)`} onClick={()=>setTab('notes')}/><Action label="Revoir tes erreurs" detail={`${data.errors.filter(e=>e.status!=='mastered').length} erreur(s) à retravailler`} onClick={()=>setTab('errors')}/><Action label="Tester tes connaissances" detail="Créer un quiz depuis tes flashcards" onClick={startQuiz}/></div>
+      </section>
+      <section className="panel"><div className="panel-heading"><div><h2>Vue d’ensemble</h2><p>Ton activité d’apprentissage.</p></div><TrendingUp size={20}/></div>
+       <div className="metric-line"><span>Matières évaluées</span><strong>{graded.length}/{activeSubjects.filter(s=>s.includeInAverage).length}</strong></div>
+       <div className="metric-line"><span>Flashcards maîtrisées (3+ révisions)</span><strong>{data.flashcards.filter(c=>c.repetitions>=3).length}/{data.flashcards.length}</strong></div>
+       <div className="metric-line"><span>Erreurs maîtrisées</span><strong>{data.errors.filter(e=>e.status==='mastered').length}/{data.errors.length}</strong></div>
+       <div className="metric-line"><span>Progression vers ton objectif</span><strong>{targetAverage===null?'À définir':avg===null?'Ajoute tes premières notes':avg>=targetAverage?'Objectif atteint':`${(targetAverage-avg).toFixed(2).replace('.',',')} point(s) à gagner`}</strong></div>
+      </section>
+     </div>
+     {targetAverage!==null&&<section className="panel target-coaching"><div className="panel-heading"><div><h2>Ton objectif de moyenne</h2><p>Un repère personnalisé pour orienter tes prochaines révisions.</p></div><Target size={20}/></div>{avg===null?<p>Ajoute tes premières notes pour que NOX HAVEN puisse mesurer ton écart à l’objectif de {targetAverage.toLocaleString('fr-FR')}/20.</p>:avg>=targetAverage?<p className="answer-correct">Tu as atteint ton objectif de {targetAverage.toLocaleString('fr-FR')}/20. Continue à consolider tes acquis pour maintenir cette moyenne.</p>:<><p>Ta moyenne actuelle est de <strong>{avg.toFixed(2).replace('.',',')}/20</strong>. Il te manque <strong>{targetGap?.toFixed(2).replace('.',',')} point(s)</strong> pour atteindre ton objectif.</p>{weakestGradedSubject&&<p> <strong>Priorité de travail :</strong> {weakestGradedSubject.name} ({(getSubjectAverage(weakestGradedSubject.id,data.grades)??0).toFixed(2).replace('.',',')}/20). Reprends les dernières évaluations et cible les notions qui t’ont coûté le plus de points.</p>}</>}</section>}
+     <section className="panel"><div className="panel-heading"><div><h2>Dernières fiches ajoutées</h2><p>Retrouve rapidement tes contenus.</p></div><button className="text-btn" onClick={()=>setTab('notes')}>Tout voir <ChevronRight size={15}/></button></div>
+      {data.notes.length?<div className="resource-list">{data.notes.slice(0,5).map(n=><div className="resource-row" key={n.id}><FileText size={17}/><div><strong>{n.title}</strong><span>{subjectName(data,n.subjectId)} · {n.chapter||'Sans chapitre'}</span></div><button className="icon-btn" onClick={()=>editNote(n)}><Pencil size={15}/></button></div>)}</div>:<Empty title="Ton espace de révision est prêt." text="Crée ta première fiche, flashcard ou entrée dans le carnet d’erreurs."/>}
+     </section>
+    </>}
+    {tab==='library'&&<>
+      <Heading eyebrow="PROGRAMME · 2026–2027" title="Bibliothèque pédagogique" text="Explore les matières, retrouve un chapitre et suis ton avancement."/>
+      <div className="library-summary"><div><strong>{CURRICULUM_SUBJECTS.length}</strong><span>matières au catalogue</span></div><div><strong>{CURRICULUM_SUBJECTS.reduce((n,s)=>n+s.chapters.length,0)}</strong><span>chapitres et repères</span></div><div><strong>{Object.values(chapterProgress).filter(x=>x==='mastered').length}</strong><span>chapitres maîtrisés</span></div></div>
+      <div className="panel library-search-panel"><label className="search-box"><Search size={17}/><input value={librarySearch} onChange={e=>setLibrarySearch(e.target.value)} placeholder="Rechercher une matière ou un chapitre…"/></label><p className="muted-count">La recherche filtre aussi les chapitres à l’intérieur de chaque matière.</p></div>
+      {(['commun','langue','specialite','option'] as const).map(group=>{const query=librarySearch.toLocaleLowerCase().trim();const subjects=CURRICULUM_SUBJECTS.filter(subject=>subject.group===group&&activeSubjects.some(active=>active.id===subject.id)&&(!query||`${subject.title} ${subject.description} ${subject.chapters.map(chapter=>chapter.title+' '+(chapter.detail||'')).join(' ')}`.toLocaleLowerCase().includes(query)));return subjects.length>0?<section className="library-group" key={group}><div className="panel-heading"><div><h2>{curriculumGroupLabel[group]}</h2><p>{subjects.length} matière(s) correspondante(s)</p></div></div><div className="library-grid">{subjects.map(subject=><article className={`panel library-card ${librarySubjectId===subject.id?'library-card-selected':''}`} key={subject.id}><button className="library-subject-button" onClick={()=>setLibrarySubjectId(v=>v===subject.id?'':subject.id)}><span className="category-label">{curriculumGroupLabel[subject.group]}</span><h3>{subject.title}</h3><p>{subject.description}</p><span className="library-count">{subject.chapters.length} entrées au programme <ChevronRight size={15}/></span></button>{librarySubjectId===subject.id&&<div className="library-chapters"><p className="library-reference">{subject.reference}</p>{subject.chapters.filter(chapter=>!query||subject.title.toLocaleLowerCase().includes(query)||`${chapter.title} ${chapter.detail||''}`.toLocaleLowerCase().includes(query)).map(chapter=>{const status=chapterProgress[chapter.id];const selected=selectedChapter?.chapterId===chapter.id;return <div className="library-chapter-wrap" key={chapter.id}><div className="library-chapter"><button className="chapter-open" onClick={()=>setSelectedChapter(selected?null:{subjectId:subject.id,chapterId:chapter.id})}><strong>{chapter.title}</strong>{chapter.detail&&<p>{chapter.detail}</p>}</button><div className="chapter-actions"><span className={status==='mastered'?'status-ready':status==='started'?'status-progress':'status-pending'}>{status==='mastered'?'Maîtrisé':status==='started'?'En cours':'À travailler'}</span><button className="secondary-btn" onClick={()=>setSelectedChapter(selected?null:{subjectId:subject.id,chapterId:chapter.id})}>{selected?'Fermer':'Ouvrir'}</button></div></div>{selected&&<div className="chapter-study-panel"><h4>{chapter.title}</h4><p><strong>Repère du programme :</strong> {chapter.detail||subject.description}</p><h5>Plan de travail conseillé</h5><ol><li>Relire le cours et définir les notions essentielles du chapitre.</li><li>Construire une fiche avec définitions, mécanismes, dates ou formules utiles.</li><li>Expliquer le chapitre sans regarder le cours, puis vérifier les oublis.</li><li>Faire des exercices progressifs et corriger chaque erreur.</li><li>Programmer une révision espacée à J+1, J+3, J+7 et J+14.</li></ol><div className="chapter-study-actions"><button className="secondary-btn" onClick={()=>setChapterProgress(p=>({...p,[chapter.id]:'started'}))}>Marquer « en cours »</button><button className="primary-btn" onClick={()=>setChapterProgress(p=>({...p,[chapter.id]:p[chapter.id]==='mastered'?'started':'mastered'}))}>{status==='mastered'?'Repasser en cours':'Marquer maîtrisé'}</button></div>{CHAPTER_RESOURCES[chapter.id]?<ChapterResourceView resource={CHAPTER_RESOURCES[chapter.id]} onAddCards={()=>addChapterCards(subject.id,chapter.title,CHAPTER_RESOURCES[chapter.id])}/>:<div className="chapter-reference-resource"><strong>Ressource spécifique en préparation</strong><p>Ce chapitre est bien référencé dans le programme, mais son cours détaillé, ses quiz, ses flashcards et ses exercices ne sont pas encore intégrés. Aucune ressource générique ne sera présentée comme un cours de ce chapitre.</p>{LEARNING_CONTENT[subject.id]&&<p>Un parcours introductif de matière existe : « {LEARNING_CONTENT[subject.id].title} ». Il peut servir de complément, mais ne remplace pas le cours spécifique.</p>}</div>}</div>}</div>})}</div>}</article>)}</div></section>:null})}
+      <div className="calculation-note"><CircleHelp size={17}/><div><strong>État réel des contenus</strong><p>Le catalogue est structuré pour l’ensemble des matières. Les parcours de démarrage existants sont disponibles dans les matières concernées ; les autres chapitres disposent maintenant d’un suivi et d’un plan de travail, mais leurs cours, quiz, flashcards et exercices spécifiques restent à rédiger et à valider. NOX HAVEN ne les présente pas comme déjà terminés.</p></div></div>
+    </>}
+    {tab==='subjects'&&<><Heading eyebrow="ORGANISATION SCOLAIRE" title="Matières & notes" text="Suis tes résultats et leurs coefficients." action={<button className="primary-btn" onClick={addSubject}><Plus size={16}/> Ajouter une matière</button>}/><div className="subject-cards">{activeSubjects.map(s=><div className="panel subject-card" key={s.id}><div className="subject-card-title"><h2>{s.name}</h2><strong>{fmt(getSubjectAverage(s.id,data.grades))}</strong></div><p className="muted-count">{data.grades.filter(g=>g.subjectId===s.id).length} note(s) · {s.calculationMode==='bonus'?`matière bonus : au-dessus de ${s.bonusThreshold}, coef. ${s.bonusCoefficient}`:s.calculationMode==='excluded'?'matière exclue de la moyenne':`poids matière ${s.weight} · moyenne normale`}</p><div className="card-actions"><button className="text-btn" onClick={()=>editSubject(s)}><Pencil size={13}/> Modifier matière</button><button className="icon-btn danger-hover" onClick={()=>deleteSubject(s)}><Trash2 size={14}/></button></div><div className="subject-actions"><button className="secondary-btn" onClick={()=>addGrade(s.id)}><Plus size={14}/> Ajouter une note</button>{s.calculationMode==='normal'&&<button className="secondary-btn" onClick={()=>simulateNextGrade(s)}><Target size={14}/> Simuler une note</button>}</div>{data.grades.filter(g=>g.subjectId===s.id).sort((a,b)=>b.date.localeCompare(a.date)).map(g=><div className="resource-row" key={g.id}><div><strong>{g.title}</strong><span>{g.score}/{g.outOf} · coef. {g.coefficient} · {g.status==='normal'?'normale':g.status==='facultative'?'facultative':`bonus au-dessus de ${g.bonusThreshold}`} · {new Date(g.date+'T12:00:00').toLocaleDateString('fr-FR')}</span></div><button className="icon-btn" onClick={()=>editGrade(g)}><Pencil size={14}/></button><button className="icon-btn danger-hover" onClick={()=>{if(confirm('Supprimer cette note ?'))update('grades',data.grades.filter(x=>x.id!==g.id));}}><Trash2 size={14}/></button></div>)}</div>)}</div><section className="panel average-simulator"><div className="panel-heading"><div><h2>Simulateur de moyenne générale</h2><p>Ajoute une note fictive pour mesurer son effet sans modifier tes résultats enregistrés.</p></div><Target size={20}/></div><div className="simulation-fields"><label>Matière<select value={projectionSubject} onChange={e=>setProjectionSubject(e.target.value)}>{activeSubjects.filter(subject=>subject.calculationMode==='normal'&&subject.includeInAverage).map(subject=><option key={subject.id} value={subject.id}>{subject.name}</option>)}</select></label><label>Note obtenue<input type="number" min="0" step="0.25" value={projectionScore} onChange={e=>setProjectionScore(e.target.value)} placeholder="Ex. 14"/></label><label>Barème<input type="number" min="0.25" step="0.25" value={projectionOutOf} onChange={e=>setProjectionOutOf(e.target.value)}/></label><label>Coefficient<input type="number" min="0.1" step="0.1" value={projectionCoefficient} onChange={e=>setProjectionCoefficient(e.target.value)}/></label></div><div className="simulation-result"><span>Moyenne générale simulée</span><strong>{fmt(projectedAverage)}</strong><small>{projectedAverage===null?'Renseigne une note valide pour lancer la simulation.':'Simulation indicative : aucune donnée réelle n’a été modifiée.'}</small></div></section><div className="calculation-note"><CircleHelp size={17}/><div><strong>Moyenne générale : {fmt(avg)}</strong><p>Chaque note contribue selon son barème et son coefficient : (total des points obtenus pondérés ÷ total des points possibles pondérés) × 20. Les moyennes des matières normales sont pondérées par leur poids. Les notes facultatives sont ignorées. Les matières et notes bonus ajoutent uniquement les points au-dessus de leur seuil, multipliés par leur coefficient, sans augmenter le dénominateur. Les matières sans note sont ignorées.</p></div></div></>}
+    {tab==='notes'&&<><Heading eyebrow="MÉMORISER ET COMPRENDRE" title="Fiches de révision" text="Tes cours synthétisés, classés et faciles à retrouver." action={<button className="primary-btn" onClick={addNote}><Plus size={16}/> Nouvelle fiche</button>}/><Toolbar value={search} onChange={setSearch} count={`${visibleNotes.length} fiche(s)`}/><div className="resource-grid">{visibleNotes.map(n=><article className="panel resource-card" key={n.id}><div className="resource-card-top"><span className="category-label">{subjectName(data,n.subjectId)}</span><button className={`icon-btn ${n.favorite?'fav-active':''}`} onClick={()=>update('notes',data.notes.map(x=>x.id===n.id?{...x,favorite:!x.favorite}:x))}><Bookmark size={16}/></button></div><h2>{n.title}</h2><p className="muted-count">{n.chapter||'Sans chapitre'} · modifiée le {new Date(n.updatedAt).toLocaleDateString('fr-FR')}</p><p className="note-preview">{n.content}</p><div className="tag-row">{n.tags.map(t=><span key={t} className="tag">{t}</span>)}</div><div className="card-actions"><button className="secondary-btn" onClick={()=>editNote(n)}><Pencil size={14}/> Modifier</button><button className="icon-btn danger-hover" onClick={()=>{if(confirm('Supprimer cette fiche ?'))update('notes',data.notes.filter(x=>x.id!==n.id));}}><Trash2 size={15}/></button></div></article>)}</div>{!visibleNotes.length&&<Empty title="Aucune fiche pour le moment" text="Crée une fiche pour commencer à organiser tes révisions."/>}</>}
+    {tab==='cards'&&<><Heading eyebrow="RÉPÉTITION ESPACÉE" title="Flashcards" text="Révise au bon moment : les cartes difficiles reviendront plus vite." action={<button className="primary-btn" onClick={addCard}><Plus size={16}/> Créer une carte</button>}/><div className="stats-grid compact-stats"><Stat label="À réviser" value={String(dueCards.length)} icon={<Brain/>} foot="Aujourd’hui ou en retard"/><Stat label="Total" value={String(data.flashcards.length)} icon={<Layers/>} foot="Dans ta bibliothèque"/><Stat label="Maîtrisées" value={String(data.flashcards.filter(c=>c.repetitions>=3).length)} icon={<Check/>} foot="Au moins 3 rappels réussis"/><Stat label="En difficulté" value={String(data.flashcards.filter(c=>c.lapses>0).length)} icon={<RotateCcw/>} foot="À consolider"/></div>
+      {currentCard?<section className="panel study-panel"><div className="study-progress">Session · carte {reviewIndex+1}/{reviewQueue.length}</div><div className="study-subject">{subjectName(data,currentCard.subjectId)} · {currentCard.chapter||'Sans chapitre'}</div><h2>{currentCard.front}</h2>{revealed?<div className="study-answer">{currentCard.back}</div>:<button className="primary-btn" onClick={()=>setRevealed(true)}>Afficher la réponse</button>}{revealed&&<div className="rating-row"><button onClick={()=>rateCard(0)} className="rate rate-again">À revoir<br/><small>1 jour</small></button><button onClick={()=>rateCard(1)} className="rate">Difficile</button><button onClick={()=>rateCard(2)} className="rate rate-good">Bien</button><button onClick={()=>rateCard(3)} className="rate rate-easy">Facile</button></div>}<button className="text-btn cancel-session" onClick={()=>{setReviewQueue([]);setSessionStart(null);}}>Terminer la session</button></section>:<div className="panel review-launch"><div className="empty-icon"><Brain size={24}/></div><h2>{dueCards.length?`${dueCards.length} carte(s) t’attendent`:'Tu es à jour !'}</h2><p>{dueCards.length?'Lance une session de révision de tes cartes dues.':'Crée des cartes ou reviens demain pour tes prochaines échéances.'}</p><button className="primary-btn" disabled={!dueCards.length} onClick={()=>startReview()}><Play size={16}/> Commencer la révision</button></div>}
+      <div className="panel"><div className="panel-heading"><div><h2>Bibliothèque de flashcards</h2><p>Recherche et modification de tes cartes.</p></div></div><Toolbar value={search} onChange={setSearch} count={`${visibleCards.length} carte(s)`}/>{visibleCards.map(c=><div className="resource-row" key={c.id}><div><strong>{c.front}</strong><span>{subjectName(data,c.subjectId)} · {c.chapter||'Sans chapitre'} · {due(c.dueAt)?'À réviser':`Prochaine révision : ${new Date(c.dueAt).toLocaleDateString('fr-FR')}`}</span></div><button className="icon-btn" onClick={()=>editCard(c)}><Pencil size={15}/></button><button className="icon-btn danger-hover" onClick={()=>{if(confirm('Supprimer cette flashcard ?'))update('flashcards',data.flashcards.filter(x=>x.id!==c.id));}}><Trash2 size={15}/></button></div>)}{!visibleCards.length&&<Empty title="Aucune flashcard" text="Ajoute des questions et leurs réponses pour construire ta mémoire active."/>}</div>
+     </>}
+    {tab==='quiz'&&<><Heading eyebrow="ENTRAÎNEMENT ACTIF" title="Quiz & entraînement chronométré" text="Entraîne-toi librement ou dans un format chronométré inspiré des conditions d’examen."/>{quiz&&quizCard?(quiz.answers.length===quiz.ids.length?<section className="panel review-launch"><div className="empty-icon"><Check size={24}/></div><h2>{quizMode==='examen'?'Session chronométrée terminée':'Quiz terminé !'}</h2><p>Résultat : {quiz.answers.filter(a=>a===0).length}/{quiz.ids.length}. Ton résultat est enregistré dans les statistiques.</p><button className="primary-btn" onClick={startQuiz}>Recommencer</button><button className="secondary-btn" onClick={()=>{setQuiz(null);setQuizRemaining(null);}}>Retour aux réglages</button></section>:<section className="panel quiz-panel"><div className="quiz-session-meta"><div className="study-progress">Question {quiz.index+1}/{quiz.ids.length}</div>{quizRemaining!==null&&<strong className={quizRemaining<=60?'timer-warning':'timer-chip'} role="timer" aria-live="off">{String(Math.floor(quizRemaining/60)).padStart(2,'0')}:{String(quizRemaining%60).padStart(2,'0')}</strong>}</div><h2>{quizCard.front}</h2><p className="muted-count">Choisis la bonne réponse.{quizRemaining===0?' Temps écoulé : termine la session pour enregistrer ton résultat.':''}</p><div className="quiz-options">{quizOptions.map((o,i)=><button key={i} className="quiz-option" disabled={quizRemaining===0} onClick={()=>answerQuiz(o.trim()===quizCard.back.trim()?0:-1)}>{o}</button>)}</div>{quizRemaining===0&&<button className="primary-btn" onClick={()=>{const answers=[...quiz.answers,...Array(quiz.ids.length-quiz.answers.length).fill(-1)];const score=answers.filter(a=>a===0).length;const session:StudySession={id:makeId(),date:today(),startedAt:new Date(sessionStart??Date.now()).toISOString(),durationMinutes:Math.max(1,Math.ceil((Date.now()-(sessionStart??Date.now()))/60000)),cardsReviewed:quiz.ids.length,correct:score,mode:'quiz'};update('sessions',[session,...data.sessions]);setQuiz({...quiz,index:quiz.ids.length-1,answers});setSessionStart(null);setQuizRemaining(null);}}>Terminer et enregistrer</button>}</section>):<div className="panel review-launch"><div className="empty-icon"><Brain size={24}/></div><h2>Configure ton entraînement</h2><div className="quiz-mode-select"><button className={quizMode==='entrainement'?'filter-chip selected':'filter-chip'} onClick={()=>{setQuizMode('entrainement');setQuizRemaining(null);}}>Libre</button><button className={quizMode==='examen'?'filter-chip selected':'filter-chip'} onClick={()=>setQuizMode('examen')}>Chronométré</button></div>{quizMode==='examen'&&<label className="field-label">Durée <select value={quizDuration} onChange={e=>setQuizDuration(Number(e.target.value))}><option value={5}>5 minutes</option><option value={10}>10 minutes</option><option value={15}>15 minutes</option><option value={20}>20 minutes</option></select></label>}<p>Les questions sont générées depuis tes flashcards, avec des distracteurs privilégiant la même matière et le même chapitre. Le mode chronométré est un entraînement QCM, pas une épreuve officielle du bac.</p><button className="primary-btn" disabled={new Set(data.flashcards.map(card=>card.back.trim().toLocaleLowerCase()).filter(Boolean)).size<2} onClick={startQuiz}><Play size={16}/> Démarrer</button></div>}<div className="calculation-note"><CircleHelp size={17}/><div><strong>À savoir</strong><p>Les distracteurs proviennent des réponses d’autres cartes. Pour des QCM plus précis, crée des flashcards claires et spécifiques. Les examens blancs complets seront intégrés avec les ressources pédagogiques de la bibliothèque.</p></div></div></>}
+    {tab==='errors'&&<><Heading eyebrow="APPRENDRE DE SES ERREURS" title="Carnet d’erreurs" text="Transforme chaque difficulté en méthode à réutiliser." action={<button className="primary-btn" onClick={addError}><Plus size={16}/> Ajouter une erreur</button>}/><div className="filter-row">{(['all','todo','working','mastered'] as const).map(k=><button key={k} className={`filter-chip ${errorFilter===k?'selected':''}`} onClick={()=>setErrorFilter(k)}>{({all:'Toutes',todo:'À revoir',working:'En cours',mastered:'Maîtrisées'})[k]}</button>)}</div><Toolbar value={search} onChange={setSearch} count={`${visibleErrors.length} entrée(s)`}/>{visibleErrors.map(e=><article className="panel error-card" key={e.id}><div className="error-card-head"><div><span className="category-label">{subjectName(data,e.subjectId)} · {e.chapter||'Sans chapitre'}</span><h2>{e.title}</h2></div><select aria-label={`Statut de l’erreur : ${e.title}`} value={e.status} onChange={ev=>update('errors',data.errors.map(x=>x.id===e.id?{...x,status:ev.target.value as ErrorEntry['status'],updatedAt:isoNow()}:x))}><option value="todo">À revoir</option><option value="working">En cours</option><option value="mastered">Maîtrisée</option></select></div><div className="error-columns"><div><strong>Mon erreur</strong><p>{e.mistake||'Non renseignée'}</p></div><div><strong>Comprendre</strong><p>{e.explanation||'Non renseignée'}</p></div><div><strong>La bonne méthode</strong><p>{e.method||'Non renseignée'}</p></div></div><div className="card-actions"><button className="secondary-btn" onClick={()=>editError(e)}><Pencil size={14}/> Modifier</button><button className="icon-btn danger-hover" onClick={()=>{if(confirm('Supprimer cette erreur ?'))update('errors',data.errors.filter(x=>x.id!==e.id));}}><Trash2 size={15}/></button></div></article>)}{!visibleErrors.length&&<Empty title="Ton carnet est vide" text="Ajoute les erreurs rencontrées dans tes exercices pour éviter de les répéter."/>}</>}
+    {tab==='planning'&&<><Heading eyebrow="ORGANISER SES RÉVISIONS" title="Planning" text="Planifie des séances réalistes et suis ce que tu as réellement accompli." action={<div className="heading-actions"><button className="secondary-btn" onClick={()=>{if(exportCalendar(data.tasks,data.subjects))setNotice('Planning exporté au format calendrier (.ics).');else setNotice('Ajoute au moins une séance avant l’export.');}} disabled={!data.tasks.length}><ArrowDownToLine size={16}/> Exporter calendrier</button><button className="primary-btn" onClick={addTask}><Plus size={16}/> Ajouter une séance</button></div>}/><section className="panel smart-plan"><div className="panel-heading"><div><h2>Suggestions pour aujourd’hui</h2><p>Propositions calculées à partir de tes rappels, de tes erreurs et de tes chapitres.</p></div><Sparkles size={20}/></div>{dailyPlan.length?dailyPlan.map(suggestion=><div className="resource-row" key={suggestion.id}><div className="stat-icon purple">{suggestion.kind==='flashcards'?<Layers size={17}/>:suggestion.kind==='errors'?<AlertTriangle size={17}/>:<BookOpen size={17}/>}</div><div><strong>{suggestion.title} · {suggestion.chapter}</strong><span>{subjectName(data,suggestion.subjectId)} · {suggestion.durationMinutes} min · {suggestion.reason}</span></div><button className="secondary-btn" onClick={()=>{update('tasks',[{id:makeId(),title:suggestion.title,subjectId:suggestion.subjectId,chapter:suggestion.chapter,dueDate:today(),durationMinutes:suggestion.durationMinutes,completed:false,createdAt:isoNow()},...data.tasks]);setNotice('Séance ajoutée à ton planning.');}}>Ajouter</button></div>):<Empty title="Aucune suggestion urgente" text="Tes rappels sont à jour ou déjà planifiés. Tu peux ajouter une séance librement."/>}</section><section className="panel weekly-plan"><div className="panel-heading"><div><h2>Construire ma semaine</h2><p>Répartition indicative des priorités sur les sept prochains jours, sans dépasser ton budget quotidien.</p></div><CalendarDays size={20}/></div><div className="weekly-plan-controls"><label htmlFor="daily-capacity">Temps maximal par jour</label><select id="daily-capacity" value={dailyCapacity} onChange={e=>setDailyCapacity(normalizeDailyCapacity(Number(e.target.value)))}><option value={30}>30 minutes</option><option value={45}>45 minutes</option><option value={60}>1 heure</option><option value={90}>1 h 30</option><option value={120}>2 heures</option></select></div><div className="weekly-plan-summary" aria-live="polite"><strong>{weeklyPlanSummary.sessions} séance(s) dans les 7 prochains jours</strong><span>{Math.floor(weeklyPlanSummary.totalMinutes/60)} h {weeklyPlanSummary.totalMinutes%60} min prévues · dont {weeklyPlanSummary.suggestedMinutes} min de nouvelles suggestions · {weeklyPlanSummary.daysUsed} jour(s) concernés</span>{weeklyPlanSummary.overloadedDays>0&&<span className="answer-wrong">{weeklyPlanSummary.overloadedDays} jour(s) dépassent le temps choisi à cause des séances déjà enregistrées.</span>}</div>{weeklyPlan.length?weeklyPlan.map(item=><div className="resource-row" key={item.id}><div className="stat-icon purple"><CalendarDays size={17}/></div><div><strong>{new Date(item.date+'T12:00:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})} · {item.title}</strong><span>{subjectName(data,item.subjectId)} · {item.chapter} · {item.durationMinutes} min</span></div><button className="secondary-btn" onClick={()=>{update('tasks',[{id:makeId(),title:item.title,subjectId:item.subjectId,chapter:item.chapter,dueDate:item.date,durationMinutes:item.durationMinutes,completed:false,createdAt:isoNow()},...data.tasks]);setNotice('Séance ajoutée à ta semaine.');}}>Ajouter</button></div>):<Empty title="Pas encore de semaine à organiser" text="Ajoute des flashcards, des erreurs ou commence un chapitre pour obtenir des propositions adaptées."/>}</section><div className="stats-grid compact-stats"><Stat label="Séances prévues" value={String(data.tasks.length)} icon={<CalendarDays/>} foot="Toutes dates confondues"/><Stat label="À faire" value={String(data.tasks.filter(t=>!t.completed).length)} icon={<Target/>} foot="Séances restantes"/><Stat label="Terminées" value={String(data.tasks.filter(t=>t.completed).length)} icon={<Check/>} foot="Séances accomplies"/><Stat label="Temps planifié restant" value={`${data.tasks.filter(t=>!t.completed).reduce((n,t)=>n+t.durationMinutes,0)} min`} icon={<Clock3/>} foot="Durée estimée"/></div><div className="filter-row">{(['todo','done','all'] as const).map(k=><button key={k} className={`filter-chip ${taskFilter===k?'selected':''}`} onClick={()=>setTaskFilter(k)}>{({todo:'À faire',done:'Terminées',all:'Toutes'})[k]}</button>)}</div><section className="panel"><div className="panel-heading"><div><h2>Mes séances</h2><p>Les séances sont enregistrées sur cet appareil et incluses dans les sauvegardes.</p></div></div>{[...data.tasks].filter(t=>taskFilter==='all'||(taskFilter==='done'?t.completed:!t.completed)).sort((a,b)=>a.dueDate.localeCompare(b.dueDate)).map(t=><div className="resource-row" key={t.id}><button className={`icon-btn ${t.completed?'fav-active':''}`} aria-label={t.completed?'Marquer à faire':'Marquer terminée'} onClick={()=>update('tasks',data.tasks.map(x=>x.id===t.id?{...x,completed:!x.completed}:x))}><Check size={16}/></button><div><strong style={{textDecoration:t.completed?'line-through':'none'}}>{t.title}</strong><span>{subjectName(data,t.subjectId)} · {t.chapter||'Sans chapitre'} · {new Date(t.dueDate+'T12:00:00').toLocaleDateString('fr-FR')} · {t.durationMinutes} min</span></div><button className="icon-btn danger-hover" aria-label="Supprimer la séance" onClick={()=>{if(confirm('Supprimer cette séance ?'))update('tasks',data.tasks.filter(x=>x.id!==t.id));}}><Trash2 size={15}/></button></div>)}{!data.tasks.length&&<Empty title="Ton planning est vide" text="Ajoute une séance de révision avec une matière, une date et une durée."/>}{data.tasks.length>0&&data.tasks.filter(t=>taskFilter==='all'||(taskFilter==='done'?t.completed:!t.completed)).length===0&&<Empty title="Aucune séance dans cette vue" text="Change de filtre pour retrouver tes autres séances."/>}</section></>}
+    {tab==='stats'&&<><Heading eyebrow="PROGRESSION" title="Statistiques de révision" text="Mesure ton travail et observe ta régularité."/><div className="stats-grid"><Stat label="Temps cumulé" value={`${Math.floor(totalMinutes/60)} h ${totalMinutes%60} min`} icon={<Clock3/>} foot="Toutes sessions confondues"/><Stat label="Sessions" value={String(data.sessions.length)} icon={<Activity/>} foot="Flashcards et quiz"/><Stat label="Cartes vues" value={String(data.sessions.reduce((n,s)=>n+s.cardsReviewed,0))} icon={<Layers/>} foot="Total des entraînements"/><Stat label="Taux de réussite quiz" value={(()=>{const q=data.sessions.filter(s=>s.mode==='quiz');const t=q.reduce((n,s)=>n+s.cardsReviewed,0);return t?`${Math.round(q.reduce((n,s)=>n+s.correct,0)/t*100)}%`:'—';})()} icon={<Target/>} foot="Sur les quiz effectués"/><Stat label="Série actuelle" value={`${studyStreak} jour(s)`} icon={<TrendingUp/>} foot="Jours consécutifs avec une session"/></div><section className="panel weekly-goal"><div className="panel-heading"><div><h2>Objectif hebdomadaire</h2><p>Choisis un nombre de séances à réaliser cette semaine.</p></div><Target size={20}/></div><label className="field-label">Séances visées<select value={weeklyGoal} onChange={e=>setWeeklyGoal(Number(e.target.value))}>{[3,4,5,6,7,8,10,12,14,16,20,25,30].map(n=><option key={n} value={n}>{n} séances</option>)}</select></label><div className="goal-progress"><div><strong>{weekSessions}/{weeklyGoal} séances</strong><span>{Math.min(100,Math.round(weekSessions/weeklyGoal*100))}% de l’objectif</span></div><div className="goal-track"><span style={{width:`${Math.min(100,weekSessions/weeklyGoal*100)}%`}}/></div></div></section><section className="panel weekly-summary"><div className="panel-heading"><div><h2>Cette semaine</h2><p>Du {new Date(weeklySummary.startDate+'T12:00:00').toLocaleDateString('fr-FR')} au {new Date(weeklySummary.endDate+'T12:00:00').toLocaleDateString('fr-FR')}</p></div><TrendingUp size={20}/></div><div className="stats-grid"><Stat label="Sessions" value={String(weeklySummary.sessions)} icon={<Activity/>} foot="Sur les 7 derniers jours"/><Stat label="Temps de travail" value={`${Math.floor(weeklySummary.minutes/60)} h ${weeklySummary.minutes%60} min`} icon={<Clock3/>} foot="Temps cumulé cette semaine"/><Stat label="Cartes révisées" value={String(weeklySummary.cardsReviewed)} icon={<Layers/>} foot="Toutes matières"/><Stat label="Réussite" value={weeklySummary.accuracy===null?'—':`${weeklySummary.accuracy}%`} icon={<Target/>} foot="Réponses correctes"/></div></section><section className="panel"><div className="panel-heading"><div><h2>Activité récente</h2><p>Les dernières sessions enregistrées.</p></div></div>{recentSessions.length?recentSessions.map(s=><div className="resource-row" key={s.id}><Activity size={17}/><div><strong>{s.mode==='quiz'?'Quiz':'Flashcards'} · {s.cardsReviewed} carte(s)</strong><span>{new Date(s.date+'T12:00:00').toLocaleDateString('fr-FR')} · {s.durationMinutes} min · {s.correct}/{s.cardsReviewed} réussites</span></div></div>):<Empty title="Pas encore de session" text="Lance une révision ou un quiz pour commencer à mesurer ta progression."/>}</section></>}
+    <footer className="footer"><span>NOX HAVEN · Version 5.11.0</span><span>Tout est sauvegardé automatiquement sur cet appareil.</span></footer>
+   </div>
+  </main>
+  {notice&&<div className="toast"><Check size={16}/>{notice}<button onClick={()=>setNotice('')}><X size={15}/></button></div>}
+ </div>;
+}
+function Stat({label,value,icon,foot}:{label:string;value:string;icon:any;foot:string}){return <div className="stat-card"><div className="stat-top"><span>{label}</span><div className="stat-icon purple">{icon}</div></div><div className="stat-value">{value}</div><div className="stat-foot">{foot}</div></div>}
+function Heading({eyebrow,title,text,action}:{eyebrow:string;title:string;text:string;action?:any}){return <div className="page-heading"><div><div className="eyebrow">{eyebrow}</div><h1>{title}</h1><p>{text}</p></div>{action}</div>}
+function Toolbar({value,onChange,count}:{value:string;onChange:(v:string)=>void;count:string}){return <div className="toolbar"><div className="search-box"><Search size={16}/><input aria-label="Rechercher dans cette rubrique" value={value} onChange={e=>onChange(e.target.value)} placeholder="Rechercher..."/></div><span className="muted-count">{count}</span></div>}
+function Empty({title,text}:{title:string;text:string}){return <div className="empty-state"><div className="empty-icon"><BookOpen size={22}/></div><strong>{title}</strong><span>{text}</span></div>}
+function Action({label,detail,onClick}:{label:string;detail:string;onClick:()=>void}){return <button className="action-row" onClick={onClick} aria-label={label}><div><strong>{label}</strong><span>{detail}</span></div><ChevronRight size={17}/></button>}

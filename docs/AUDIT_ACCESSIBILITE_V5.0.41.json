@@ -1,0 +1,74 @@
+{
+  "version": "5.0.41",
+  "generatedAt": "2026-11-01T23:57:14.696Z",
+  "scope": [
+    "index.html",
+    "src/App.tsx",
+    "src/styles.css"
+  ],
+  "summary": {
+    "passed": 6,
+    "review": 3,
+    "total": 9
+  },
+  "checks": [
+    {
+      "id": "html-lang",
+      "label": "Langue du document",
+      "status": "pass",
+      "detail": "Le document doit déclarer le français."
+    },
+    {
+      "id": "viewport",
+      "label": "Viewport mobile",
+      "status": "pass",
+      "detail": "La balise viewport doit être présente."
+    },
+    {
+      "id": "title",
+      "label": "Titre de page",
+      "status": "pass",
+      "detail": "Un titre de page non vide est requis."
+    },
+    {
+      "id": "main-landmark",
+      "label": "Repère principal",
+      "status": "pass",
+      "detail": "Vérifier le repère main du contenu principal."
+    },
+    {
+      "id": "skip-link",
+      "label": "Lien d’évitement",
+      "status": "review",
+      "detail": "Vérifier le lien permettant de sauter la navigation."
+    },
+    {
+      "id": "focus-visible",
+      "label": "Focus clavier",
+      "status": "pass",
+      "detail": "Un indicateur :focus-visible doit être visible."
+    },
+    {
+      "id": "reduced-motion",
+      "label": "Réduction des animations",
+      "status": "pass",
+      "detail": "Prévoir prefers-reduced-motion."
+    },
+    {
+      "id": "button-names",
+      "label": "Noms accessibles des boutons",
+      "status": "review",
+      "detail": "60 bouton(s) sans aria-label/title repéré(s), à vérifier."
+    },
+    {
+      "id": "field-names",
+      "label": "Noms accessibles des champs",
+      "status": "review",
+      "detail": "15 champ(s) sans nom/id repéré(s), à vérifier."
+    }
+  ],
+  "limitations": [
+    "Audit statique heuristique : ne remplace pas un test clavier, lecteur d’écran ou mesure WCAG du contraste.",
+    "Les associations label/id et composants dynamiques nécessitent une vérification manuelle."
+  ]
+}

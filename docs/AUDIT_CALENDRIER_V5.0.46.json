@@ -1,0 +1,55 @@
+{
+  "version": "5.0.46",
+  "generatedAt": "2026-11-02T04:20:14.582Z",
+  "summary": {
+    "passed": 8,
+    "total": 8
+  },
+  "checks": [
+    {
+      "id": "icalendar-container",
+      "label": "Conteneur iCalendar conforme",
+      "status": "pass"
+    },
+    {
+      "id": "all-day-dates",
+      "label": "Séances exportées sur leur date sans inventer d’horaire",
+      "status": "pass"
+    },
+    {
+      "id": "exclusive-end",
+      "label": "Fin de journée exclusive calculée au lendemain",
+      "status": "pass"
+    },
+    {
+      "id": "task-details",
+      "label": "Titre, matière, chapitre et durée exportés",
+      "status": "pass"
+    },
+    {
+      "id": "escaping",
+      "label": "Caractères iCalendar échappés",
+      "status": "pass"
+    },
+    {
+      "id": "download",
+      "label": "Téléchargement .ics déclenché depuis le planning",
+      "status": "pass"
+    },
+    {
+      "id": "empty-state",
+      "label": "Export désactivé sans séance",
+      "status": "pass"
+    },
+    {
+      "id": "task-model",
+      "label": "Le modèle de séance conserve date et durée",
+      "status": "pass"
+    }
+  ],
+  "limitations": [
+    "Audit statique : il ne remplace pas un essai d’import dans Google Calendar, Outlook, Apple Calendar ou un calendrier Android.",
+    "Les séances sont exportées comme événements sur la journée entière : l’application ne connaît pas d’heure de début.",
+    "Le calendrier exporté est un instantané ; les changements ultérieurs dans StudyFlow nécessitent un nouvel export."
+  ]
+}

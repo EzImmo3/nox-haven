@@ -1,0 +1,1221 @@
+{
+  "version": "5.8.0",
+  "generatedAt": "2026-11-02T05:32:11.793Z",
+  "summary": {
+    "chapters": 120,
+    "quizQuestions": 405,
+    "shortExplanations": 87,
+    "duplicateQuestions": 0,
+    "flashcards": 630,
+    "weakFlashcards": 132,
+    "exercises": 233
+  },
+  "chapters": [
+    {
+      "id": "philo-art",
+      "title": "L’art",
+      "quiz": 21,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 12
+    },
+    {
+      "id": "philo-langage",
+      "title": "Le langage",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 9,
+      "exercises": 12
+    },
+    {
+      "id": "maths-derivee",
+      "title": "Compléments sur la dérivation",
+      "quiz": 20,
+      "shortExplanations": 11,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 14,
+      "exercises": 0
+    },
+    {
+      "id": "maths-limites",
+      "title": "Limites de fonctions",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 7,
+      "exercises": 0
+    },
+    {
+      "id": "maths-suites",
+      "title": "Suites numériques",
+      "quiz": 20,
+      "shortExplanations": 8,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 9,
+      "exercises": 0
+    },
+    {
+      "id": "maths-continuite",
+      "title": "Continuité des fonctions d’une variable réelle",
+      "quiz": 20,
+      "shortExplanations": 3,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 6,
+      "exercises": 0
+    },
+    {
+      "id": "ses-croissance",
+      "title": "Quels sont les sources et les défis de la croissance économique ?",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "mexp-complexes",
+      "title": "Nombres complexes",
+      "quiz": 20,
+      "shortExplanations": 9,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 12,
+      "exercises": 0
+    },
+    {
+      "id": "maths-log",
+      "title": "maths-log",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "maths-primitives",
+      "title": "maths-primitives",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "maths-integrales",
+      "title": "maths-integrales",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "maths-espace",
+      "title": "Fiche — Vecteurs, droites et plans",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "maths-orthogonalite",
+      "title": "Orthogonalité et distances — fiche de révision",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "maths-parametrique",
+      "title": "maths-parametrique",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "maths-bernoulli",
+      "title": "Identifier le succès",
+      "quiz": 20,
+      "shortExplanations": 7,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 12,
+      "exercises": 0
+    },
+    {
+      "id": "maths-binomial",
+      "title": "Identifier la loi",
+      "quiz": 20,
+      "shortExplanations": 14,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 17,
+      "exercises": 0
+    },
+    {
+      "id": "maths-concentration",
+      "title": "Linéarité directe",
+      "quiz": 21,
+      "shortExplanations": 14,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 12,
+      "exercises": 0
+    },
+    {
+      "id": "maths-algo",
+      "title": "maths-algo",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "hg-h1",
+      "title": "Fragilités des démocraties, totalitarismes et Seconde Guerre mondiale (1929-1945)",
+      "quiz": 23,
+      "shortExplanations": 3,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 4,
+      "exercises": 12
+    },
+    {
+      "id": "emc-theme",
+      "title": "emc-theme",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "es-climat",
+      "title": "Interpréter un albédo",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "pc-composition",
+      "title": "Déterminer la composition d’un système par des méthodes physiques et chimiques",
+      "quiz": 20,
+      "shortExplanations": 1,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 2,
+      "exercises": 13
+    },
+    {
+      "id": "pc-evolution",
+      "title": "Modéliser l’évolution temporelle d’un système, siège d’une transformation",
+      "quiz": 20,
+      "shortExplanations": 3,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 3,
+      "exercises": 0
+    },
+    {
+      "id": "pc-etat-final",
+      "title": "Prévoir l’état final d’un système, siège d’une transformation chimique",
+      "quiz": 20,
+      "shortExplanations": 2,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 4,
+      "exercises": 12
+    },
+    {
+      "id": "pc-synthese",
+      "title": "Fiche méthode — stratégies de synthèse organique",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 13
+    },
+    {
+      "id": "pc-electricite",
+      "title": "pc-electricite",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "pc-mouvement",
+      "title": "Décrire un mouvement",
+      "quiz": 20,
+      "shortExplanations": 12,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 3,
+      "exercises": 13
+    },
+    {
+      "id": "pc-forces",
+      "title": "Relier les actions appliquées à un système à son mouvement",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 3
+    },
+    {
+      "id": "pc-fluides",
+      "title": "pc-fluides",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "pc-energie",
+      "title": "pc-energie",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "pc-ondes",
+      "title": "pc-ondes",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "pc-lumiere",
+      "title": "pc-lumiere",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "ses-commerce",
+      "title": "ses-commerce",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "ses-chomage",
+      "title": "ses-chomage",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "ses-finance",
+      "title": "ses-finance",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "philo-bonheur",
+      "title": "Le bonheur",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 11
+    },
+    {
+      "id": "philo-verite",
+      "title": "La vérité",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "philo-justice",
+      "title": "La justice",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 9,
+      "exercises": 11
+    },
+    {
+      "id": "philo-liberte",
+      "title": "La liberté",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 9,
+      "exercises": 11
+    },
+    {
+      "id": "philo-conscience",
+      "title": "philo-conscience",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "philo-devoir",
+      "title": "philo-devoir",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "philo-etat",
+      "title": "philo-etat",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "philo-inconscient",
+      "title": "philo-inconscient",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "philo-nature",
+      "title": "philo-nature",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "philo-raison",
+      "title": "philo-raison",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "philo-religion",
+      "title": "philo-religion",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "philo-science",
+      "title": "philo-science",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "philo-technique",
+      "title": "philo-technique",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "philo-temps",
+      "title": "philo-temps",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "philo-travail",
+      "title": "philo-travail",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "hggsp-t1",
+      "title": "hggsp-t1",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "hggsp-t2",
+      "title": "hggsp-t2",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "hggsp-t3",
+      "title": "hggsp-t3",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "hggsp-t4",
+      "title": "hggsp-t4",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "hggsp-t5",
+      "title": "hggsp-t5",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "hggsp-t6",
+      "title": "hggsp-t6",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "hg-h2",
+      "title": "hg-h2",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "hg-h3",
+      "title": "hg-h3",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "hg-h4",
+      "title": "hg-h4",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "hg-g1",
+      "title": "hg-g1",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "hg-g2",
+      "title": "hg-g2",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "hg-g3",
+      "title": "hg-g3",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "hg-g4",
+      "title": "hg-g4",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "emc-espaces",
+      "title": "emc-espaces",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "emc-institutions",
+      "title": "emc-institutions",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "emc-information",
+      "title": "emc-information",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "emc-medias",
+      "title": "emc-medias",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "ses-europe",
+      "title": "ses-europe",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "ses-structure",
+      "title": "ses-structure",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "ses-ecole",
+      "title": "ses-ecole",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "ses-mobilite",
+      "title": "ses-mobilite",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "ses-travail",
+      "title": "ses-travail",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "ses-engagement",
+      "title": "ses-engagement",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "ses-justice",
+      "title": "ses-justice",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "ses-environnement",
+      "title": "ses-environnement",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "mexp-arithmetique",
+      "title": "mexp-arithmetique",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "mexp-graphes",
+      "title": "mexp-graphes",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "mexp-algo",
+      "title": "mexp-algo",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "svt-genetique",
+      "title": "svt-genetique",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "svt-temps",
+      "title": "svt-temps",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "svt-plantes",
+      "title": "svt-plantes",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "svt-climat",
+      "title": "svt-climat",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "svt-comportement",
+      "title": "svt-comportement",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "svt-muscle",
+      "title": "svt-muscle",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "svt-stress",
+      "title": "svt-stress",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "svt-methodes",
+      "title": "svt-methodes",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "es-energie",
+      "title": "es-energie",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "es-vivant",
+      "title": "es-vivant",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "es-demarche",
+      "title": "es-demarche",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "en-reception",
+      "title": "en-reception",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "en-production",
+      "title": "en-production",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "en-interaction",
+      "title": "en-interaction",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "en-axes",
+      "title": "en-axes",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "en-methodes",
+      "title": "en-methodes",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "espa-reception",
+      "title": "espa-reception",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "espa-production",
+      "title": "espa-production",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "espa-interaction",
+      "title": "espa-interaction",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "espa-axes",
+      "title": "espa-axes",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "espa-methodes",
+      "title": "espa-methodes",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "de-reception",
+      "title": "de-reception",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "de-production",
+      "title": "de-production",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "de-interaction",
+      "title": "de-interaction",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "de-axes",
+      "title": "de-axes",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "de-methodes",
+      "title": "de-methodes",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "eps-moteur",
+      "title": "eps-moteur",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "eps-entrainement",
+      "title": "eps-entrainement",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "eps-sante",
+      "title": "eps-sante",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "eps-responsabilite",
+      "title": "eps-responsabilite",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "eps-culture",
+      "title": "eps-culture",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 0,
+      "weakFlashcards": 0,
+      "exercises": 0
+    },
+    {
+      "id": "philo-methodes",
+      "title": "philo-methodes",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hg-methodes",
+      "title": "hg-methodes",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hggsp-methodes",
+      "title": "hggsp-methodes",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "ses-methodes",
+      "title": "ses-methodes",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mcomp-modeles",
+      "title": "mcomp-modeles",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mcomp-suites",
+      "title": "mcomp-suites",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mcomp-exponentielle",
+      "title": "mcomp-exponentielle",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mcomp-integration",
+      "title": "mcomp-integration",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mcomp-proba",
+      "title": "mcomp-proba",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mcomp-stat",
+      "title": "mcomp-stat",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mcomp-algo",
+      "title": "mcomp-algo",
+      "quiz": 0,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    }
+  ],
+  "issues": [],
+  "limitations": [
+    "Audit lexical statique : ne vérifie pas la justesse disciplinaire ni la qualité pédagogique réelle.",
+    "Les chaînes construites dynamiquement ou utilisant des apostrophes échappées peuvent nécessiter une revue humaine.",
+    "Une explication courte n’est pas automatiquement fausse ; elle est signalée pour relecture."
+  ]
+}

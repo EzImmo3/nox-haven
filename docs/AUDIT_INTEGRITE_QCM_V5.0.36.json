@@ -1,0 +1,302 @@
+{
+  "version": "5.11.0",
+  "chapters": 120,
+  "catalogue": 120,
+  "questions": 2405,
+  "distribution": [
+    {
+      "choice": "A",
+      "count": 1519,
+      "percent": 63.2
+    },
+    {
+      "choice": "B",
+      "count": 339,
+      "percent": 14.1
+    },
+    {
+      "choice": "C",
+      "count": 286,
+      "percent": 11.9
+    },
+    {
+      "choice": "D",
+      "count": 261,
+      "percent": 10.9
+    }
+  ],
+  "metrics": {
+    "resourcesWithMissingOrFewQuizzes": 0,
+    "invalidAnswerIndexes": 0,
+    "duplicateOptions": 0,
+    "duplicateQuestionSets": 0,
+    "weakExplanations": 53
+  },
+  "findings": [
+    {
+      "id": "maths-derivee",
+      "question": "La dérivée de x⁴ est :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-suites",
+      "question": "Une suite géométrique de premier terme 5 et de raison 2 a pour terme u₃ (indice initial 0) :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-suites",
+      "question": "Une suite arithmétique vérifie u₂=11 et r=−2. Quelle est u₅ ?",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-suites",
+      "question": "Une suite géométrique vérifie u₂=12 et q=3. Quelle est u₄ ?",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "mexp-complexes",
+      "question": "Quel est le module de 3+4i ?",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "mexp-complexes",
+      "question": "Pour z≠0, quelle expression donne son inverse ?",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "mexp-complexes",
+      "question": "Le module de 5i vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "mexp-complexes",
+      "question": "Les points d’affixes zA=−1+2i et zB=2+2i sont séparés par une distance :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-log",
+      "question": "La dérivée de ln(2x+5) est :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-primitives",
+      "question": "Si y’=2y et y(1)=e², alors y vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-integrales",
+      "question": "∫₀² x dx vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-integrales",
+      "question": "∫₀²(3x²−1)dx vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "Calculer (1;2;−1)·(2;0;2).",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "La norme de (2;−3;6) vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "La distance de O à A(2;−1;2) vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "A(1;0;−2), B(4;4;−2). AB vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "A(−1;2;3), B(−1;−2;6). AB vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "H(0;1;−1) appartient au plan x+y+z=0 :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "A(0;0;0), B(1;2;2), C(2;0;1). AB·AC vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "A(1;1;1), B(3;2;−1). AB vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-parametrique",
+      "question": "Le point A(1;2;−1) appartient au plan x+y+z−2=0 :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-bernoulli",
+      "question": "La probabilité du chemin S-E-S pour p=0,5 vaut…",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-bernoulli",
+      "question": "Pour quatre essais indépendants de paramètre 0,5, P(SSSS) vaut…",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-bernoulli",
+      "question": "La probabilité d’une séquence précise avec 2 succès et 1 échec pour p=0,4 vaut…",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-bernoulli",
+      "question": "Pour p=0,8, la probabilité de E-S vaut…",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-bernoulli",
+      "question": "Pour trois essais de paramètre 0,6, P(SEE) vaut…",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-binomial",
+      "question": "Pour X~B(12;0,25), E(X) vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-binomial",
+      "question": "Pour X~B(7;0,4), V(X) vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-binomial",
+      "question": "Si X~B(20;0,5), son écart-type est :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-binomial",
+      "question": "Pour X~B(9;1/3), E(X) vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-binomial",
+      "question": "Pour X~B(8;0,25), V(X) vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-binomial",
+      "question": "Pour X~B(4;0,5), P(X=2) vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-concentration",
+      "question": "Pour B(20;0,3), l’espérance vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-concentration",
+      "question": "Si E(X)=8 et E(Y)=−2, E(3X+Y) vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-concentration",
+      "question": "Si V(X)=2, alors V(−3X+4) vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-concentration",
+      "question": "Tchebychev avec V(X)=9 et a=3 donne comme borne :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-concentration",
+      "question": "Si V(X)=4 et a=4, la borne de P(|X−μ|≥4) est :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-concentration",
+      "question": "Si X et Y ont une covariance égale à −2, V(X)=5 et V(Y)=7, V(X+Y) vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-concentration",
+      "question": "Pour une somme S de 50 Bernoulli indépendantes de paramètre 0,1, V(S) vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-concentration",
+      "question": "Si V(X)=16, quelle borne Tchebychev obtient-on pour P(|X−E(X)|≥8) ?",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-algo",
+      "question": "Une boucle divise une longueur par 2 à chaque tour. Après 5 tours, une longueur initiale de 96 vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-algo",
+      "question": "On initialise s=0 puis on ajoute les entiers pairs de 2 à 8 inclus. Quelle valeur obtient-on ?",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-composition",
+      "question": "Une solution a [H₃O⁺] = 1,0 × 10⁻³ mol·L⁻¹. Son pH vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-synthese",
+      "question": "Une étape donne 12 mmol de produit alors que la quantité théorique est 15 mmol. Quel est le rendement ?",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-electricite",
+      "question": "Une charge de 12 C traverse un conducteur en 3 s. Quelle est l’intensité moyenne ?",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-electricite",
+      "question": "À t = τ pendant une charge, uC vaut environ…",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-electricite",
+      "question": "À t = τ pendant une décharge, uC vaut environ…",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-mouvement",
+      "question": "Si la vitesse passe de 4 à 10 m·s⁻¹ en 3 s, l’accélération moyenne projetée vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-energie",
+      "question": "Une température de 27 °C correspond environ à :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-energie",
+      "question": "Un système reçoit W=+300 J et Q=−100 J. ΔU vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-energie",
+      "question": "Un système reçoit 500 J de travail et cède 200 J par transfert thermique. Sa variation d’énergie interne vaut ",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-ondes",
+      "question": "Une onde met 0,15 s pour parcourir 51 m. Quelle est sa célérité ?",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-lumiere",
+      "question": "Le grandissement est défini par :",
+      "issue": "explication trop courte (<25 caractères)"
+    }
+  ]
+}

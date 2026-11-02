@@ -1,0 +1,87 @@
+{
+  "version": "5.7.0",
+  "generatedAt": "2026-11-02T05:28:01.626Z",
+  "summary": {
+    "passed": 13,
+    "failed": 1,
+    "total": 14
+  },
+  "checks": [
+    {
+      "id": "dependency:react",
+      "ok": true,
+      "detail": "^18.3.1"
+    },
+    {
+      "id": "dependency:react-dom",
+      "ok": true,
+      "detail": "^18.3.1"
+    },
+    {
+      "id": "dependency:lucide-react",
+      "ok": true,
+      "detail": "^0.468.0"
+    },
+    {
+      "id": "dependency:vite",
+      "ok": true,
+      "detail": "^6.0.1"
+    },
+    {
+      "id": "dependency:@vitejs/plugin-react",
+      "ok": true,
+      "detail": "^4.3.4"
+    },
+    {
+      "id": "dependency:typescript",
+      "ok": true,
+      "detail": "~5.6.2"
+    },
+    {
+      "id": "lockfile:present",
+      "ok": false,
+      "detail": "package-lock.json absent ou illisible"
+    },
+    {
+      "id": "script:build",
+      "ok": true,
+      "detail": "tsc -b && vite build"
+    },
+    {
+      "id": "script:dev",
+      "ok": true,
+      "detail": "vite"
+    },
+    {
+      "id": "script:preview",
+      "ok": true,
+      "detail": "vite preview"
+    },
+    {
+      "id": "script:doctor",
+      "ok": true,
+      "detail": "node scripts/project-doctor.mjs"
+    },
+    {
+      "id": "script:audit:release",
+      "ok": true,
+      "detail": "node scripts/audit-release.mjs"
+    },
+    {
+      "id": "runtime:node",
+      "ok": true,
+      "detail": "Node 22.16.0 (minimum projet 20)"
+    },
+    {
+      "id": "runtime:npm",
+      "ok": true,
+      "detail": "10.9.2"
+    }
+  ],
+  "nextSteps": [
+    "Générer et contrôler package-lock.json depuis un environnement réseau stable.",
+    "Installer les dépendances avec npm ci.",
+    "Exécuter npm run build puis npm run audit:release."
+  ],
+  "note": "Cet audit contrôle le manifeste et les métadonnées locales ; il ne prouve ni la disponibilité du registre npm, ni la réussite du build."
+}

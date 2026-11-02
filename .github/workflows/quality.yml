@@ -1,0 +1,42 @@
+name: NOX HAVEN quality gate
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nox-haven-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Resolve declared dependency tree
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Run deterministic and structural tests
+        run: npm run test:all
+      - name: Build production bundle
+        run: npm run build
+      - name: Run release audits
+        run: npm run audit:release
+      - name: Upload audit reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nox-haven-quality-reports
+          path: docs/*.json
+          if-no-files-found: warn

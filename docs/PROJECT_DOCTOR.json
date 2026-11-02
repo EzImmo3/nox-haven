@@ -1,0 +1,52 @@
+{
+  "version": "5.10.2",
+  "node": "v22.16.0",
+  "npm": "10.9.2",
+  "packageManager": "npm@10.8.2",
+  "lockfiles": [],
+  "dependencies": [
+    {
+      "name": "react",
+      "declared": "^18.3.1",
+      "installed": false,
+      "installedVersion": null
+    },
+    {
+      "name": "react-dom",
+      "declared": "^18.3.1",
+      "installed": false,
+      "installedVersion": null
+    },
+    {
+      "name": "lucide-react",
+      "declared": "^0.468.0",
+      "installed": false,
+      "installedVersion": null
+    },
+    {
+      "name": "vite",
+      "declared": "^6.0.1",
+      "installed": false,
+      "installedVersion": null
+    },
+    {
+      "name": "@vitejs/plugin-react",
+      "declared": "^4.3.4",
+      "installed": false,
+      "installedVersion": null
+    },
+    {
+      "name": "typescript",
+      "declared": "~5.6.2",
+      "installed": false,
+      "installedVersion": null
+    }
+  ],
+  "summary": {
+    "required": 6,
+    "installed": 0,
+    "missing": 6
+  },
+  "status": "blocked",
+  "guidance": "Les dépendances déclarées ne sont pas toutes présentes. Installer les dépendances depuis le dossier racine du projet, puis relancer npm run build. Ne pas interpréter les erreurs JSX/TS2307 comme des défauts de composants tant que React et ses types sont absents."
+}

@@ -1,0 +1,116 @@
+{
+  "version": "5.0.48",
+  "generatedAt": "2026-11-02T04:29:49.669Z",
+  "summary": {
+    "passed": 10,
+    "needsReview": 3,
+    "total": 13
+  },
+  "results": [
+    {
+      "label": "Catalogue pédagogique",
+      "script": "audit:content",
+      "status": "review",
+      "exitCode": 1,
+      "signal": null,
+      "output": "> studyflow@5.0.48 audit:content\n> node scripts/audit-content.mjs\n\nAUDIT STUDYFLOW 5.0.48\nChapitres catalogue : 120 (120 identifiants uniques)\nRessources dédiées : 120 · chapitres sans ressource : 0\nRessources orphelines : 0 · ressources dupliquées : 0\n\nphilo-art: 30 flashcards · 21 quiz · 10 exercices — base pédagogique présente\nphilo-langage: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmaths-derivee: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmaths-limites: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmaths-suites: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmaths-continuite: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nses-croissance: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmexp-complexes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmaths-log: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmaths-primitives: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmaths-integrales: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmaths-espace: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmaths-orthogonalite: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmaths-parametrique: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmaths-bernoulli: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmaths-binomial: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmaths-concentration: 30 flashcards · 21 quiz · 10 exercices — base pédagogique présente\nmaths-algo: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhg-h1: 30 flashcards · 23 quiz · 10 exercices — base pédagogique présente\nemc-theme: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nes-climat: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\npc-composition: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\npc-evolution: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\npc-etat-final: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\npc-synthese: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\npc-electricite: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\npc-mouvement: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\npc-forces: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\npc-fluides: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\npc-energie: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\npc-ondes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\npc-lumiere: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nses-commerce: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nses-chomage: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nses-finance: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-bonheur: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-verite: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-justice: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-liberte: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-conscience: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-devoir: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-etat: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-inconscient: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-nature: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-raison: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-religion: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-science: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-technique: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-temps: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-travail: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhggsp-t1: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhggsp-t2: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhggsp-t3: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhggsp-t4: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhggsp-t5: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhggsp-t6: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhg-h2: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhg-h3: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhg-h4: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhg-g1: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhg-g2: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhg-g3: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhg-g4: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nemc-espaces: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nemc-institutions: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nemc-information: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nemc-medias: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nses-europe: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nses-structure: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nses-ecole: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nses-mobilite: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nses-travail: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nses-engagement: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nses-justice: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nses-environnement: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmexp-arithmetique: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmexp-graphes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmexp-algo: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nsvt-genetique: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nsvt-temps: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nsvt-plantes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nsvt-climat: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nsvt-comportement: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nsvt-muscle: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nsvt-stress: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nsvt-methodes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nes-energie: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nes-vivant: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nes-demarche: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nen-reception: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nen-production: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nen-interaction: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nen-axes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nen-methodes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nespa-reception: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nespa-production: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nespa-interaction: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nespa-axes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nespa-methodes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nde-reception: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nde-production: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nde-interaction: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nde-axes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nde-methodes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\neps-moteur: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\neps-entrainement: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\neps-sante: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\neps-responsabilite: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\neps-culture: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nphilo-methodes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhg-methodes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nhggsp-methodes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nses-methodes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmcomp-modeles: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmcomp-suites: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmcomp-exponentielle: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmcomp-integration: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmcomp-proba: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmcomp-stat: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\nmcomp-algo: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente\n\nVersion UI / export / PWA : À corriger\nObjectif de moyenne : présent\nContrôles structurels : 2 problème(s)\nERREUR — Version visible de l’interface non synchronisée.\nERREUR — Version de sauvegarde non synchronisée."
+    },
+    {
+      "label": "Tests de fumée",
+      "script": "test:smoke",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "output": "> studyflow@5.0.48 test:smoke\n> node scripts/smoke-test.mjs\n\nSmoke tests réussis : 120 ressources contrôlées, migration valide, session corrompue rejetée, bonus exclu ignoré, dates calendaires validées, 4 cas SM-2 vérifiés, moteur de maîtrise/recommandation, plans quotidien et hebdomadaire, préférences de durée persistables, bilan de charge hebdomadaire, bilan d’apprentissage, simulateur de note, stockage IndexedDB local-first et migration non destructive, configuration PWA en sous-répertoire, service worker, état de connexion accessible, dates de planning et navigation clavier, quiz chronométré, objectif hebdomadaire, série de révision, simulateur de moyenne générale et sauvegarde des préférences contrôlés, syntaxe TSX contrôlée."
+    },
+    {
+      "label": "Compatibilité PC/mobile",
+      "script": "audit:platform",
+      "status": "review",
+      "exitCode": 1,
+      "signal": null,
+      "output": "> studyflow@5.0.48 audit:platform\n> node scripts/audit-platform.mjs\n\nAUDIT PLATEFORME STUDYFLOW 5.0.48\nOK — viewport mobile déclaré\nOK — langue du document déclarée\nOK — breakpoint mobile principal\nOK — breakpoint petit écran\nOK — cibles tactiles 44px\nOK — respect des zones de sécurité mobile\nOK — PWA en mode standalone\nOK — portée PWA relative\nOK — icônes PWA configurées\nOK — Service Worker versionné\nOK — Service Worker scoped\nOK — enregistrement SW basé sur BASE_URL\nOK — navigation clavier visible\nOK — préférence mouvement réduit\nOK — tables avec défilement horizontal local\nÀ CORRIGER — version export cohérente\n\nRésultat : 15/16 contrôles statiques validés."
+    },
+    {
+      "label": "Qualité des QCM",
+      "script": "audit:quality",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "output": "> studyflow@5.0.48 audit:quality\n> node scripts/audit-quality.mjs\n\nAUDIT QUALITÉ STUDYFLOW 5.0.48\nChapitres : 120 · ressources : 120 · QCM analysés : 2325\nRépartition des réponses : A 61.9 % · B 14.6 % · C 12.3 % · D 11.2 %\nÀ CORRIGER — 4 ressources ont moins de 10 réponses indexées dans les QCM.\nÀ CORRIGER — Biais de position : 61.9 % des réponses correctes sont en première position.\nRapport écrit dans docs/AUDIT_QUALITE_V5.0.35.md"
+    },
+    {
+      "label": "Intégrité des QCM",
+      "script": "audit:quiz-integrity",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "output": "> studyflow@5.0.48 audit:quiz-integrity\n> node scripts/audit-quiz-integrity.mjs\n\nAudit intégrité QCM 5.0.48: 2405 questions, 53 constats, 0 index invalides, 0 doublons de choix, 53 explications courtes."
+    },
+    {
+      "label": "Sécurité statique",
+      "script": "audit:security",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "output": "> studyflow@5.0.48 audit:security\n> node scripts/audit-security.mjs\n\nAUDIT SÉCURITÉ 5.0.48 — 13 fichiers analysés\nOK — cache du service worker versionné\nOK — navigation hors ligne avec repli cache\nOK — manifest servi en mode standalone\nOK — scope PWA relatif\nOK — export de sauvegarde avec SHA-256\nOK — import vérifie l’empreinte avant restauration\nConstats à examiner : 0"
+    },
+    {
+      "label": "PWA",
+      "script": "audit:pwa",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "output": "> studyflow@5.0.48 audit:pwa\n> node scripts/audit-pwa.mjs\n\nAUDIT PWA 5.0.48\nOK — manifeste JSON lisible\nOK — nom court adapté au lanceur mobile\nOK — mode standalone\nOK — scope et démarrage relatifs\nOK — langue française déclarée\nOK — icône 192 présente\nOK — icône 512 présente\nOK — cache versionné\nOK — nettoyage des anciens caches StudyFlow\nOK — repli hors ligne sur index mis en cache\nOK — limitation aux requêtes GET\nOK — exclusion des requêtes cross-origin\nRésultat : 12/12"
+    },
+    {
+      "label": "Accessibilité",
+      "script": "audit:accessibility",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "output": "> studyflow@5.0.48 audit:accessibility\n> node scripts/audit-accessibility.mjs\n\nAudit accessibilité : 9/11 heuristiques positives ; 2 à vérifier."
+    },
+    {
+      "label": "Sauvegardes",
+      "script": "audit:backup",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "output": "> studyflow@5.0.48 audit:backup\n> node scripts/audit-backup.mjs\n\nAUDIT SAUVEGARDE 5.0.48 — 12/12\nOK — Export versionné\nOK — Empreinte SHA-256 à l’export\nOK — Empreinte vérifiée avant import\nOK — Format hexadécimal SHA-256 contrôlé\nOK — Taille maximale du fichier contrôlée\nOK — Fichier vide refusé\nOK — Données validées avant confirmation\nOK — Confirmation avant remplacement\nOK — IndexedDB prioritaire\nOK — Migration sans suppression immédiate des anciennes données\nOK — Conflits inter-onglets signalés\nOK — Validation des matières et notes"
+    },
+    {
+      "label": "Diagnostic TypeScript",
+      "script": "audit:typescript",
+      "status": "review",
+      "exitCode": 1,
+      "signal": null,
+      "output": "> studyflow@5.0.48 audit:typescript\n> node scripts/audit-typescript.mjs\n\nAudit TypeScript : 1248 diagnostic(s), code de sortie 1.\nenvironment: 1049\ncontentTyping: 70\napplicationTyping: 129\nother: 0"
+    },
+    {
+      "label": "Santé du stockage",
+      "script": "audit:storage-health",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "output": "> studyflow@5.0.48 audit:storage-health\n> node scripts/audit-storage-health.mjs\n\nAUDIT STOCKAGE 5.0.48 — 8/8\nOK — API de stockage du navigateur utilisée\nOK — Estimation de l’espace utilisé et du quota\nOK — État de conservation persistante demandé\nOK — Demande de conservation persistante\nOK — Résultat expliqué dans les paramètres\nOK — Résultat annoncé comme statut accessible\nOK — Rapport de stockage stylé et intégré\nOK — Export de sauvegarde conservé"
+    },
+    {
+      "label": "Export du planning vers calendrier",
+      "script": "audit:calendar",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "output": "> studyflow@5.0.48 audit:calendar\n> node scripts/audit-calendar-export.mjs\n\nAUDIT CALENDRIER 5.0.48 — 10/10\nOK — Conteneur iCalendar 2.0\nOK — Séances exportées comme dates sans horaire inventé\nOK — Fin exclusive calculée au lendemain\nOK — Titre, matière, chapitre et durée exportés\nOK — Caractères spéciaux et retours à la ligne échappés\nOK — Lignes repliées à 75 octets UTF-8\nOK — Dates impossibles rejetées\nOK — Téléchargement .ics depuis le planning\nOK — Export désactivé si aucune séance\nOK — Statut VEVENT conforme et état StudyFlow préservé"
+    },
+    {
+      "label": "Tests du format iCalendar",
+      "script": "audit:calendar-unit",
+      "status": "pass",
+      "exitCode": 0,
+      "signal": null,
+      "output": "> studyflow@5.0.48 audit:calendar-unit\n> node scripts/test-calendar-export.mjs\n\nTESTS CALENDRIER — 8/8\nOK — UTF-8 line folding\nOK — RFC text escaping\nOK — CRLF normalization\nOK — Date validation\nOK — Exclusive end date\nOK — Invalid sessions excluded\nOK — Safe stable event id\nOK — Valid VEVENT status and completion extension"
+    }
+  ],
+  "interpretation": "Un contrôle réussi indique uniquement que le script correspondant a terminé sans erreur. Les audits statiques ne remplacent pas les tests de navigateur, les essais sur appareils ni une validation pédagogique humaine."
+}
