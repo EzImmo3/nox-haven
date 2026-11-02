@@ -1,0 +1,970 @@
+{
+  "school_year": "2026-2027",
+  "subjects": [
+    {
+      "id": "philo",
+      "title": "Philosophie",
+      "group": "commun",
+      "reference": "Programme de philosophie en terminale générale — BO spécial n° 8 du 25 juillet 2019.",
+      "chapters": [
+        {
+          "id": "philo-art",
+          "title": "L’art",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-bonheur",
+          "title": "Le bonheur",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-conscience",
+          "title": "La conscience",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-devoir",
+          "title": "Le devoir",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-etat",
+          "title": "L’État",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-inconscient",
+          "title": "L’inconscient",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-justice",
+          "title": "La justice",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-langage",
+          "title": "Le langage",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-liberte",
+          "title": "La liberté",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-nature",
+          "title": "La nature",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-raison",
+          "title": "La raison",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-religion",
+          "title": "La religion",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-science",
+          "title": "La science",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-technique",
+          "title": "La technique",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-temps",
+          "title": "Le temps",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-travail",
+          "title": "Le travail",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-verite",
+          "title": "La vérité",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "philo-methodes",
+          "title": "Méthodes : dissertation et explication de texte",
+          "detail": "Ressource transversale, à travailler avec les notions.",
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    },
+    {
+      "id": "histoire-geo",
+      "title": "Histoire-Géographie",
+      "group": "commun",
+      "reference": "Programmes d’histoire et de géographie du cycle terminal — BO spécial n° 8 du 25 juillet 2019.",
+      "chapters": [
+        {
+          "id": "hg-h1",
+          "title": "Histoire — Fragilités des démocraties, totalitarismes et Seconde Guerre mondiale (1929-1945)",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "hg-h2",
+          "title": "Histoire — La multiplication des acteurs internationaux dans un monde bipolaire (1945-1970)",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "hg-h3",
+          "title": "Histoire — Les remises en cause économiques, politiques et sociales des années 1970 à 1991",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "hg-h4",
+          "title": "Histoire — Le monde, l’Europe et la France depuis les années 1990",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "hg-g1",
+          "title": "Géographie — Mers et océans au cœur de la mondialisation",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "hg-g2",
+          "title": "Géographie — Dynamiques territoriales, coopérations et tensions dans la mondialisation",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "hg-g3",
+          "title": "Géographie — L’Union européenne dans la mondialisation : des dynamiques complexes",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "hg-g4",
+          "title": "Géographie — La France et ses régions dans l’Union européenne et dans la mondialisation",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "hg-methodes",
+          "title": "Méthodes : composition, étude critique de documents et croquis",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    },
+    {
+      "id": "emc",
+      "title": "Enseignement moral et civique",
+      "group": "commun",
+      "reference": "Programme EMC publié au BO n° 24 du 13 juin 2024, applicable à tous les niveaux à la rentrée 2026-2027.",
+      "chapters": [
+        {
+          "id": "emc-theme",
+          "title": "La vie démocratique : débat, délibération et prise de décision",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "emc-espaces",
+          "title": "Les principes et les espaces du débat démocratique",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "emc-institutions",
+          "title": "La délibération dans les institutions",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "emc-information",
+          "title": "La place des discours scientifiques et leur réception dans l’opinion : l’exemple du changement climatique",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "emc-medias",
+          "title": "Sondages, fiabilité des sources et débats sur les réseaux sociaux",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    },
+    {
+      "id": "ens-scientifique",
+      "title": "Enseignement scientifique",
+      "group": "commun",
+      "reference": "Programme d’enseignement scientifique de terminale générale modifié par l’arrêté du 30 mai 2023 — BO n° 25 du 22 juin 2023, applicable depuis la rentrée 2024.",
+      "chapters": [
+        {
+          "id": "es-climat",
+          "title": "Science, climat et société",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "es-energie",
+          "title": "Le futur des énergies",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "es-vivant",
+          "title": "Une histoire du vivant",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "es-demarche",
+          "title": "Démarche scientifique, données et esprit critique",
+          "detail": "Compétences transversales mobilisées dans les trois thèmes officiels ; ce n’est pas un quatrième thème du programme.",
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    },
+    {
+      "id": "eps",
+      "title": "Éducation physique et sportive",
+      "group": "commun",
+      "reference": "Programme d’EPS du lycée général et technologique. Les activités et attendus précis dépendent de la programmation de l’établissement.",
+      "chapters": [
+        {
+          "id": "eps-moteur",
+          "title": "Développer sa motricité et apprendre à s’exprimer avec son corps",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "eps-entrainement",
+          "title": "S’entraîner individuellement et collectivement",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "eps-sante",
+          "title": "Préserver sa santé par une activité physique régulière",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "eps-responsabilite",
+          "title": "Assumer des rôles et responsabilités",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "eps-culture",
+          "title": "Accéder au patrimoine culturel des activités physiques et sportives",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    },
+    {
+      "id": "anglais",
+      "title": "Anglais — LVA",
+      "group": "langue",
+      "reference": "Programmes de langues vivantes étrangères publiés au BO n° 22 du 29 mai 2025, applicables au lycée à partir de 2026-2027.",
+      "chapters": [
+        {
+          "id": "en-reception",
+          "title": "Compréhension de l’oral et de l’écrit",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "en-production",
+          "title": "Expression orale en continu et expression écrite",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "en-interaction",
+          "title": "Interaction et médiation",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "en-axes",
+          "title": "Axes culturels du cycle terminal",
+          "detail": "Les axes et objets d’étude seront détaillés à partir du programme officiel et des supports étudiés en classe.",
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "en-methodes",
+          "title": "Méthodes : synthèse, compte rendu, argumentation et prise de parole",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    },
+    {
+      "id": "espagnol",
+      "title": "Espagnol — LVB",
+      "group": "langue",
+      "reference": "Programmes de langues vivantes étrangères publiés au BO n° 22 du 29 mai 2025, applicables au lycée à partir de 2026-2027.",
+      "chapters": [
+        {
+          "id": "espa-reception",
+          "title": "Compréhension de l’oral et de l’écrit",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "espa-production",
+          "title": "Expression orale en continu et expression écrite",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "espa-interaction",
+          "title": "Interaction et médiation",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "espa-axes",
+          "title": "Axes culturels du cycle terminal",
+          "detail": "Les axes et objets d’étude seront détaillés à partir du programme officiel et des supports étudiés en classe.",
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "espa-methodes",
+          "title": "Méthodes : synthèse, compte rendu, argumentation et prise de parole",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    },
+    {
+      "id": "allemand",
+      "title": "Allemand — LVB",
+      "group": "langue",
+      "reference": "Programmes de langues vivantes étrangères publiés au BO n° 22 du 29 mai 2025, applicables au lycée à partir de 2026-2027.",
+      "chapters": [
+        {
+          "id": "de-reception",
+          "title": "Compréhension de l’oral et de l’écrit",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "de-production",
+          "title": "Expression orale en continu et expression écrite",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "de-interaction",
+          "title": "Interaction et médiation",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "de-axes",
+          "title": "Axes culturels du cycle terminal",
+          "detail": "Les axes et objets d’étude seront détaillés à partir du programme officiel et des supports étudiés en classe.",
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "de-methodes",
+          "title": "Méthodes : synthèse, compte rendu, argumentation et prise de parole",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    },
+    {
+      "id": "hggsp-spe",
+      "title": "HGGSP",
+      "group": "specialite",
+      "reference": "Programme de terminale HGGSP — BO spécial n° 8 du 25 juillet 2019. Épreuve session 2027 : note de service du 11 septembre 2026.",
+      "chapters": [
+        {
+          "id": "hggsp-t1",
+          "title": "Thème 1 — De nouveaux espaces de conquête",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "hggsp-t2",
+          "title": "Thème 2 — Faire la guerre, faire la paix : formes de conflits et modes de résolution",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "hggsp-t3",
+          "title": "Thème 3 — Histoire et mémoires",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "hggsp-t4",
+          "title": "Thème 4 — Identifier, protéger et valoriser le patrimoine : enjeux géopolitiques",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "hggsp-t5",
+          "title": "Thème 5 — L’environnement, entre exploitation et protection : un enjeu planétaire",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "hggsp-t6",
+          "title": "Thème 6 — L’enjeu de la connaissance",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "hggsp-methodes",
+          "title": "Méthodes : dissertation, étude critique de document et oral",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    },
+    {
+      "id": "maths-spe",
+      "title": "Mathématiques — Spécialité",
+      "group": "specialite",
+      "reference": "Programme en vigueur en terminale pour 2026-2027 : BO spécial n° 8 du 25 juillet 2019. Le programme publié au BO du 2 avril 2026 ne s’applique qu’à partir de 2027-2028.",
+      "chapters": [
+        {
+          "id": "maths-suites",
+          "title": "Suites",
+          "detail": null,
+          "resource_status": "module_present",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "maths-limites",
+          "title": "Limites de fonctions",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "maths-derivee",
+          "title": "Compléments sur la dérivation",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "maths-continuite",
+          "title": "Continuité des fonctions d’une variable réelle",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "maths-log",
+          "title": "Fonction logarithme",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "maths-primitives",
+          "title": "Primitives et équations différentielles",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "maths-integrales",
+          "title": "Calcul intégral",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "maths-espace",
+          "title": "Manipulation des vecteurs, droites et plans de l’espace",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "maths-orthogonalite",
+          "title": "Orthogonalité et distances dans l’espace",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "maths-parametrique",
+          "title": "Représentations paramétriques et équations cartésiennes",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "maths-bernoulli",
+          "title": "Succession d’épreuves indépendantes et schéma de Bernoulli",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "maths-binomial",
+          "title": "Loi binomiale",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "maths-concentration",
+          "title": "Sommes de variables aléatoires et concentration",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "maths-algo",
+          "title": "Algorithmique et programmation",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    },
+    {
+      "id": "pc-spe",
+      "title": "Physique-chimie",
+      "group": "specialite",
+      "reference": "Programme de terminale spécialité physique-chimie — BO spécial n° 8 du 25 juillet 2019.",
+      "chapters": [
+        {
+          "id": "pc-composition",
+          "title": "Déterminer la composition d’un système par des méthodes physiques et chimiques",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "pc-evolution",
+          "title": "Modéliser l’évolution temporelle d’un système, siège d’une transformation",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "pc-etat-final",
+          "title": "Prévoir l’état final d’un système, siège d’une transformation chimique",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "pc-synthese",
+          "title": "Élaborer des stratégies en synthèse organique",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "pc-mouvement",
+          "title": "Décrire un mouvement",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "pc-forces",
+          "title": "Relier les actions appliquées à un système à son mouvement",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "pc-fluides",
+          "title": "Modéliser l’écoulement d’un fluide",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "pc-energie",
+          "title": "Décrire les phénomènes énergétiques",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "pc-ondes",
+          "title": "Caractériser les phénomènes ondulatoires",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "pc-lumiere",
+          "title": "Former des images et étudier la lumière",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "pc-electricite",
+          "title": "Étudier les circuits électriques et les signaux",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    },
+    {
+      "id": "svt-spe",
+      "title": "Sciences de la vie et de la Terre",
+      "group": "specialite",
+      "reference": "Programme de terminale spécialité SVT — BO spécial n° 8 du 25 juillet 2019.",
+      "chapters": [
+        {
+          "id": "svt-genetique",
+          "title": "Génétique et évolution",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "svt-temps",
+          "title": "À la recherche du passé géologique de notre planète",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "svt-plantes",
+          "title": "De la plante sauvage à la plante domestiquée",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "svt-climat",
+          "title": "Les climats de la Terre : comprendre le passé pour agir aujourd’hui et demain",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "svt-comportement",
+          "title": "Comportements, mouvement et système nerveux",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "svt-muscle",
+          "title": "Produire le mouvement : contraction musculaire et apport d’énergie",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "svt-stress",
+          "title": "Comportements et stress : vers une vision intégrée de l’organisme",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "svt-methodes",
+          "title": "Méthodes : démarche scientifique, exploitation de données et schémas",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    },
+    {
+      "id": "ses-spe",
+      "title": "Sciences économiques et sociales",
+      "group": "specialite",
+      "reference": "Programme de terminale SES — BO spécial n° 8 du 25 juillet 2019.",
+      "chapters": [
+        {
+          "id": "ses-croissance",
+          "title": "Quels sont les sources et les défis de la croissance économique ?",
+          "detail": null,
+          "resource_status": "module_present",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "ses-commerce",
+          "title": "Quels sont les fondements du commerce international et de l’internationalisation de la production ?",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "ses-chomage",
+          "title": "Comment lutter contre le chômage ?",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "ses-finance",
+          "title": "Comment expliquer les crises financières et réguler le système financier ?",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "ses-europe",
+          "title": "Quelles politiques économiques dans le cadre européen ?",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "ses-structure",
+          "title": "Quelle est la structure de la société française actuelle ?",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "ses-ecole",
+          "title": "Quelle est l’action de l’École sur les destins individuels et l’évolution de la société ?",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "ses-mobilite",
+          "title": "Quels sont les caractéristiques et les facteurs de la mobilité sociale ?",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "ses-travail",
+          "title": "Quelles mutations du travail et de l’emploi ?",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "ses-engagement",
+          "title": "Comment expliquer l’engagement politique dans les sociétés démocratiques ?",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "ses-justice",
+          "title": "Quelles inégalités sont compatibles avec les différentes conceptions de la justice sociale ?",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "ses-environnement",
+          "title": "Quelle action publique pour l’environnement ?",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "ses-methodes",
+          "title": "Méthodes : raisonnement, dissertation, épreuve composée et exploitation de documents",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    },
+    {
+      "id": "maths-exp",
+      "title": "Mathématiques expertes",
+      "group": "option",
+      "reference": "Programme de mathématiques expertes en vigueur pour 2026-2027 — BO spécial n° 8 du 25 juillet 2019.",
+      "chapters": [
+        {
+          "id": "mexp-complexes",
+          "title": "Nombres complexes",
+          "detail": null,
+          "resource_status": "module_present",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "mexp-arithmetique",
+          "title": "Arithmétique",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "mexp-graphes",
+          "title": "Graphes et matrices",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "mexp-algo",
+          "title": "Algorithmique et programmation",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    },
+    {
+      "id": "maths-comp",
+      "title": "Mathématiques complémentaires",
+      "group": "option",
+      "reference": "Programme de mathématiques complémentaires en vigueur pour 2026-2027 — BO spécial n° 8 du 25 juillet 2019.",
+      "chapters": [
+        {
+          "id": "mcomp-modeles",
+          "title": "Modèles définis par des fonctions",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "mcomp-suites",
+          "title": "Suites numériques",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "mcomp-exponentielle",
+          "title": "Fonction exponentielle et logarithme",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "mcomp-integration",
+          "title": "Calcul intégral et primitives",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "mcomp-proba",
+          "title": "Probabilités et variables aléatoires",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "mcomp-stat",
+          "title": "Statistiques et échantillonnage",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        },
+        {
+          "id": "mcomp-algo",
+          "title": "Algorithmique et programmation",
+          "detail": null,
+          "resource_status": "missing",
+          "catalogue_status": "a_verifier"
+        }
+      ]
+    }
+  ],
+  "resource_module_ids": [
+    "maths-suites",
+    "ses-croissance",
+    "mexp-complexes"
+  ]
+}

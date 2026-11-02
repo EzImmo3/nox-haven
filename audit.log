@@ -1,0 +1,91 @@
+
+> studyflow@5.0.27 audit:content
+> node scripts/audit-content.mjs
+
+AUDIT STUDYFLOW 5.0.27
+Chapitres catalogue : 120 (120 identifiants uniques)
+Ressources dédiées : 78 · chapitres sans ressource : 42
+Ressources orphelines : 0 · ressources dupliquées : 0
+
+philo-art: 30 flashcards · 21 quiz · 10 exercices — base pédagogique présente
+philo-langage: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+maths-derivee: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+maths-limites: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+maths-suites: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+maths-continuite: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+ses-croissance: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+mexp-complexes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+maths-log: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+maths-primitives: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+maths-integrales: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+maths-espace: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+maths-orthogonalite: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+maths-parametrique: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+maths-bernoulli: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+maths-binomial: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+maths-concentration: 30 flashcards · 21 quiz · 10 exercices — base pédagogique présente
+maths-algo: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+hg-h1: 30 flashcards · 23 quiz · 10 exercices — base pédagogique présente
+emc-theme: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+es-climat: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+pc-composition: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+pc-evolution: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+pc-etat-final: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+pc-synthese: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+pc-electricite: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+pc-mouvement: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+pc-forces: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+pc-fluides: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+pc-energie: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+pc-ondes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+pc-lumiere: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+ses-commerce: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+ses-chomage: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+ses-finance: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-bonheur: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-verite: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-justice: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-liberte: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-conscience: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-devoir: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-etat: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-inconscient: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-nature: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-raison: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-religion: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-science: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-technique: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-temps: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+philo-travail: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+hggsp-t1: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+hggsp-t2: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+hggsp-t3: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+hggsp-t4: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+hggsp-t5: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+hggsp-t6: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+hg-h2: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+hg-h3: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+hg-h4: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+hg-g1: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+hg-g2: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+hg-g3: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+hg-g4: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+emc-espaces: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+emc-institutions: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+emc-information: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+emc-medias: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+ses-europe: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+ses-structure: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+ses-ecole: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+ses-mobilite: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+ses-travail: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+ses-engagement: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+ses-justice: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+ses-environnement: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+mexp-arithmetique: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+mexp-graphes: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+mexp-algo: 30 flashcards · 20 quiz · 10 exercices — base pédagogique présente
+
+Version UI / export / PWA : cohérente
+Objectif de moyenne : présent
+Contrôles structurels : aucune erreur détectée

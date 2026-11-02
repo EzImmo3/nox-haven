@@ -1,0 +1,2 @@
+import fs from 'node:fs';let s=fs.readFileSync('src/chapterResources.ts','utf8');
+for(const id of ['svt-genetique','svt-temps','svt-plantes','svt-climat','svt-comportement','svt-muscle','svt-stress','svt-methodes']){const start=s.indexOf(`  '${id}': {`);if(start<0)continue;const next=s.indexOf("\n  '",start+4);const end=next<0?s.lastIndexOf('\n};'):next;let b=s.slice(start,end);let n=0;b=b.replace(/question: (["'])(.*?)\1/g,(m,q,v)=>`question: ${q}${v} — version ${++n}${q}`);s=s.slice(0,start)+b+s.slice(end);}fs.writeFileSync('src/chapterResources.ts',s);
