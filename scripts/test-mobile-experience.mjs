@@ -39,6 +39,17 @@ check('version cohérente package/manifest/SW',()=>{const v=JSON.parse(fs.readFi
 check('bouton de fermeture explicite dans le menu',()=>assert.match(app,/aria-label="Fermer les autres rubriques" onClick=\{\(\)=>\{setMobileMore\(false\);\}\}/));
 check('rubrique active annoncée dans le menu Plus',()=>assert.match(app,/className=\{tab===id\?'active':''\} aria-current=\{tab===id\?'page':undefined\}/));
 check('retour du focus après fermeture du menu',()=>assert.match(app,/document\.body\.style\.overflow=previousOverflow;trigger\?\.focus\(\)/));
+
+check('polices système disponibles hors ligne',()=>assert.doesNotMatch(css,/@import\s+url\(/i));
+check('breakpoint tablette dédié',()=>assert.match(css,/@media\(min-width:701px\) and \(max-width:1100px\)/));
+check('grille tablette sans colonne trop étroite',()=>assert.match(css,/\.content-grid\{grid-template-columns:minmax\(0,1fr\);\}/));
+check('prise en charge des petits écrans 320px',()=>assert.match(css,/html\{min-width:320px/));
+check('hauteur dynamique mobile',()=>assert.match(css,/min-height:100svh/));
+check('paysage à faible hauteur traité',()=>assert.match(css,/@media\(max-height:520px\) and \(orientation:landscape\)/));
+check('zoom texte respecté',()=>assert.match(css,/text-size-adjust:100%/));
+check('focus visible transversal',()=>assert.match(css,/:where\(button,a,input,select,textarea,\[tabindex\]\):focus-visible/));
+check('version mobile alignée sur le service worker',()=>{const v=JSON.parse(fs.readFileSync('package.json','utf8')).version;assert.ok(sw.includes(`noxhaven-shell-v${v}-`));});
+
 check('focus clavier maintenu dans le dialogue',()=>assert.match(app,/document\.addEventListener\('focusin',onFocusIn\)/));
 check('focus extérieur redirigé dans le dialogue',()=>assert.match(app,/!panel\.contains\(event\.target\)\)firstAction\?\.focus\(\)/));
 check('en-tête du menu mobile pleine largeur',()=>assert.match(css,/\.mobile-more-heading\{grid-column:1\/-1/));

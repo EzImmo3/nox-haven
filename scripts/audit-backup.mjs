@@ -15,7 +15,7 @@ const checks=[
  ['data-validation','Données validées avant confirmation',app.indexOf('migrateData(rawData)')<app.indexOf("confirm('Cette sauvegarde")],
  ['restore-confirm','Confirmation avant remplacement',/confirm\('Cette sauvegarde remplacera toutes les données actuelles/.test(app)],
  ['indexeddb-primary','IndexedDB prioritaire',/indexedDB\.open\(DB_NAME, DB_VERSION\)/.test(storage)],
- ['legacy-preserved','Migration sans suppression immédiate des anciennes données',/Les anciennes données localStorage restent intactes/.test(storage)],
+ ['legacy-preserved','Migration sans suppression immédiate des anciennes données',!storage.includes('localStorage.removeItem(STORAGE_KEY)') && /DATA_MIRROR_KEY/.test(storage) && /PREFERENCES_MIRROR_KEY/.test(storage)],
  ['storage-conflict','Conflits inter-onglets signalés',/BroadcastChannel/.test(storage)],
  ['strict-subject-validation','Validation des matières et notes',/Matière invalide dans la sauvegarde/.test(data)&&/Note invalide dans la sauvegarde/.test(data)],
 ];

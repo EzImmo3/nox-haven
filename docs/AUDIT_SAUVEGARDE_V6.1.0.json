@@ -1,0 +1,75 @@
+{
+  "version": "6.1.0",
+  "generatedAt": "2026-11-03T05:07:04.577Z",
+  "summary": {
+    "passed": 12,
+    "total": 12
+  },
+  "checks": [
+    {
+      "id": "backup-envelope",
+      "label": "Export versionné",
+      "status": "pass"
+    },
+    {
+      "id": "sha-export",
+      "label": "Empreinte SHA-256 à l’export",
+      "status": "pass"
+    },
+    {
+      "id": "sha-import",
+      "label": "Empreinte vérifiée avant import",
+      "status": "pass"
+    },
+    {
+      "id": "sha-format",
+      "label": "Format hexadécimal SHA-256 contrôlé",
+      "status": "pass"
+    },
+    {
+      "id": "size-limit",
+      "label": "Taille maximale du fichier contrôlée",
+      "status": "pass"
+    },
+    {
+      "id": "empty-file",
+      "label": "Fichier vide refusé",
+      "status": "pass"
+    },
+    {
+      "id": "data-validation",
+      "label": "Données validées avant confirmation",
+      "status": "pass"
+    },
+    {
+      "id": "restore-confirm",
+      "label": "Confirmation avant remplacement",
+      "status": "pass"
+    },
+    {
+      "id": "indexeddb-primary",
+      "label": "IndexedDB prioritaire",
+      "status": "pass"
+    },
+    {
+      "id": "legacy-preserved",
+      "label": "Migration sans suppression immédiate des anciennes données",
+      "status": "pass"
+    },
+    {
+      "id": "storage-conflict",
+      "label": "Conflits inter-onglets signalés",
+      "status": "pass"
+    },
+    {
+      "id": "strict-subject-validation",
+      "label": "Validation des matières et notes",
+      "status": "pass"
+    }
+  ],
+  "limitations": [
+    "Audit statique : les tests de restauration réelle doivent être effectués dans un navigateur avec IndexedDB.",
+    "Une empreinte SHA-256 détecte les altérations accidentelles, mais ne chiffre pas la sauvegarde et ne prouve pas son origine.",
+    "Aucune sauvegarde cloud ni synchronisation entre appareils n’est fournie."
+  ]
+}

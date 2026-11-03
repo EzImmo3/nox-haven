@@ -72,6 +72,29 @@ export function getWeeklyLearningSummary(sessions: Array<{ date: string; duratio
 }
 
 
+/** Calcule un indice d'urgence explicable à partir des données réellement enregistrées. */
+export function getRevisionUrgency(input: {
+  kind: 'flashcards' | 'errors' | 'chapter';
+  count?: number;
+  dueDate?: string;
+  today: string;
+  errorStatus?: 'todo' | 'working' | 'mastered';
+  updatedAt?: string;
+}): number {
+  if (input.kind === 'chapter') return 10;
+  if (input.kind === 'flashcards') {
+    const due = input.dueDate?.slice(0, 10) ?? input.today;
+    const lateDays = Math.max(0, Math.floor((Date.parse(`${input.today}T12:00:00`) - Date.parse(`${due}T12:00:00`)) / 86400000));
+    return 60 + Math.min(25, lateDays * 3) + Math.min(15, Math.max(0, input.count ?? 0) * 2);
+  }
+  const statusWeight = input.errorStatus === 'todo' ? 45 : input.errorStatus === 'working' ? 32 : 0;
+  const updated = input.updatedAt?.slice(0, 10);
+  const ageDays = updated && /^\d{4}-\d{2}-\d{2}$/.test(updated)
+    ? Math.max(0, Math.floor((Date.parse(`${input.today}T12:00:00`) - Date.parse(`${updated}T12:00:00`)) / 86400000))
+    : 0;
+  return statusWeight + Math.min(15, ageDays) + Math.min(10, Math.max(0, input.count ?? 0) * 2);
+}
+
 export type StudyPlanSuggestion = {
   id: string;
   title: string;
@@ -124,7 +147,22 @@ export function buildDailyStudyPlan(input: {
     if (suggestions.some(item => item.subjectId === chapter.subjectId && item.chapter.trim().toLocaleLowerCase() === chapter.title.trim().toLocaleLowerCase())) continue;
     suggestions.push({ id: `chapter:${chapter.id}`, title: 'Consolider un chapitre', subjectId: chapter.subjectId, chapter: chapter.title, durationMinutes: 25, reason: chapter.status === 'started' ? 'Chapitre commencé : une séance courte permet de poursuivre.' : 'Chapitre à découvrir : commence par les objectifs et les notions essentielles.', kind: 'chapter' });
   }
-  return suggestions.slice(0, limit);
+  const urgency = (item: StudyPlanSuggestion) => {
+    if (item.kind === 'chapter') return getRevisionUrgency({ kind: 'chapter', today: input.today });
+    if (item.kind === 'flashcards') {
+      const matching = input.cards.filter(card => card.subjectId === item.subjectId && card.chapter.trim().toLocaleLowerCase() === item.chapter.trim().toLocaleLowerCase() && card.dueAt.slice(0, 10) <= input.today);
+      const oldestDue = matching.map(card => card.dueAt.slice(0, 10)).sort()[0];
+      return getRevisionUrgency({ kind: 'flashcards', count: matching.length, dueDate: oldestDue, today: input.today });
+    }
+    const matching = input.errors.filter(error => error.subjectId === item.subjectId && error.chapter.trim().toLocaleLowerCase() === item.chapter.trim().toLocaleLowerCase() && error.status !== 'mastered');
+    const status = matching.some(error => error.status === 'todo') ? 'todo' : 'working';
+    const oldestUpdate = matching.map(error => error.updatedAt.slice(0, 10)).sort()[0];
+    return getRevisionUrgency({ kind: 'errors', count: matching.length, errorStatus: status, updatedAt: oldestUpdate, today: input.today });
+  };
+  return suggestions.map((item, index) => ({ item, index, score: urgency(item) }))
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .slice(0, limit)
+    .map(entry => entry.item);
 }
 
 

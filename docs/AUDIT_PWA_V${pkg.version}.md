@@ -1,4 +1,4 @@
-# Audit PWA — NOX HAVEN 5.11.0
+# Audit PWA — NOX HAVEN 6.2.0
 
 - OK — manifeste JSON lisible
 - OK — nom court adapté au lanceur mobile

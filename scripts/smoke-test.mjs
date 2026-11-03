@@ -21,7 +21,7 @@ function loadTs(relativePath) {
 const { CHAPTER_RESOURCES } = loadTs('src/chapterResources.ts');
 const { validateChapterResource } = loadTs('src/contentModel.ts');
 const { migrateData, getGeneralAverage, scheduleFlashcardReview, isValidDateKey, projectRequiredGrade } = loadTs('src/data.ts');
-const { buildDailyStudyPlan, buildWeeklyStudyPlan, getChapterSignal, rankChapterRecommendations, getWeeklyLearningSummary, normalizeDailyCapacity, getWeeklyPlanSummary } = loadTs('src/learningEngine.ts');
+const { buildDailyStudyPlan, buildWeeklyStudyPlan, getChapterSignal, rankChapterRecommendations, getWeeklyLearningSummary, normalizeDailyCapacity, getWeeklyPlanSummary, getRevisionUrgency } = loadTs('src/learningEngine.ts');
 const assert = (condition, message) => { if (!condition) throw new Error(message); };
 
 const appSource = readFileSync(path.join(root, 'src/App.tsx'), 'utf8');
@@ -30,8 +30,8 @@ const serviceWorker = readFileSync(path.join(root, 'public/sw.js'), 'utf8');
 const mainSource = readFileSync(path.join(root, 'src/main.tsx'), 'utf8');
 const storageSource = readFileSync(path.join(root, 'src/storage.ts'), 'utf8');
 assert(storageSource.includes('indexedDB.open(DB_NAME, DB_VERSION)'), 'Le stockage principal doit utiliser IndexedDB versionné.');
-assert(storageSource.includes('localStorage.getItem(STORAGE_KEY)'), 'La migration doit récupérer les anciennes données localStorage.');
-assert(storageSource.includes('await writeRecord(db, legacy)'), 'Les anciennes données doivent être écrites dans IndexedDB avant de considérer la migration terminée.');
+assert(storageSource.includes('safeLocalStorageGet(STORAGE_KEY)'), 'La migration doit récupérer les anciennes données localStorage sans bloquer en cas de stockage indisponible.');
+assert(storageSource.includes('await writeRecord(db, DATA_KEY, DATA_META_KEY, data'), 'Les données restaurées doivent être écrites atomiquement dans IndexedDB avec leurs métadonnées.');
 assert(!storageSource.includes('localStorage.removeItem(STORAGE_KEY)'), 'La migration ne doit pas supprimer la sauvegarde historique.');
 assert(storageSource.includes('subscribeToRemoteChanges') && storageSource.includes('new BroadcastChannel(CHANGE_CHANNEL)'), 'Les changements inter-onglets doivent être signalés.');
 assert(appSource.includes('storageConflict') && appSource.includes('Recharge cette page avant de continuer'), 'Un onglet devenu obsolète doit arrêter ses écritures et demander un rechargement.');
@@ -111,6 +111,9 @@ const chapterErrors = [{ id:'e1', subjectId:'maths-spe', chapter:'Suites', title
 const signal = getChapterSignal('Suites', chapterCards, chapterErrors, '2026-11-01');
 assert(signal.cards === 3 && signal.matureCards === 2 && signal.dueCards === 1 && signal.openErrors === 1, 'Le signal de maîtrise doit agréger cartes, échéances et erreurs.');
 assert(signal.reasons.length >= 2, 'Le signal doit expliquer les raisons de sa recommandation.');
+assert(getRevisionUrgency({kind:'errors',errorStatus:'todo',count:1,today:'2026-11-02'}) > getRevisionUrgency({kind:'errors',errorStatus:'working',count:1,today:'2026-11-02'}), 'Une erreur non commencée doit être plus urgente qu’une erreur déjà travaillée.');
+assert(getRevisionUrgency({kind:'flashcards',count:2,dueDate:'2026-10-25',today:'2026-11-02'}) > getRevisionUrgency({kind:'flashcards',count:2,dueDate:'2026-11-02',today:'2026-11-02'}), 'Un rappel en retard doit gagner en priorité avec le nombre de jours écoulés.');
+
 const sameTitleOtherSubject = { ...baseCard, id:'other-subject', subjectId:'pc', chapter:'Suites', repetitions:0, dueAt:'2026-11-01T12:00:00' };
 const scopedSignal = getChapterSignal('Suites', [...chapterCards, sameTitleOtherSubject], chapterErrors, '2026-11-01', 'maths-spe');
 assert(scopedSignal.cards === 3, 'Les cartes d’une autre matière ne doivent pas contaminer le signal du chapitre.');

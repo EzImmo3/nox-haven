@@ -1,0 +1,13 @@
+{
+  "version": "5.16.0",
+  "checks": {
+    "package.json": true,
+    "public/manifest.webmanifest": true,
+    "public/sw.js": true,
+    "src/App.tsx": true,
+    "index.html": true,
+    "README.md": true
+  },
+  "dashboardTests": "8 assertions réussies",
+  "build": "non certifié : dépendances npm indisponibles dans l'environnement"
+}

@@ -1,6 +1,6 @@
-# NOX HAVEN 5.11.0 — Révise. Comprends. Progresse.
+# NOX HAVEN 6.2.0 — Révise. Comprends. Progresse.
 
-Version de l’application : **5.11.0**.
+Version de l’application : **6.2.0**.
 
 NOX HAVEN est un espace personnel d’apprentissage pour la Terminale : cours, matières et notes, fiches, flashcards, quiz, carnet d’erreurs, planning et suivi de progression. Son identité associe le calme de **Nox** (la nuit, en latin) à l’idée de refuge portée par **Haven**.
 
@@ -47,3 +47,98 @@ npm run audit:version
 ```
 
 Les audits statiques ne remplacent pas un test réel sur Android, iOS et plusieurs navigateurs.
+
+## Synchronisation multi-appareils — V5.13.0
+
+Cette version prépare le protocole de synchronisation, sans activer de service cloud :
+
+- chaque copie est décrite par un compte, un appareil, une révision, sa révision parente, une date et une empreinte SHA-256 ;
+- les snapshots sont validés avant toute décision ;
+- une seule copie modifiée depuis le dernier point commun peut être proposée à l'envoi ou au téléchargement ;
+- si les deux appareils ont évolué, le protocole signale un conflit et interdit l'écrasement automatique ;
+- un identifiant d'appareil aléatoire peut être généré avec l'API cryptographique du navigateur.
+
+**Limite importante :** aucun compte, serveur distant, stockage cloud, chiffrement de bout en bout ou écran de connexion n'est fourni à ce stade. La synchronisation réelle nécessitera un backend authentifié (API HTTPS, contrôle d'accès par compte, stockage distant, politique de conservation et tests de sécurité). Les données restent locales ; l'export/import reste le moyen de transfert utilisable aujourd'hui.
+
+Test du protocole : `npm run test:sync`.
+
+
+## Parcours pédagogique par chapitre — V5.14.0
+
+Chaque chapitre doté de ressources présente maintenant ses contenus dans des onglets dédiés : cours, fiches de révision, flashcards, quiz, exercices et entraînements de type Bac. Les fiches et sujets sont rendus à partir des données spécifiques du chapitre. Les sujets sont signalés comme originaux et non officiels. Lorsqu'une fiche ou un sujet n'existe pas encore, l'interface l'indique explicitement.
+
+Les fiches personnelles et outils globaux restent accessibles dans leurs espaces historiques pendant cette transition ; leur rattachement éditable à un chapitre sera finalisé dans un lot ultérieur.
+
+
+## Révision intelligente — V6.1.0
+
+Le moteur de planification classe maintenant les besoins de révision selon une urgence explicable : les flashcards en retard gagnent en priorité avec leur ancienneté, les erreurs non commencées passent avant les erreurs déjà travaillées, et les chapitres sans historique ne sont pas présentés comme faibles. Le plan du jour trie les séances candidates avant d'appliquer sa limite, afin qu'un grand nombre de rappels ne masque pas systématiquement les autres besoins.
+
+Le score est une aide à l'organisation, pas une mesure scientifique de maîtrise. Les recommandations reposent uniquement sur les cartes, erreurs et tâches réellement enregistrées.
+
+## Cockpit personnalisé — V6.1.0
+
+- Objectif de moyenne personnel modifiable depuis le cockpit (0 à 20, ou vide pour le retirer), sauvegardé dans les préférences locales.
+- Historique mensuel des notes normales sur les six derniers mois ; les mois sans évaluation restent explicitement vides.
+- Classement des matières selon les moyennes réellement enregistrées, avec nombre d'évaluations et poids.
+- Tests unitaires du calcul de tendance, des performances par matière et de l'écart à l'objectif (`npm run test:dashboard`).
+- Les tendances sont descriptives : elles ne prédisent pas les notes futures.
+
+## V6.1.0 — Audit du programme
+
+- Ajout d’un audit reproductible de la couverture du programme 2026–2027 par matière et chapitre.
+- La bibliothèque distingue le nombre de ressources structurées de la validation pédagogique.
+- Les limites de l’audit sont explicites : présence et volume ne prouvent pas l’exactitude disciplinaire.
+- Commande : `npm run audit:curriculum`.
+
+
+## NOX HAVEN V6.1.0 — finition visuelle
+
+- Palette harmonisée avec l'emblème : bleu nuit, bleu céleste et argent.
+- Métadonnées, version de sauvegarde et cache PWA alignés sur 6.1.0.
+- Conservation du fonctionnement local-first et du mode hors connexion.
+- La synchronisation multi-appareils distante reste à connecter à un service cloud authentifié ; elle n'est pas annoncée comme active dans cette version.
+
+## V6.1.0 — Fondations de synchronisation cloud
+
+- Adaptateur Supabase sans SDK supplémentaire : inscription, connexion, déconnexion, lecture et envoi de sauvegarde.
+- Vérification d'intégrité SHA-256 des instantanés et contrôle de propriété du compte.
+- Schéma SQL avec Row Level Security et politiques limitant chaque compte à ses propres données.
+- Test d'intégration avec serveur simulé (`npm run test:cloud-sync`).
+- Le stockage IndexedDB reste local-first et indépendant.
+
+**Important :** le cloud n'est pas encore activé dans l'interface et aucun projet Supabase réel n'a été configuré. Voir `docs/CLOUD_SYNC_SETUP_V6.1.0.md` et `supabase/schema.sql` avant tout déploiement.
+
+## V6.1.0 — Sauvegarde durable mobile
+
+- Double sauvegarde locale : IndexedDB et miroir localStorage horodaté.
+- Restauration de la copie la plus récente au redémarrage.
+- Préservation du profil validé même si l'application est arrêtée avant la fin d'une transaction IndexedDB.
+- Sauvegarde d'urgence synchrone lorsque l'application passe en arrière-plan ou que la page est fermée.
+- Récupération en mode localStorage si IndexedDB est indisponible ou endommagé.
+- Demande de conservation persistante au navigateur lorsque cette API est disponible.
+- Tests de durabilité dédiés et audit de sauvegarde renforcé.
+
+**Limite :** la double sauvegarde protège les données sur le même navigateur/appareil. Elle ne remplace pas encore la synchronisation cloud multi-appareils. Une exportation régulière reste recommandée, notamment si l'utilisateur efface les données du site ou désinstalle l'application.
+
+### Synchronisation cloud (V6.1.0)
+Consulte `docs/CONFIGURATION-CLOUD-V6.1.md` et exécute `supabase-schema.sql` dans ton projet Supabase avant de configurer `VITE_SUPABASE_URL` et `VITE_SUPABASE_ANON_KEY`. Ne jamais utiliser la clé `service_role` dans le navigateur.
+
+
+## V6.2.0 — Comptes et interface cloud
+
+- Ajout d’une rubrique Compte & synchronisation avec inscription, connexion et déconnexion Supabase.
+- Session cloud conservée au niveau de l’onglet via `sessionStorage` et renouvelée avec le jeton de rafraîchissement ; les jetons ne sont jamais affichés dans l’interface.
+- Comparaison des révisions, envoi de sauvegarde et proposition explicite de restauration distante en cas de divergence.
+- Identifiant d’appareil aléatoire conservé localement.
+- La sauvegarde locale reste indépendante du cloud.
+
+### Configuration nécessaire
+
+1. Créer un projet Supabase personnel.
+2. Exécuter `supabase-schema.sql` dans SQL Editor.
+3. Renseigner `VITE_SUPABASE_URL` et `VITE_SUPABASE_ANON_KEY` dans les variables d’environnement de compilation.
+4. Ne jamais utiliser la clé `service_role` dans le navigateur.
+5. Configurer les URL d’authentification Supabase pour le domaine GitHub Pages utilisé.
+
+**Limites à cette étape :** la session est restaurée dans le même onglet navigateur, mais pas garantie après fermeture complète de l’onglet. La synchronisation distante doit être testée sur un vrai projet Supabase avant d’être considérée comme opérationnelle. Le build de production n’a pas pu être validé dans l’environnement de développement si les dépendances npm ne sont pas installées.
