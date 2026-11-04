@@ -8,7 +8,6 @@ self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
     await cache.addAll([APP_SCOPE, INDEX_URL, new URL('manifest.webmanifest', APP_SCOPE).href]);
-    await self.skipWaiting();
   })());
 });
 
@@ -16,7 +15,6 @@ self.addEventListener('activate', event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
     await Promise.all(keys.filter(key => ALL_APP_CACHES.test(key) && key !== CACHE_NAME).map(key => caches.delete(key)));
-    await self.clients.claim();
   })());
 });
 
