@@ -35,7 +35,7 @@ const subjects = [];
 const subjectPattern = /id:\s*'([^']+)',\s*title:\s*'([^']+)'[\s\S]*?chapters:\s*\[([\s\S]*?)\]\s*\n\s*\}/g;
 for (const match of curriculumText.matchAll(subjectPattern)) {
   const [, id, title, chaptersBlock] = match;
-  const chapters = [...chaptersBlock.matchAll(/c\('([^']+)'\s*,\s*'([^']+)'/g)].map((x) => ({ id: x[1], title: x[2] }));
+  const chapters = [...chaptersBlock.matchAll(/c\('([^']+)'\s*,\s*'([^']+)'/g)].map((x) => ({ id: x[1], title: x[2], status: 'a-verifier' }));
   subjects.push({ id, title, chapters });
 }
 const resourceBlocks = [...resourcesText.matchAll(/^  '([^']+)': \{([\s\S]*?)(?=^  '[^']+': \{|^\};)/gm)];
