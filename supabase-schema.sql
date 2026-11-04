@@ -9,7 +9,7 @@ create table if not exists public.study_snapshots (
   updated_at timestamptz not null default now(),
   checksum text not null check (checksum ~ '^[a-f0-9]{64}$'),
   payload jsonb not null,
-  constraint snapshot_payload_size check (pg_column_size(payload) <= 10485760)
+  constraint snapshot_payload_size check (pg_column_size(payload) <= 52428800)
 );
 alter table public.study_snapshots enable row level security;
 revoke all on public.study_snapshots from anon;
