@@ -15,6 +15,9 @@ const checks = [
   ['visibility-flush', 'Sauvegarde lorsque l’application passe en arrière-plan', /visibilityState==='hidden'/.test(app)],
   ['persistent-storage-request', 'Demande de conservation persistante au navigateur', /requestPersistentStorage\(\)/.test(app)],
   ['fallback-preferences', 'Sauvegarde des préférences en mode de secours', /saveLegacyPreferences\(preferences\)/.test(app)],
+  ['fallback-data-write-status', 'Échec des écritures de secours détectable', /return mirrored \|\| legacySaved/.test(storage)],
+  ['fallback-preferences-write-status', 'Échec des préférences de secours détectable', /return mirrored \|\| legacyWrites\.every\(Boolean\)/.test(storage)],
+  ['fallback-failure-warning', 'Alerte visible si le stockage de secours est saturé', /!saveLegacyData\(data\)/.test(app) && /!saveLegacyPreferences\(preferences\)/.test(app)],
 ];
 const failed = checks.filter(([, , ok]) => !ok);
 console.log(`TEST DURABLE STORAGE — ${checks.length - failed.length}/${checks.length}`);
