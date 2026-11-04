@@ -22,7 +22,7 @@ npm run preview
 
 ## Publier sur GitHub Pages
 
-Le workflow `.github/workflows/deploy.yml` construit automatiquement `dist/` et le publie sur GitHub Pages à chaque push sur `main`. Dans le dépôt GitHub, ouvrir **Settings → Pages** et choisir **GitHub Actions** comme source de déploiement.
+Le workflow `.github/workflows/main.yml` construit `dist/`, exécute les tests automatisés puis publie sur GitHub Pages à chaque push sur `main`. Le workflow `.github/workflows/quality.yml` contrôle aussi les branches de travail sans publier le site. Dans le dépôt GitHub, ouvrir **Settings → Pages** et choisir **GitHub Actions** comme source de déploiement.
 
 Le projet utilise une base Vite relative (`./`) et un manifeste PWA à portée relative, adaptés à une publication dans un dépôt GitHub Pages tel que `https://<utilisateur>.github.io/nox-haven/`.
 
@@ -30,7 +30,7 @@ Le projet utilise une base Vite relative (`./`) et un manifeste PWA à portée r
 
 Après la première visite en ligne, ouvrir le site dans Chrome sur Android puis choisir **Installer l’application** ou **Ajouter à l’écran d’accueil**. Le service worker met en cache l’entrée de l’application et les ressources GET same-origin visitées. Le mode hors ligne dépend donc du chargement préalable des ressources.
 
-Les données restent locales à l’appareil (IndexedDB et préférences locales). L’interface de compte et l’adaptateur cloud sont présents, mais la synchronisation multi-appareils n’est pas active tant qu’un projet Supabase réel n’a pas été configuré et testé. L’export/import de sauvegarde reste le moyen de transfert disponible sans cloud.
+Les données sont d’abord enregistrées localement (IndexedDB et copie de secours). Lorsque les variables publiques `VITE_SUPABASE_URL` et `VITE_SUPABASE_ANON_KEY` sont injectées à la compilation, l’interface Compte permet l’inscription, la connexion et une synchronisation manuelle avec Supabase. La synchronisation automatique en arrière-plan n’est pas implémentée. Le fonctionnement réel doit être validé avec le projet Supabase et deux appareils avant d’être considéré comme prêt. L’export/import reste disponible comme sauvegarde indépendante.
 
 ## Données et compatibilité
 
@@ -105,7 +105,7 @@ Le score est une aide à l'organisation, pas une mesure scientifique de maîtris
 - Test d'intégration avec serveur simulé (`npm run test:cloud-sync`).
 - Le stockage IndexedDB reste local-first et indépendant.
 
-**Important :** le cloud n'est pas encore activé dans l'interface et aucun projet Supabase réel n'a été configuré. Voir `docs/CLOUD_SYNC_SETUP_V6.1.0.md` et `supabase/schema.sql` avant tout déploiement.
+**Important :** l’adaptateur cloud et l’interface sont présents, mais leur disponibilité dépend des variables de compilation et des réglages d’authentification du projet Supabase. Le test automatisé utilise un serveur simulé ; il ne valide pas à lui seul le projet distant. La synchronisation est manuelle et doit être vérifiée sur deux appareils avant livraison.
 
 ## V6.1.0 — Sauvegarde durable mobile
 
@@ -119,8 +119,8 @@ Le score est une aide à l'organisation, pas une mesure scientifique de maîtris
 
 **Limite :** la double sauvegarde protège les données sur le même navigateur/appareil. Elle ne remplace pas encore la synchronisation cloud multi-appareils. Une exportation régulière reste recommandée, notamment si l'utilisateur efface les données du site ou désinstalle l'application.
 
-### Synchronisation cloud (V6.1.0)
-Consulte `docs/CONFIGURATION-CLOUD-V6.1.md` et exécute `supabase-schema.sql` dans ton projet Supabase avant de configurer `VITE_SUPABASE_URL` et `VITE_SUPABASE_ANON_KEY`. Ne jamais utiliser la clé `service_role` dans le navigateur.
+### Synchronisation cloud
+Les deux scripts SQL du dépôt doivent rester cohérents. Le schéma de référence est `supabase/schema.sql`. Ne jamais utiliser la clé `service_role` dans le navigateur.
 
 
 ## V6.2.0 — Comptes et interface cloud
