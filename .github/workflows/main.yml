@@ -42,6 +42,7 @@ jobs:
           test -n "$VITE_SUPABASE_URL"
           test -n "$VITE_SUPABASE_ANON_KEY"
           npm run build
+          npm run test:all
 
       - name: Upload website
         uses: actions/upload-pages-artifact@v4
