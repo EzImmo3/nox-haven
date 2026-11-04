@@ -11,7 +11,7 @@ const checks=[
  ['worker versionné',sw.includes(`noxhaven-shell-v${pkg.version}-`)],
  ['installation met en cache l’entrée',/cache\.addAll\(\[APP_SCOPE, INDEX_URL/.test(sw)],
  ['activation nettoie les anciennes versions',/keys\.filter\(key => ALL_APP_CACHES\.test\(key\) && key !== CACHE_NAME\)/.test(sw)],
- ['prise de contrôle après activation',/self\.clients\.claim\(\)/.test(sw)],
+ ['mise à jour non forcée sur les onglets actifs',!sw.includes('self.skipWaiting()')&&!sw.includes('self.clients.claim()')],
  ['navigation hors ligne',/request\.mode === 'navigate'[\s\S]*caches\.match\(INDEX_URL\)/.test(sw)],
  ['requêtes non-GET ignorées',/request\.method !== 'GET'/.test(sw)],
  ['requêtes externes ignorées',/url\.origin !== self\.location\.origin/.test(sw)],
