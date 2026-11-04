@@ -19,3 +19,6 @@ export function createAccount(email: string, password: string): Promise<{ user: 
 export function getCloudSessionStatus(): { configured: boolean; connected: boolean; user: { id: string; email: string } | null };
 
 export function refreshCloudSession(): Promise<boolean>;
+
+export function readCloudRevision(accountId: string, storage?: Pick<Storage, 'getItem'>): number;
+export function writeCloudRevision(accountId: string, revision: number, storage?: Pick<Storage, 'setItem' | 'removeItem'>): number;
