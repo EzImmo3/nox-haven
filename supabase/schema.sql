@@ -8,7 +8,7 @@ create table if not exists public.study_snapshots (
   updated_at timestamptz not null,
   checksum text not null check (checksum ~ '^[a-f0-9]{64}$'),
   payload jsonb not null,
-  constraint payload_size_limit check (pg_column_size(payload) <= 5000000)
+  constraint payload_size_limit check (pg_column_size(payload) <= 52428800)
 );
 
 alter table public.study_snapshots enable row level security;
