@@ -60,6 +60,29 @@ export function currentCloudUser() {
   return session?.user ? { id: session.user.id, email: session.user.email } : null;
 }
 
+const cloudRevisionStorageKey = accountId => `nox-haven:last-cloud-revision:${accountId}:v1`;
+
+/** Lit le point de synchronisation propre à un compte. Une ancienne clé globale est volontairement ignorée. */
+export function readCloudRevision(accountId, storage = globalThis.localStorage) {
+  if (typeof accountId !== 'string' || !accountId.trim() || !storage) return 0;
+  try {
+    const raw = storage.getItem(cloudRevisionStorageKey(accountId));
+    if (raw === null) return 0;
+    const revision = Number(raw);
+    return Number.isSafeInteger(revision) && revision >= 0 ? revision : 0;
+  } catch { return 0; }
+}
+
+/** Enregistre un point de synchronisation sans le partager entre plusieurs comptes. */
+export function writeCloudRevision(accountId, revision, storage = globalThis.localStorage) {
+  if (typeof accountId !== 'string' || !accountId.trim()) throw new Error('Compte de synchronisation invalide.');
+  if (!Number.isSafeInteger(revision) || revision < 0) throw new Error('Révision de synchronisation invalide.');
+  if (!storage || typeof storage.setItem !== 'function') throw new Error('Stockage local indisponible.');
+  storage.setItem(cloudRevisionStorageKey(accountId), String(revision));
+  try { storage.removeItem('nox-haven:last-cloud-revision:v1'); } catch { /* Ancienne clé globale ignorée si elle ne peut pas être effacée. */ }
+  return revision;
+}
+
 export async function signOut() {
   if (session?.accessToken) {
     try { await request('/auth/v1/logout', { method: 'POST' }, session.accessToken); }
