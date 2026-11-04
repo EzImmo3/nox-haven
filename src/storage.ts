@@ -222,20 +222,24 @@ export async function savePrimaryData(data: StudyData): Promise<void> {
 }
 
 /** Fallback de compatibilité pour navigateurs sans IndexedDB. */
-export function saveLegacyData(data: StudyData): void {
+export function saveLegacyData(data: StudyData): boolean {
   const savedAt = Date.now();
-  writeSnapshot(DATA_MIRROR_KEY, data, savedAt);
-  safeLocalStorageSet(STORAGE_KEY, JSON.stringify(data));
+  const mirrored = writeSnapshot(DATA_MIRROR_KEY, data, savedAt);
+  const legacySaved = safeLocalStorageSet(STORAGE_KEY, JSON.stringify(data));
+  return mirrored || legacySaved;
 }
-export function saveLegacyPreferences(preferences: StudyPreferences): void {
+export function saveLegacyPreferences(preferences: StudyPreferences): boolean {
   const savedAt = Date.now();
-  writeSnapshot(PREFERENCES_MIRROR_KEY, preferences, savedAt);
-  if (preferences.profileReady) safeLocalStorageSet(PROFILE_KEY, 'done');
-  safeLocalStorageSet('studyflow_target_average_v1', preferences.targetAverage === null ? '' : String(preferences.targetAverage));
-  safeLocalStorageSet('studyflow_chapter_progress_v1', JSON.stringify(preferences.chapterProgress));
-  safeLocalStorageSet('studyflow_weekly_goal_v1', String(preferences.weeklyGoal));
-  safeLocalStorageSet('studyflow_daily_capacity_v1', String(preferences.dailyCapacity));
-  safeLocalStorageSet('studyflow_theme', preferences.dark ? 'dark' : 'light');
+  const mirrored = writeSnapshot(PREFERENCES_MIRROR_KEY, preferences, savedAt);
+  const legacyWrites = [
+    safeLocalStorageSet(PROFILE_KEY, preferences.profileReady ? 'done' : ''),
+    safeLocalStorageSet('studyflow_target_average_v1', preferences.targetAverage === null ? '' : String(preferences.targetAverage)),
+    safeLocalStorageSet('studyflow_chapter_progress_v1', JSON.stringify(preferences.chapterProgress)),
+    safeLocalStorageSet('studyflow_weekly_goal_v1', String(preferences.weeklyGoal)),
+    safeLocalStorageSet('studyflow_daily_capacity_v1', String(preferences.dailyCapacity)),
+    safeLocalStorageSet('studyflow_theme', preferences.dark ? 'dark' : 'light'),
+  ];
+  return mirrored || legacyWrites.every(Boolean);
 }
 
 /** Demande au navigateur de protéger les données du nettoyage automatique quand cette API existe. */
