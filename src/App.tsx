@@ -21,7 +21,7 @@ const ask=(label:string,initial='')=>window.prompt(label,initial);
 const subjectName=(d:StudyData,id:string)=>d.subjects.find(s=>s.id===id)?.name??'Matière inconnue';
 const tags=(s:string)=>s.split(',').map(x=>x.trim()).filter(Boolean);
 const cloudRevisionKey=(accountId:string)=>`nox-haven:last-cloud-revision:${accountId}:v1`;
-const readCloudRevision=(accountId:string)=>{const scoped=Number(localStorage.getItem(cloudRevisionKey(accountId)));if(Number.isSafeInteger(scoped)&&scoped>=0)return scoped;const legacy=Number(localStorage.getItem('nox-haven:last-cloud-revision:v1'));return Number.isSafeInteger(legacy)&&legacy>=0?legacy:0;};
+const readCloudRevision=(accountId:string)=>{const scoped=Number(localStorage.getItem(cloudRevisionKey(accountId)));return Number.isSafeInteger(scoped)&&scoped>=0?scoped:0;};
 const writeCloudRevision=(accountId:string,revision:number)=>{localStorage.setItem(cloudRevisionKey(accountId),String(revision));localStorage.removeItem('nox-haven:last-cloud-revision:v1');};
 
 function exportCalendar(tasks:StudyData['tasks'],subjects:StudyData['subjects']){
