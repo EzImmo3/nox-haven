@@ -27,7 +27,13 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
       - name: Build production app
-        run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: |
+          test -n "$VITE_SUPABASE_URL"
+          test -n "$VITE_SUPABASE_ANON_KEY"
+          npm run build
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
