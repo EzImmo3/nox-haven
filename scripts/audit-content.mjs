@@ -55,9 +55,9 @@ const rows = resourceBlocks.map(([, id, block]) => {
   const answerIndexes = [...quizSection.matchAll(/answer\s*:\s*(\d+)/g)].map(m => Number(m[1]));
   const choices = [...quizSection.matchAll(/choices\s*:\s*\[([^\]]*)\]/g)].map(m => [...m[1].matchAll(/['\"]([^'\"]*)['\"]/g)].map(x => x[1]));
   const issues = [];
-  if (flashcards < 10) issues.push(`flashcards ${flashcards}/10 minimum`);
-  if (quiz < 6) issues.push(`quiz ${quiz}/6 minimum`);
-  if (exercises < 4) issues.push(`exercices ${exercises}/4 minimum`);
+  if (flashcards < 30) issues.push(`flashcards ${flashcards}/30 minimum`);
+  if (quiz < 20) issues.push(`quiz ${quiz}/20 minimum`);
+  if (exercises < 10) issues.push(`exercices ${exercises}/10 minimum`);
   if (new Set(fronts).size !== fronts.length) issues.push('flashcards dupliquées');
   if (new Set(questions).size !== questions.length) issues.push('questions dupliquées');
   if (new Set(titles).size !== titles.length) issues.push('titres d’exercices dupliqués');
