@@ -1,7 +1,22 @@
 import assert from 'node:assert/strict';
-import { configureCloudSync, signIn, currentCloudUser, signOut, refreshCloudSession, createCloudSnapshot, checksumPayload, uploadCloudSnapshot, readCloudSnapshot } from '../src/cloudSync.mjs';
+import { configureCloudSync, signIn, currentCloudUser, signOut, refreshCloudSession, createCloudSnapshot, checksumPayload, uploadCloudSnapshot, readCloudSnapshot, readCloudRevision, writeCloudRevision } from '../src/cloudSync.mjs';
 
 const accountId = '11111111-1111-4111-8111-111111111111';
+const revisionValues = new Map();
+const revisionStorage = {
+  getItem: key => revisionValues.has(key) ? revisionValues.get(key) : null,
+  setItem: (key, value) => revisionValues.set(key, String(value)),
+  removeItem: key => revisionValues.delete(key),
+};
+assert.equal(readCloudRevision('account-a', revisionStorage), 0);
+writeCloudRevision('account-a', 7, revisionStorage);
+assert.equal(readCloudRevision('account-a', revisionStorage), 7);
+assert.equal(readCloudRevision('account-b', revisionStorage), 0, 'Les révisions de deux comptes doivent rester indépendantes.');
+revisionStorage.setItem('nox-haven:last-cloud-revision:v1', '99');
+assert.equal(readCloudRevision('account-b', revisionStorage), 0, 'Une ancienne révision globale ne doit pas contaminer un nouveau compte.');
+assert.throws(() => writeCloudRevision('account-a', -1, revisionStorage), /Révision/);
+assert.throws(() => writeCloudRevision('', 1, revisionStorage), /Compte/);
+
 let stored = null;
 let calls = [];
 const fetchMock = async (url, options = {}) => {
@@ -30,4 +45,4 @@ assert.equal(restored.revision, 1);
 assert.ok(calls.every(call => call.options.headers?.apikey === 'public-anon-test-key'));
 await signOut();
 assert.equal(currentCloudUser(), null);
-console.log('Cloud sync adapter: 10 assertions passed. (Mock server only; no real Supabase project contacted.)');
+console.log('Cloud sync adapter and account-scoped revisions: assertions passed. (Mock server only; no real Supabase project contacted.)');
