@@ -62,9 +62,9 @@ for (const subject of subjects) {
     const issues = [];
     if (counts.courseSections < 3) issues.push('cours inférieur à 3 sections');
     if (counts.objectives < 2) issues.push('moins de 2 objectifs');
-    if (counts.flashcards < 10) issues.push('moins de 10 flashcards');
-    if (counts.quiz < 6) issues.push('moins de 6 quiz');
-    if (counts.exercises < 4) issues.push('moins de 4 exercices');
+    if (counts.flashcards < 30) issues.push('moins de 30 flashcards');
+    if (counts.quiz < 20) issues.push('moins de 20 questions de quiz');
+    if (counts.exercises < 10) issues.push('moins de 10 exercices');
     if (counts.sources < 1) issues.push('source institutionnelle absente');
     return { ...chapter, curriculumStatus: chapter.status, resource: true, ...counts, sourceNote: Boolean(getStringField(block, 'sourceNote')), validationStatus: getStringField(block, 'validationStatus') || 'non renseigné', resourceStatus: issues.length ? 'to_review' : 'structured', issues };
   });
@@ -74,6 +74,7 @@ const all = rows.flatMap(x => x.details);
 const report = {
   version: pkg.version,
   schoolYear: '2026-2027',
+  thresholds: { courseSections: 3, objectives: 2, flashcards: 30, quiz: 20, exercises: 10, sources: 1 },
   generatedAt: new Date().toISOString(),
   summary: {
     subjects: subjects.length,
@@ -108,6 +109,7 @@ const lines = [
   `- Ressources de chapitre présentes : ${report.summary.resources}`,
   `- Ressources absentes : ${report.summary.missingResources}`,
   `- Chapitres répondant aux minima structurels : ${report.summary.structuredByMinimums}`,
+  `- Seuils éditoriaux : ${report.thresholds.courseSections} sections de cours, ${report.thresholds.objectives} objectifs, ${report.thresholds.flashcards} flashcards, ${report.thresholds.quiz} questions, ${report.thresholds.exercises} exercices, ${report.thresholds.sources} source`,
   `- Chapitres sous les minima structurels : ${report.summary.chaptersToReview}`,
   `- Chapitres dont le programme reste à vérifier : ${report.summary.chaptersAwaitingCurriculumReview}`,
   `- Sections de cours : ${report.summary.courseSections}`,
