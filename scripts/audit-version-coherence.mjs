@@ -5,7 +5,8 @@ const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 const version = pkg.version;
 const checks = [
   ['package-version', 'package.json', (text) => JSON.parse(text).version === version],
-  ['manifest', 'public/manifest.webmanifest', (text) => text.includes('NOX HAVEN')],
+  ['manifest-name', 'public/manifest.webmanifest', (text) => text.includes('NOX HAVEN')],
+  ['manifest-version', 'public/manifest.webmanifest', (text) => JSON.parse(text).version === version],
   ['service-worker-cache', 'public/sw.js', (text) => text.includes(`noxhaven-shell-v${version}-`)],
   ['backup-export', 'src/App.tsx', (text) => text.includes(`appVersion:'${version}'`)],
   ['footer-version', 'src/App.tsx', (text) => text.includes(`${version}`)],
