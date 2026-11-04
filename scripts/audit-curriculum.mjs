@@ -44,7 +44,7 @@ const rows = [];
 for (const subject of subjects) {
   const chapters = subject.chapters.map((chapter) => {
     const block = resourceMap.get(chapter.id);
-    if (!block) return { ...chapter, resource: false, courseSections: 0, objectives: 0, flashcards: 0, quiz: 0, exercises: 0, sources: 0, status: 'missing' };
+    if (!block) return { ...chapter, curriculumStatus: chapter.status, resource: false, courseSections: 0, objectives: 0, flashcards: 0, quiz: 0, exercises: 0, sources: 0, resourceStatus: 'missing' };
     const course = extractArray(block, 'course');
     const objectives = extractArray(block, 'objectives');
     const cards = extractArray(block, 'flashcards');
@@ -66,9 +66,9 @@ for (const subject of subjects) {
     if (counts.quiz < 6) issues.push('moins de 6 quiz');
     if (counts.exercises < 4) issues.push('moins de 4 exercices');
     if (counts.sources < 1) issues.push('source institutionnelle absente');
-    return { ...chapter, resource: true, ...counts, sourceNote: Boolean(getStringField(block, 'sourceNote')), validationStatus: getStringField(block, 'validationStatus') || 'non renseigné', status: issues.length ? 'to_review' : 'structured', issues };
+    return { ...chapter, curriculumStatus: chapter.status, resource: true, ...counts, sourceNote: Boolean(getStringField(block, 'sourceNote')), validationStatus: getStringField(block, 'validationStatus') || 'non renseigné', resourceStatus: issues.length ? 'to_review' : 'structured', issues };
   });
-  rows.push({ id: subject.id, title: subject.title, chapters: chapters.length, resources: chapters.filter(x => x.resource).length, structured: chapters.filter(x => x.status === 'structured').length, toReview: chapters.filter(x => x.status === 'to_review').length, missing: chapters.filter(x => x.status === 'missing').length, details: chapters });
+  rows.push({ id: subject.id, title: subject.title, chapters: chapters.length, resources: chapters.filter(x => x.resource).length, structured: chapters.filter(x => x.resourceStatus === 'structured').length, toReview: chapters.filter(x => x.resourceStatus === 'to_review').length, missing: chapters.filter(x => x.resourceStatus === 'missing').length, curriculumToVerify: chapters.filter(x => x.curriculumStatus === 'a-verifier').length, details: chapters });
 }
 const all = rows.flatMap(x => x.details);
 const report = {
@@ -81,7 +81,7 @@ const report = {
     resources: all.filter(x => x.resource).length,
     missingResources: all.filter(x => !x.resource).length,
     structuredByMinimums: all.filter(x => x.status === 'structured').length,
-    chaptersToReview: all.filter(x => x.status === 'to_review').length,
+    chaptersToReview: all.filter(x => x.resourceStatus === 'to_review').length,\n    chaptersAwaitingCurriculumReview: all.filter(x => x.curriculumStatus === 'a-verifier').length,
     courseSections: all.reduce((n, x) => n + x.courseSections, 0),
     objectives: all.reduce((n, x) => n + x.objectives, 0),
     flashcards: all.reduce((n, x) => n + x.flashcards, 0),
@@ -107,7 +107,7 @@ const lines = [
   `- Ressources de chapitre présentes : ${report.summary.resources}`,
   `- Ressources absentes : ${report.summary.missingResources}`,
   `- Chapitres répondant aux minima structurels : ${report.summary.structuredByMinimums}`,
-  `- Chapitres à revoir : ${report.summary.chaptersToReview}`,
+  `- Chapitres sous les minima structurels : ${report.summary.chaptersToReview}`,\n  `- Chapitres dont le programme reste à vérifier : ${report.summary.chaptersAwaitingCurriculumReview}`,
   `- Sections de cours : ${report.summary.courseSections}`,
   `- Objectifs : ${report.summary.objectives}`,
   `- Flashcards : ${report.summary.flashcards}`,
@@ -115,11 +115,11 @@ const lines = [
   `- Exercices : ${report.summary.exercises}`,
   `- Chapitres sans source institutionnelle repérée : ${report.summary.chaptersWithoutInstitutionalSource}`,'',
   '## Couverture par matière','',
-  '| Matière | Chapitres | Ressources | Structure minimale | À revoir |',
-  '|---|---:|---:|---:|---:|',
-  ...rows.map(x => `| ${x.title} | ${x.chapters} | ${x.resources} | ${x.structured} | ${x.toReview} |`),'',
+  '| Matière | Chapitres | Ressources | Structure minimale | À revoir | Programme à vérifier |',
+  '|---|---:|---:|---:|---:|---:|',
+  ...rows.map(x => `| ${x.title} | ${x.chapters} | ${x.resources} | ${x.structured} | ${x.toReview} | ${x.curriculumToVerify} |`),'',
   '## Limites','', ...report.limitations.map(x => `- ${x}`),''
 ];
 fs.writeFileSync(path.join('docs', `AUDIT_PROGRAMME_V${pkg.version}.md`), lines.join('\n'));
-console.log(`AUDIT PROGRAMME ${pkg.version} — ${report.summary.resources}/${report.summary.chapters} ressources ; ${report.summary.structuredByMinimums} structures minimales ; ${report.summary.chaptersToReview} à revoir.`);
+console.log(`AUDIT PROGRAMME ${pkg.version} — ${report.summary.resources}/${report.summary.chapters} ressources ; ${report.summary.structuredByMinimums} structures minimales ; ${report.summary.chaptersToReview} sous les minima ; ${report.summary.chaptersAwaitingCurriculumReview} statuts programme à vérifier.`);
 for (const row of rows) console.log(`${row.title}: ${row.resources}/${row.chapters} ressources · ${row.structured} structures minimales · ${row.toReview} à revoir`);
