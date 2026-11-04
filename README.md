@@ -48,7 +48,7 @@ npm run audit:version
 
 Les audits statiques ne remplacent pas un test réel sur Android, iOS et plusieurs navigateurs.
 
-## Synchronisation multi-appareils — V5.13.0
+## Historique — V5.13.0 : fondations du protocole de synchronisation
 
 Cette version prépare le protocole de synchronisation, sans activer de service cloud :
 
@@ -58,7 +58,7 @@ Cette version prépare le protocole de synchronisation, sans activer de service 
 - si les deux appareils ont évolué, le protocole signale un conflit et interdit l'écrasement automatique ;
 - un identifiant d'appareil aléatoire peut être généré avec l'API cryptographique du navigateur.
 
-**Limite importante :** aucun compte, serveur distant, stockage cloud, chiffrement de bout en bout ou écran de connexion n'est fourni à ce stade. La synchronisation réelle nécessitera un backend authentifié (API HTTPS, contrôle d'accès par compte, stockage distant, politique de conservation et tests de sécurité). Les données restent locales ; l'export/import reste le moyen de transfert utilisable aujourd'hui.
+**État à l'époque de V5.13.0 :** cette version historique ne fournissait pas encore de compte ni de stockage distant. Les versions ultérieures ont ajouté un adaptateur Supabase et une interface de compte ; leur disponibilité réelle dépend de la configuration et des tests du projet Supabase.
 
 Test du protocole : `npm run test:sync`.
 
@@ -97,7 +97,7 @@ Le score est une aide à l'organisation, pas une mesure scientifique de maîtris
 - Conservation du fonctionnement local-first et du mode hors connexion.
 - La synchronisation multi-appareils distante reste à connecter à un service cloud authentifié ; elle n'est pas annoncée comme active dans cette version.
 
-## V6.1.0 — Fondations de synchronisation cloud
+## Historique — V6.1.0 : fondations de synchronisation cloud
 
 - Adaptateur Supabase sans SDK supplémentaire : inscription, connexion, déconnexion, lecture et envoi de sauvegarde.
 - Vérification d'intégrité SHA-256 des instantanés et contrôle de propriété du compte.
@@ -105,7 +105,7 @@ Le score est une aide à l'organisation, pas une mesure scientifique de maîtris
 - Test d'intégration avec serveur simulé (`npm run test:cloud-sync`).
 - Le stockage IndexedDB reste local-first et indépendant.
 
-**Important :** l’adaptateur cloud et l’interface sont présents, mais leur disponibilité dépend des variables de compilation et des réglages d’authentification du projet Supabase. Le test automatisé utilise un serveur simulé ; il ne valide pas à lui seul le projet distant. La synchronisation est manuelle et doit être vérifiée sur deux appareils avant livraison.
+**État à l'époque de V6.1.0 :** l’adaptateur existait sous forme de fondation, sans activation de l’interface. Les versions ultérieures ont ajouté les écrans de compte et de synchronisation manuelle. Le test automatisé utilise un serveur simulé ; il ne valide pas à lui seul le projet distant.
 
 ## V6.1.0 — Sauvegarde durable mobile
 
