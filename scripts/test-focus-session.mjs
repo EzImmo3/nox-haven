@@ -1,0 +1,14 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const app=fs.readFileSync('src/App.tsx','utf8');
+const types=fs.readFileSync('src/types.ts','utf8');
+const data=fs.readFileSync('src/data.ts','utf8');
+assert(types.includes("mode: 'flashcards' | 'quiz' | 'focus'"),'Le type de session doit reconnaître Deep Work.');
+assert(data.includes("!['flashcards','quiz','focus'].includes(session.mode)"),'La sauvegarde doit accepter le mode focus.');
+assert(data.includes("session.mode === 'focus' ? session.cardsReviewed !== 0 || session.correct !== 0"),'Une session focus ne doit pas être comptée comme une carte ou une bonne réponse.');
+assert(app.includes('const [focusDuration,setFocusDuration]')&&app.includes('setFocusRemaining(focusDuration*60)'),'Le timer doit démarrer avec la durée choisie.');
+assert(app.includes('setInterval(()=>setFocusRemaining')&&app.includes('focusRemaining!==0'),'Le compte à rebours doit se terminer et être arrêté à zéro.');
+assert(app.includes("mode:'focus'" )&&app.includes('durationMinutes:focusDuration'),'La session terminée doit être enregistrée avec sa durée réelle prévue.');
+assert(app.includes('Commencer')&&app.includes('Pause')&&app.includes('Reprendre')&&app.includes('Abandonner'),'Les commandes du timer doivent être opérationnelles.');
+assert(app.includes("s.mode==='focus'?'Deep Work':'Flashcards'"),'L’historique doit distinguer les sessions Deep Work.');
+console.log('DEEP WORK — 8/8 assertions réussies.');

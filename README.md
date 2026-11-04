@@ -1,8 +1,8 @@
-# NOX HAVEN 6.2.0 — Révise. Comprends. Progresse.
+# NOX HAVEN 6.6.0 — Révise. Comprends. Progresse.
 
-Version de l’application : **6.2.0**.
+Version de l’application : **6.6.0**.
 
-NOX HAVEN est un espace personnel d’apprentissage pour la Terminale : cours, matières et notes, fiches, flashcards, quiz, carnet d’erreurs, planning et suivi de progression. Son identité associe le calme de **Nox** (la nuit, en latin) à l’idée de refuge portée par **Haven**.
+NOX HAVEN est un espace personnel d’apprentissage pour la Terminale : Bibliothèque de cours approfondis, espace Révisions (fiches et flashcards), espace Entraînement (quiz, QCM, exercices et sujets de Bac), notes scolaires, planning et suivi de progression. Son identité associe le calme de **Nox** (la nuit, en latin) à l’idée de refuge portée par **Haven**.
 
 ## Démarrer en local
 
@@ -30,7 +30,7 @@ Le projet utilise une base Vite relative (`./`) et un manifeste PWA à portée r
 
 Après la première visite en ligne, ouvrir le site dans Chrome sur Android puis choisir **Installer l’application** ou **Ajouter à l’écran d’accueil**. Le service worker met en cache l’entrée de l’application et les ressources GET same-origin visitées. Le mode hors ligne dépend donc du chargement préalable des ressources.
 
-Les données restent locales à l’appareil (IndexedDB et préférences locales). **La synchronisation cloud et les comptes utilisateurs ne sont pas implémentés** : l’installation sur un deuxième appareil ne transfère pas automatiquement les données. Utiliser l’export/import de sauvegarde pour déplacer ses données.
+Les données restent locales à l’appareil (IndexedDB et préférences locales). L’interface de compte et l’adaptateur cloud sont présents, mais la synchronisation multi-appareils n’est pas active tant qu’un projet Supabase réel n’a pas été configuré et testé. L’export/import de sauvegarde reste le moyen de transfert disponible sans cloud.
 
 ## Données et compatibilité
 
@@ -63,11 +63,9 @@ Cette version prépare le protocole de synchronisation, sans activer de service 
 Test du protocole : `npm run test:sync`.
 
 
-## Parcours pédagogique par chapitre — V5.14.0
+## Architecture pédagogique actuelle — V6.6.0
 
-Chaque chapitre doté de ressources présente maintenant ses contenus dans des onglets dédiés : cours, fiches de révision, flashcards, quiz, exercices et entraînements de type Bac. Les fiches et sujets sont rendus à partir des données spécifiques du chapitre. Les sujets sont signalés comme originaux et non officiels. Lorsqu'une fiche ou un sujet n'existe pas encore, l'interface l'indique explicitement.
-
-Les fiches personnelles et outils globaux restent accessibles dans leurs espaces historiques pendant cette transition ; leur rattachement éditable à un chapitre sera finalisé dans un lot ultérieur.
+Les ressources sont séparées en trois espaces indépendants : Bibliothèque (cours approfondis uniquement), Révisions (fiches pédagogiques et flashcards) et Entraînement (quiz/QCM, exercices et sujets de Bac). Chaque espace est organisé par matière puis par chapitre. Les notes personnelles restent distinctes des fiches pédagogiques du programme. Les sujets de Bac créés pour l’application sont clairement marqués comme originaux et non officiels.
 
 
 ## Révision intelligente — V6.1.0
@@ -142,3 +140,31 @@ Consulte `docs/CONFIGURATION-CLOUD-V6.1.md` et exécute `supabase-schema.sql` da
 5. Configurer les URL d’authentification Supabase pour le domaine GitHub Pages utilisé.
 
 **Limites à cette étape :** la session est restaurée dans le même onglet navigateur, mais pas garantie après fermeture complète de l’onglet. La synchronisation distante doit être testée sur un vrai projet Supabase avant d’être considérée comme opérationnelle. Le build de production n’a pas pu être validé dans l’environnement de développement si les dépendances npm ne sont pas installées.
+
+
+## V6.6.0 — Réorganisation pédagogique
+
+- Bibliothèque limitée aux cours approfondis, objectifs, points-clés, méthodes et références.
+- Nouvel espace Révisions regroupant fiches et flashcards par matière et chapitre.
+- Nouvel espace Entraînement regroupant quiz/QCM interactifs, exercices corrigés et sujets originaux de type Bac.
+- Navigation desktop et mobile réorganisée ; recherche et filtre par matière dans les deux espaces.
+- Sources institutionnelles ajoutées aux 25 ressources qui n’en avaient pas ; correction d’une référence officielle d’histoire-géographie.
+- Audit programme : 120/120 ressources répondent désormais aux minima structurels de l’audit. Cela ne vaut pas validation disciplinaire.
+- Audit pédagogique : 2 405 QCM, 3 600 flashcards et 1 200 exercices recensés ; les explications courtes et réponses compactes ont été revues selon un audit qui distingue désormais les formules valides des réponses réellement incomplètes.
+- Tests structurels de séparation des espaces : 10/10 assertions réussies.
+
+
+## V6.6.0 — Entraînement et concentration
+
+- QCM interactifs avec ordre de propositions stable et bilan enregistré dans les statistiques.
+- Corrections d’exercices et de sujets accessibles à la demande.
+- Minuteur Deep Work de 15 à 30 minutes avec pause, reprise, abandon et enregistrement d’une session terminée.
+- Les sessions de concentration comptent dans le temps et la régularité, sans fausser les statistiques de cartes ou de réussite.
+
+
+## V6.6.0 — Cockpit et performances
+
+- Le cockpit affiche les priorités de révision du jour et permet de les ajouter au planning.
+- L’objectif hebdomadaire est visible depuis l’accueil.
+- Les ressources pédagogiques sont chargées à la demande afin d’alléger le chargement initial sur mobile et ordinateur.
+- Les chunks pédagogiques sont conservés dans le cache du service worker après leur première consultation.

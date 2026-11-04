@@ -97,7 +97,7 @@ export function migrateData(value: unknown): StudyData {
   }
   const sessionIds = new Set<string>();
   for (const session of sessions) {
-    if (!isRecord(session) || typeof session.id !== 'string' || !session.id.trim() || sessionIds.has(session.id) || typeof session.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(session.date) || typeof session.startedAt !== 'string' || Number.isNaN(Date.parse(session.startedAt)) || !Number.isInteger(session.durationMinutes) || session.durationMinutes < 0 || !Number.isInteger(session.cardsReviewed) || session.cardsReviewed < 1 || !Number.isInteger(session.correct) || session.correct < 0 || session.correct > session.cardsReviewed || !['flashcards','quiz'].includes(session.mode)) throw new Error('Session de révision invalide dans la sauvegarde.');
+    if (!isRecord(session) || typeof session.id !== 'string' || !session.id.trim() || sessionIds.has(session.id) || typeof session.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(session.date) || typeof session.startedAt !== 'string' || Number.isNaN(Date.parse(session.startedAt)) || !Number.isInteger(session.durationMinutes) || session.durationMinutes < 0 || !Number.isInteger(session.cardsReviewed) || session.cardsReviewed < 0 || !Number.isInteger(session.correct) || session.correct < 0 || !['flashcards','quiz','focus'].includes(session.mode) || (session.mode === 'focus' ? session.cardsReviewed !== 0 || session.correct !== 0 : session.cardsReviewed < 1 || session.correct > session.cardsReviewed)) throw new Error('Session de révision invalide dans la sauvegarde.');
     sessionIds.add(session.id);
   }
   const taskIds = new Set<string>();

@@ -1,0 +1,608 @@
+{
+  "chapters": [
+    {
+      "id": "philo-art",
+      "words": 340,
+      "sections": 5
+    },
+    {
+      "id": "philo-langage",
+      "words": 465,
+      "sections": 6
+    },
+    {
+      "id": "maths-derivee",
+      "words": 345,
+      "sections": 5
+    },
+    {
+      "id": "maths-limites",
+      "words": 358,
+      "sections": 5
+    },
+    {
+      "id": "maths-suites",
+      "words": 411,
+      "sections": 5
+    },
+    {
+      "id": "maths-continuite",
+      "words": 361,
+      "sections": 5
+    },
+    {
+      "id": "ses-croissance",
+      "words": 464,
+      "sections": 5
+    },
+    {
+      "id": "mexp-complexes",
+      "words": 450,
+      "sections": 5
+    },
+    {
+      "id": "maths-log",
+      "words": 364,
+      "sections": 5
+    },
+    {
+      "id": "maths-primitives",
+      "words": 348,
+      "sections": 5
+    },
+    {
+      "id": "maths-integrales",
+      "words": 338,
+      "sections": 5
+    },
+    {
+      "id": "maths-espace",
+      "words": 365,
+      "sections": 5
+    },
+    {
+      "id": "maths-orthogonalite",
+      "words": 342,
+      "sections": 5
+    },
+    {
+      "id": "maths-parametrique",
+      "words": 350,
+      "sections": 5
+    },
+    {
+      "id": "maths-bernoulli",
+      "words": 342,
+      "sections": 5
+    },
+    {
+      "id": "maths-binomial",
+      "words": 358,
+      "sections": 5
+    },
+    {
+      "id": "maths-concentration",
+      "words": 338,
+      "sections": 5
+    },
+    {
+      "id": "maths-algo",
+      "words": 332,
+      "sections": 5
+    },
+    {
+      "id": "hg-h1",
+      "words": 382,
+      "sections": 5
+    },
+    {
+      "id": "emc-theme",
+      "words": 439,
+      "sections": 5
+    },
+    {
+      "id": "es-climat",
+      "words": 498,
+      "sections": 6
+    },
+    {
+      "id": "pc-composition",
+      "words": 526,
+      "sections": 5
+    },
+    {
+      "id": "pc-evolution",
+      "words": 546,
+      "sections": 5
+    },
+    {
+      "id": "pc-etat-final",
+      "words": 560,
+      "sections": 5
+    },
+    {
+      "id": "pc-synthese",
+      "words": 545,
+      "sections": 5
+    },
+    {
+      "id": "pc-electricite",
+      "words": 645,
+      "sections": 5
+    },
+    {
+      "id": "pc-mouvement",
+      "words": 382,
+      "sections": 5
+    },
+    {
+      "id": "pc-forces",
+      "words": 383,
+      "sections": 5
+    },
+    {
+      "id": "pc-fluides",
+      "words": 453,
+      "sections": 6
+    },
+    {
+      "id": "pc-energie",
+      "words": 441,
+      "sections": 6
+    },
+    {
+      "id": "pc-ondes",
+      "words": 338,
+      "sections": 5
+    },
+    {
+      "id": "pc-lumiere",
+      "words": 370,
+      "sections": 5
+    },
+    {
+      "id": "ses-commerce",
+      "words": 755,
+      "sections": 5
+    },
+    {
+      "id": "ses-chomage",
+      "words": 649,
+      "sections": 5
+    },
+    {
+      "id": "ses-finance",
+      "words": 623,
+      "sections": 5
+    },
+    {
+      "id": "philo-bonheur",
+      "words": 409,
+      "sections": 5
+    },
+    {
+      "id": "philo-verite",
+      "words": 396,
+      "sections": 5
+    },
+    {
+      "id": "philo-justice",
+      "words": 388,
+      "sections": 5
+    },
+    {
+      "id": "philo-liberte",
+      "words": 328,
+      "sections": 5
+    },
+    {
+      "id": "philo-conscience",
+      "words": 457,
+      "sections": 6
+    },
+    {
+      "id": "philo-devoir",
+      "words": 444,
+      "sections": 6
+    },
+    {
+      "id": "philo-etat",
+      "words": 454,
+      "sections": 6
+    },
+    {
+      "id": "philo-inconscient",
+      "words": 453,
+      "sections": 6
+    },
+    {
+      "id": "philo-nature",
+      "words": 436,
+      "sections": 6
+    },
+    {
+      "id": "philo-raison",
+      "words": 416,
+      "sections": 6
+    },
+    {
+      "id": "philo-religion",
+      "words": 415,
+      "sections": 6
+    },
+    {
+      "id": "philo-science",
+      "words": 421,
+      "sections": 6
+    },
+    {
+      "id": "philo-technique",
+      "words": 427,
+      "sections": 6
+    },
+    {
+      "id": "philo-temps",
+      "words": 413,
+      "sections": 6
+    },
+    {
+      "id": "philo-travail",
+      "words": 420,
+      "sections": 6
+    },
+    {
+      "id": "hggsp-t1",
+      "words": 334,
+      "sections": 5
+    },
+    {
+      "id": "hggsp-t2",
+      "words": 477,
+      "sections": 6
+    },
+    {
+      "id": "hggsp-t3",
+      "words": 326,
+      "sections": 5
+    },
+    {
+      "id": "hggsp-t4",
+      "words": 445,
+      "sections": 6
+    },
+    {
+      "id": "hggsp-t5",
+      "words": 431,
+      "sections": 6
+    },
+    {
+      "id": "hggsp-t6",
+      "words": 325,
+      "sections": 5
+    },
+    {
+      "id": "hg-h2",
+      "words": 338,
+      "sections": 6
+    },
+    {
+      "id": "hg-h3",
+      "words": 331,
+      "sections": 6
+    },
+    {
+      "id": "hg-h4",
+      "words": 322,
+      "sections": 6
+    },
+    {
+      "id": "hg-g1",
+      "words": 330,
+      "sections": 6
+    },
+    {
+      "id": "hg-g2",
+      "words": 361,
+      "sections": 6
+    },
+    {
+      "id": "hg-g3",
+      "words": 355,
+      "sections": 6
+    },
+    {
+      "id": "hg-g4",
+      "words": 320,
+      "sections": 6
+    },
+    {
+      "id": "emc-espaces",
+      "words": 308,
+      "sections": 6
+    },
+    {
+      "id": "emc-institutions",
+      "words": 305,
+      "sections": 6
+    },
+    {
+      "id": "emc-information",
+      "words": 326,
+      "sections": 6
+    },
+    {
+      "id": "emc-medias",
+      "words": 336,
+      "sections": 6
+    },
+    {
+      "id": "ses-europe",
+      "words": 439,
+      "sections": 6
+    },
+    {
+      "id": "ses-structure",
+      "words": 418,
+      "sections": 6
+    },
+    {
+      "id": "ses-ecole",
+      "words": 398,
+      "sections": 6
+    },
+    {
+      "id": "ses-mobilite",
+      "words": 395,
+      "sections": 6
+    },
+    {
+      "id": "ses-travail",
+      "words": 391,
+      "sections": 6
+    },
+    {
+      "id": "ses-engagement",
+      "words": 379,
+      "sections": 6
+    },
+    {
+      "id": "ses-justice",
+      "words": 409,
+      "sections": 6
+    },
+    {
+      "id": "ses-environnement",
+      "words": 399,
+      "sections": 6
+    },
+    {
+      "id": "mexp-arithmetique",
+      "words": 355,
+      "sections": 6
+    },
+    {
+      "id": "mexp-graphes",
+      "words": 349,
+      "sections": 6
+    },
+    {
+      "id": "mexp-algo",
+      "words": 340,
+      "sections": 6
+    },
+    {
+      "id": "svt-genetique",
+      "words": 663,
+      "sections": 5
+    },
+    {
+      "id": "svt-temps",
+      "words": 693,
+      "sections": 5
+    },
+    {
+      "id": "svt-plantes",
+      "words": 688,
+      "sections": 5
+    },
+    {
+      "id": "svt-climat",
+      "words": 713,
+      "sections": 5
+    },
+    {
+      "id": "svt-comportement",
+      "words": 673,
+      "sections": 5
+    },
+    {
+      "id": "svt-muscle",
+      "words": 688,
+      "sections": 5
+    },
+    {
+      "id": "svt-stress",
+      "words": 693,
+      "sections": 5
+    },
+    {
+      "id": "svt-methodes",
+      "words": 688,
+      "sections": 5
+    },
+    {
+      "id": "es-energie",
+      "words": 424,
+      "sections": 6
+    },
+    {
+      "id": "es-vivant",
+      "words": 409,
+      "sections": 6
+    },
+    {
+      "id": "es-demarche",
+      "words": 409,
+      "sections": 6
+    },
+    {
+      "id": "en-reception",
+      "words": 377,
+      "sections": 6
+    },
+    {
+      "id": "en-production",
+      "words": 394,
+      "sections": 6
+    },
+    {
+      "id": "en-interaction",
+      "words": 403,
+      "sections": 6
+    },
+    {
+      "id": "en-axes",
+      "words": 370,
+      "sections": 6
+    },
+    {
+      "id": "en-methodes",
+      "words": 386,
+      "sections": 6
+    },
+    {
+      "id": "espa-reception",
+      "words": 389,
+      "sections": 6
+    },
+    {
+      "id": "espa-production",
+      "words": 384,
+      "sections": 6
+    },
+    {
+      "id": "espa-interaction",
+      "words": 389,
+      "sections": 6
+    },
+    {
+      "id": "espa-axes",
+      "words": 372,
+      "sections": 6
+    },
+    {
+      "id": "espa-methodes",
+      "words": 407,
+      "sections": 6
+    },
+    {
+      "id": "de-reception",
+      "words": 368,
+      "sections": 6
+    },
+    {
+      "id": "de-production",
+      "words": 386,
+      "sections": 6
+    },
+    {
+      "id": "de-interaction",
+      "words": 390,
+      "sections": 6
+    },
+    {
+      "id": "de-axes",
+      "words": 364,
+      "sections": 6
+    },
+    {
+      "id": "de-methodes",
+      "words": 386,
+      "sections": 6
+    },
+    {
+      "id": "eps-moteur",
+      "words": 401,
+      "sections": 6
+    },
+    {
+      "id": "eps-entrainement",
+      "words": 409,
+      "sections": 6
+    },
+    {
+      "id": "eps-sante",
+      "words": 425,
+      "sections": 6
+    },
+    {
+      "id": "eps-responsabilite",
+      "words": 433,
+      "sections": 6
+    },
+    {
+      "id": "eps-culture",
+      "words": 413,
+      "sections": 6
+    },
+    {
+      "id": "philo-methodes",
+      "words": 444,
+      "sections": 6
+    },
+    {
+      "id": "hg-methodes",
+      "words": 443,
+      "sections": 6
+    },
+    {
+      "id": "hggsp-methodes",
+      "words": 439,
+      "sections": 6
+    },
+    {
+      "id": "ses-methodes",
+      "words": 434,
+      "sections": 6
+    },
+    {
+      "id": "mcomp-modeles",
+      "words": 441,
+      "sections": 6
+    },
+    {
+      "id": "mcomp-suites",
+      "words": 446,
+      "sections": 6
+    },
+    {
+      "id": "mcomp-exponentielle",
+      "words": 447,
+      "sections": 6
+    },
+    {
+      "id": "mcomp-integration",
+      "words": 428,
+      "sections": 6
+    },
+    {
+      "id": "mcomp-proba",
+      "words": 426,
+      "sections": 6
+    },
+    {
+      "id": "mcomp-stat",
+      "words": 413,
+      "sections": 6
+    },
+    {
+      "id": "mcomp-algo",
+      "words": 436,
+      "sections": 6
+    }
+  ],
+  "averageWords": 426,
+  "minimumWords": 305,
+  "threshold": 300,
+  "belowThreshold": []
+}

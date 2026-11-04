@@ -74,6 +74,12 @@ for (const [id, resource] of Object.entries(CHAPTER_RESOURCES)) {
 const subject = { id: 'maths-spe', name: 'Mathématiques', category: 'specialite', weight: 1, includeInAverage: true, active: true, calculationMode: 'normal', bonusThreshold: 10, bonusCoefficient: 1 };
 const validBackup = { version: 3, subjects: [subject], grades: [], notes: [], flashcards: [], errors: [], sessions: [], tasks: [] };
 assert(migrateData(validBackup).version === 3, 'Une sauvegarde valide doit être migrée.');
+const focusSession = { id:'focus-1', date:'2026-11-04', startedAt:'2026-11-04T10:00:00.000Z', durationMinutes:25, cardsReviewed:0, correct:0, mode:'focus' };
+assert(migrateData({ ...validBackup, sessions:[focusSession] }).sessions[0].mode === 'focus', 'Une session Deep Work valide doit être conservée dans les sauvegardes.');
+let invalidFocusRejected=false;try{migrateData({ ...validBackup, sessions:[{ ...focusSession, cardsReviewed:1 }] });}catch{invalidFocusRejected=true;}
+assert(invalidFocusRejected, 'Une session Deep Work ne doit pas compter de cartes ni de réponses correctes.');
+const focusSummary=getWeeklyLearningSummary([focusSession],'2026-11-04');
+assert(focusSummary.sessions===1&&focusSummary.minutes===25&&focusSummary.cardsReviewed===0&&focusSummary.accuracy===null, 'Le Deep Work doit compter dans le temps et les séances, sans fausser le taux de réussite.');
 assert(isValidDateKey('2026-11-01') && !isValidDateKey('2026-02-31') && !isValidDateKey('2026-2-01'), 'La validation des dates doit rejeter les dates impossibles et les formats non canoniques.');
 let rejected = false;
 try { migrateData({ ...validBackup, sessions: [{ id: 'bad', date: '2026-11-01', startedAt: 'not-a-date', durationMinutes: -1, cardsReviewed: 0, correct: 2, mode: 'quiz' }] }); } catch { rejected = true; }

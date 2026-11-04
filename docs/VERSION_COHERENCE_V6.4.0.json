@@ -1,0 +1,51 @@
+{
+  "version": "6.4.0",
+  "generatedAt": "2026-11-04T01:39:49.298Z",
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "total": 8
+  },
+  "results": [
+    {
+      "id": "package-version",
+      "file": "package.json",
+      "ok": true
+    },
+    {
+      "id": "manifest",
+      "file": "public/manifest.webmanifest",
+      "ok": true
+    },
+    {
+      "id": "service-worker-cache",
+      "file": "public/sw.js",
+      "ok": true
+    },
+    {
+      "id": "backup-export",
+      "file": "src/App.tsx",
+      "ok": true
+    },
+    {
+      "id": "footer-version",
+      "file": "src/App.tsx",
+      "ok": true
+    },
+    {
+      "id": "html-title",
+      "file": "index.html",
+      "ok": true
+    },
+    {
+      "id": "readme-heading",
+      "file": "README.md",
+      "ok": true
+    },
+    {
+      "id": "readme-changelog",
+      "file": "README.md",
+      "ok": true
+    }
+  ]
+}

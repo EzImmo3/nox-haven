@@ -1,0 +1,1221 @@
+{
+  "version": "6.5.0",
+  "generatedAt": "2026-11-04T01:42:50.568Z",
+  "summary": {
+    "chapters": 120,
+    "quizQuestions": 2405,
+    "shortExplanations": 0,
+    "duplicateQuestions": 0,
+    "flashcards": 3600,
+    "weakFlashcards": 0,
+    "exercises": 1200
+  },
+  "chapters": [
+    {
+      "id": "philo-art",
+      "title": "L’art",
+      "quiz": 21,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-langage",
+      "title": "Le langage",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "maths-derivee",
+      "title": "Compléments sur la dérivation",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "maths-limites",
+      "title": "Limites de fonctions",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "maths-suites",
+      "title": "Suites numériques",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "maths-continuite",
+      "title": "Continuité des fonctions d’une variable réelle",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "ses-croissance",
+      "title": "Quels sont les sources et les défis de la croissance économique ?",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mexp-complexes",
+      "title": "Nombres complexes",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "maths-log",
+      "title": "Fonction logarithme",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "maths-primitives",
+      "title": "Primitives et équations différentielles",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "maths-integrales",
+      "title": "Calcul intégral",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "maths-espace",
+      "title": "Manipulation des vecteurs, droites et plans de l’espace",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "maths-orthogonalite",
+      "title": "Orthogonalité et distances dans l’espace",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "maths-parametrique",
+      "title": "Représentations paramétriques et équations cartésiennes",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "maths-bernoulli",
+      "title": "Succession d’épreuves indépendantes et schéma de Bernoulli",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "maths-binomial",
+      "title": "Loi binomiale",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "maths-concentration",
+      "title": "Sommes de variables aléatoires et concentration",
+      "quiz": 21,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "maths-algo",
+      "title": "Algorithmique et programmation",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hg-h1",
+      "title": "Fragilités des démocraties, totalitarismes et Seconde Guerre mondiale (1929-1945)",
+      "quiz": 23,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "emc-theme",
+      "title": "La vie démocratique : débat, délibération et prise de décision",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "es-climat",
+      "title": "Science, climat et société",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "pc-composition",
+      "title": "Déterminer la composition d’un système par des méthodes physiques et chimiques",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "pc-evolution",
+      "title": "Modéliser l’évolution temporelle d’un système, siège d’une transformation",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "pc-etat-final",
+      "title": "Prévoir l’état final d’un système, siège d’une transformation chimique",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "pc-synthese",
+      "title": "Élaborer des stratégies en synthèse organique",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "pc-electricite",
+      "title": "Étudier les circuits électriques et les signaux",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "pc-mouvement",
+      "title": "Décrire un mouvement",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "pc-forces",
+      "title": "Relier les actions appliquées à un système à son mouvement",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "pc-fluides",
+      "title": "Modéliser l’écoulement d’un fluide",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "pc-energie",
+      "title": "Décrire les phénomènes énergétiques",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "pc-ondes",
+      "title": "Caractériser les phénomènes ondulatoires",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "pc-lumiere",
+      "title": "Former des images et étudier la lumière",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "ses-commerce",
+      "title": "Quels sont les fondements du commerce international et de l’internationalisation de la production ?",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "ses-chomage",
+      "title": "Comment lutter contre le chômage ?",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "ses-finance",
+      "title": "Comment expliquer les crises financières et réguler le système financier ?",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-bonheur",
+      "title": "Le bonheur",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-verite",
+      "title": "La vérité",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-justice",
+      "title": "La justice",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-liberte",
+      "title": "La liberté",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-conscience",
+      "title": "La conscience",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-devoir",
+      "title": "Le devoir",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-etat",
+      "title": "L’État",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-inconscient",
+      "title": "L’inconscient",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-nature",
+      "title": "La nature",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-raison",
+      "title": "La raison",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-religion",
+      "title": "La religion",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-science",
+      "title": "La science",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-technique",
+      "title": "La technique",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-temps",
+      "title": "Le temps",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-travail",
+      "title": "Le travail",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hggsp-t1",
+      "title": "De nouveaux espaces de conquête",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hggsp-t2",
+      "title": "Faire la guerre, faire la paix",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hggsp-t3",
+      "title": "Histoire et mémoires",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hggsp-t4",
+      "title": "Identifier, protéger et valoriser le patrimoine",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hggsp-t5",
+      "title": "L’environnement, entre exploitation et protection",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hggsp-t6",
+      "title": "L’enjeu de la connaissance",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hg-h2",
+      "title": "La multiplication des acteurs internationaux dans un monde bipolaire (1945-1970)",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hg-h3",
+      "title": "Les remises en cause économiques, politiques et sociales des années 1970 à 1991",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hg-h4",
+      "title": "Le monde, l’Europe et la France depuis les années 1990",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hg-g1",
+      "title": "Mers et océans au cœur de la mondialisation",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hg-g2",
+      "title": "Dynamiques territoriales, coopérations et tensions dans la mondialisation",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hg-g3",
+      "title": "L’Union européenne dans la mondialisation : des dynamiques complexes",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hg-g4",
+      "title": "La France et ses régions dans l’Union européenne et dans la mondialisation",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "emc-espaces",
+      "title": "Les principes et les espaces du débat démocratique",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "emc-institutions",
+      "title": "La délibération dans les institutions",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "emc-information",
+      "title": "La place des discours scientifiques et leur réception dans l’opinion : le changement climatique",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "emc-medias",
+      "title": "Sondages, fiabilité des sources et débats sur les réseaux sociaux",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "ses-europe",
+      "title": "Quelles politiques économiques dans le cadre européen ?",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "ses-structure",
+      "title": "Comment est structurée la société française actuelle ?",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "ses-ecole",
+      "title": "Quelle est l’action de l’École sur les destins individuels et sur l’évolution de la société ?",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "ses-mobilite",
+      "title": "Quels sont les caractéristiques contemporaines et les facteurs de la mobilité sociale ?",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "ses-travail",
+      "title": "Quelles mutations du travail et de l’emploi ?",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "ses-engagement",
+      "title": "Comment expliquer l’engagement politique dans les sociétés démocratiques ?",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "ses-justice",
+      "title": "Quelles inégalités sont compatibles avec les différentes conceptions de la justice sociale ?",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "ses-environnement",
+      "title": "Quelle action publique pour l’environnement ?",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mexp-arithmetique",
+      "title": "Arithmétique",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mexp-graphes",
+      "title": "Graphes et matrices",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mexp-algo",
+      "title": "Algorithmique et programmation — Mathématiques expertes",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "svt-genetique",
+      "title": "Génétique et évolution",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "svt-temps",
+      "title": "À la recherche du passé géologique de notre planète",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "svt-plantes",
+      "title": "De la plante sauvage à la plante domestiquée",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "svt-climat",
+      "title": "Les climats de la Terre : comprendre le passé pour agir aujourd’hui et demain",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "svt-comportement",
+      "title": "Comportements, mouvement et système nerveux",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "svt-muscle",
+      "title": "Produire le mouvement : contraction musculaire et apport d’énergie",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "svt-stress",
+      "title": "Comportements et stress : vers une vision intégrée de l’organisme",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "svt-methodes",
+      "title": "Méthodes : démarche scientifique, exploitation de données et schémas",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "es-energie",
+      "title": "Le futur des énergies",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "es-vivant",
+      "title": "Une histoire du vivant",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "es-demarche",
+      "title": "Démarche scientifique, données et esprit critique",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "en-reception",
+      "title": "English — Terminale LVA — Comprendre un document oral ou écrit",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "en-production",
+      "title": "English — Terminale LVA — S’exprimer à l’oral et à l’écrit",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "en-interaction",
+      "title": "English — Terminale LVA — Interagir et prendre part à un échange",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "en-axes",
+      "title": "English — Terminale LVA — Analyser les enjeux culturels du monde contemporain",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "en-methodes",
+      "title": "English — Terminale LVA — Méthodes et stratégies de communication",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "espa-reception",
+      "title": "Español — Terminale LVB — Comprendre un document oral ou écrit",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "espa-production",
+      "title": "Español — Terminale LVB — S’exprimer à l’oral et à l’écrit",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "espa-interaction",
+      "title": "Español — Terminale LVB — Interagir et prendre part à un échange",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "espa-axes",
+      "title": "Español — Terminale LVB — Analyser les enjeux culturels du monde contemporain",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "espa-methodes",
+      "title": "Español — Terminale LVB — Méthodes et stratégies de communication",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "de-reception",
+      "title": "Deutsch — Terminale LVB — Comprendre un document oral ou écrit",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "de-production",
+      "title": "Deutsch — Terminale LVB — S’exprimer à l’oral et à l’écrit",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "de-interaction",
+      "title": "Deutsch — Terminale LVB — Interagir et prendre part à un échange",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "de-axes",
+      "title": "Deutsch — Terminale LVB — Analyser les enjeux culturels du monde contemporain",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "de-methodes",
+      "title": "Deutsch — Terminale LVB — Méthodes et stratégies de communication",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "eps-moteur",
+      "title": "Développer sa motricité",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "eps-entrainement",
+      "title": "S’entraîner individuellement et collectivement",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "eps-sante",
+      "title": "Préserver sa santé",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "eps-responsabilite",
+      "title": "Assumer des rôles et responsabilités",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "eps-culture",
+      "title": "Accéder au patrimoine culturel sportif",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "philo-methodes",
+      "title": "Méthodes : dissertation et explication de texte",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hg-methodes",
+      "title": "Méthodes : composition, étude critique de documents et croquis",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "hggsp-methodes",
+      "title": "Méthodes : dissertation, étude critique de document et oral",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "ses-methodes",
+      "title": "Méthodes : raisonnement, dissertation, épreuve composée et exploitation de documents",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mcomp-modeles",
+      "title": "Modèles définis par des fonctions",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mcomp-suites",
+      "title": "Suites numériques",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mcomp-exponentielle",
+      "title": "Fonction exponentielle et logarithme",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mcomp-integration",
+      "title": "Calcul intégral et primitives",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mcomp-proba",
+      "title": "Probabilités et variables aléatoires",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mcomp-stat",
+      "title": "Statistiques et échantillonnage",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    },
+    {
+      "id": "mcomp-algo",
+      "title": "Algorithmique et programmation",
+      "quiz": 20,
+      "shortExplanations": 0,
+      "duplicateQuestions": 0,
+      "flashcards": 30,
+      "weakFlashcards": 0,
+      "exercises": 10
+    }
+  ],
+  "issues": [],
+  "limitations": [
+    "Audit lexical et structurel : ne vérifie pas la justesse disciplinaire ni la qualité didactique réelle.",
+    "Les explications de calcul compactes sont acceptées lorsqu’elles indiquent une opération vérifiable ; les formules seules sont distinguées des explications verbales.",
+    "Une relecture humaine reste nécessaire pour valider les notions, les corrections et les attendus du programme."
+  ]
+}

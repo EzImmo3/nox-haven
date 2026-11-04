@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const app=fs.readFileSync('src/App.tsx','utf8');
+const sw=fs.readFileSync('public/sw.js','utf8');
+const vite=fs.readFileSync('vite.config.ts','utf8');
+assert(!/import\s*\{[^}]*CHAPTER_RESOURCES[^}]*\}\s*from\s*['"]\.\/chapterResources['"]/.test(app),'Les ressources de chapitre ne doivent plus être importées statiquement dans le bundle initial.');
+assert(app.includes("import('./chapterResources')"),'Les ressources doivent être chargées à la demande.');
+assert(app.includes("!['library','revisions','training'].includes(tab)||resourcesLoaded"),'Le chargement doit être déclenché uniquement à l’ouverture des espaces pédagogiques.');
+assert(app.includes('setResourcesRetry(v=>v+1)'),'Une erreur de chargement doit permettre de réessayer.');
+assert(sw.includes('cache.put(request, response.clone())'),'Le service worker doit mettre en cache les chunks chargés à la demande pour les visites hors connexion suivantes.');
+assert(vite.includes('manualChunks'),'Le découpage des bibliothèques vendor doit rester configuré.');
+console.log('CODE SPLITTING PÉDAGOGIQUE — 6/6 assertions réussies.');

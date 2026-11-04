@@ -353,3 +353,25 @@ html{scroll-behavior:smooth;color-scheme:dark light}
 button,a,input,select,textarea{ -webkit-tap-highlight-color:transparent }
 @media(hover:hover) and (pointer:fine){.panel,.stat-card,.chapter-sheet-card,.chapter-exam-card{transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease}.panel:hover,.stat-card:hover{border-color:rgba(56,189,248,.28)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* NOX HAVEN V6.4 — architecture pédagogique en trois espaces */
+.resource-hub-toolbar{display:grid;grid-template-columns:minmax(180px,.8fr) minmax(220px,1.5fr) auto;align-items:end;gap:14px;margin-bottom:18px;padding:16px}
+.resource-hub-toolbar .field-label{margin:0}.resource-hub-toolbar .search-box{min-height:42px}.resource-hub-subject{margin:0 0 16px;padding:clamp(14px,2vw,20px)}
+.resource-hub-subject>.panel-heading{margin-bottom:10px}.resource-hub-subject>.panel-heading h2{margin:6px 0}.resource-hub-chapters{display:grid;gap:9px}
+.resource-hub-chapter{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:var(--surface)}
+.resource-hub-chapter-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 15px;text-align:left;border:0;background:transparent;color:var(--text);cursor:pointer}
+.resource-hub-chapter-toggle>span:first-child{display:grid;gap:5px;min-width:0}.resource-hub-chapter-toggle strong{font-size:13px;line-height:1.45}.resource-hub-chapter-toggle small{font-size:10px;color:var(--muted)}
+.resource-hub-count{display:flex;align-items:center;gap:5px;flex-shrink:0;font-size:11px;color:var(--muted)}
+.resource-hub-chapter-toggle[aria-expanded=true]{background:var(--surface-soft,var(--bg));border-bottom:1px solid var(--line)}
+.resource-hub-content{padding:clamp(12px,2vw,20px)}.resource-hub-content .learning-section{margin:0 0 22px}.resource-hub-content .learning-section:last-child{margin-bottom:0}
+.resource-hub-content details.learning-question{padding:12px 14px;margin:9px 0;border:1px solid var(--line);border-radius:11px;background:var(--surface)}
+.resource-hub-content details>summary{cursor:pointer;line-height:1.55}.resource-hub-content details>summary::marker{color:var(--accent)}
+.resource-hub-content .correct-choice{font-weight:700;color:var(--success,#16a34a)}.resource-hub-content .answer-correct{padding:10px 12px;border-radius:9px;background:var(--surface-soft,var(--bg));line-height:1.6}
+.course-deep-section{padding:4px 0 16px;margin-bottom:14px;border-bottom:1px solid var(--line)}.course-deep-section:last-child{border-bottom:0}.course-deep-section p{line-height:1.8;max-width:88ch}
+.course-example{padding:13px 15px;margin-top:12px;border-left:3px solid var(--accent);border-radius:0 10px 10px 0;background:var(--surface-soft,var(--bg))}
+@media(max-width:760px){.resource-hub-toolbar{grid-template-columns:1fr}.resource-hub-toolbar .muted-count{justify-self:start}.resource-hub-chapter-toggle{padding:13px 12px}.resource-hub-content{padding:11px}.resource-hub-subject{padding:12px}}
+.resource-quiz-options{display:grid;gap:8px;margin:12px 0}.resource-quiz-options label{display:flex;align-items:flex-start;gap:9px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;line-height:1.5;cursor:pointer}.resource-quiz-options input{margin-top:3px;accent-color:var(--accent)}
+.training-save-result{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px}.training-save-result small{font-size:10px;color:var(--muted)}.exam-correction-toggle{margin-top:12px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:var(--surface-soft,var(--bg))}.exam-correction-toggle>summary{font-weight:700;font-size:12px}
+.deep-work-panel{margin:0 0 18px}.deep-work-layout{display:grid;grid-template-columns:minmax(150px,.65fr) minmax(0,1fr);align-items:center;gap:clamp(18px,4vw,36px);padding:8px 0 2px}.deep-work-clock{font-variant-numeric:tabular-nums;font-size:clamp(42px,7vw,68px);font-weight:750;letter-spacing:-.055em;text-align:center;color:var(--accent);padding:18px 12px;border:1px solid var(--line);border-radius:16px;background:var(--surface-soft,var(--bg))}.deep-work-controls{display:grid;gap:12px;min-width:0}.deep-work-controls .field-label{max-width:220px;margin:0}.deep-work-controls .card-actions{display:flex;flex-wrap:wrap;gap:8px}.deep-work-controls .muted-count{margin:0;max-width:60ch}@media(max-width:640px){.deep-work-layout{grid-template-columns:1fr;gap:12px}.deep-work-clock{font-size:52px;padding:12px}.deep-work-controls .field-label{max-width:none}}
+.resource-loading{display:flex;align-items:center;gap:12px;padding:24px;color:var(--muted)}.resource-loading strong{color:var(--text);font-size:13px}.resource-loading p{margin:0;font-size:11px;line-height:1.5}
+.dashboard-daily-plan{margin:0 0 18px}.dashboard-plan-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:12px;margin-top:8px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}@media(max-width:560px){.dashboard-plan-footer{align-items:flex-start;flex-direction:column}}

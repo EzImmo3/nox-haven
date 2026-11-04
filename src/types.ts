@@ -25,7 +25,7 @@ export type ErrorEntry = {
 export type RevisionTask = { id: string; title: string; subjectId: string; chapter: string; dueDate: string; durationMinutes: number; completed: boolean; createdAt: string; };
 export type StudySession = {
   id: string; date: string; startedAt: string; durationMinutes: number;
-  cardsReviewed: number; correct: number; mode: 'flashcards' | 'quiz';
+  cardsReviewed: number; correct: number; mode: 'flashcards' | 'quiz' | 'focus';
 };
 export type StudyData = {
   version: 3; subjects: Subject[]; grades: Grade[];
