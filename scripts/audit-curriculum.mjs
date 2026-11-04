@@ -31,11 +31,12 @@ function getStringField(block, field) {
   return block.match(new RegExp(`${field}\\s*:\\s*['\"]([^'\"]*)['\"]`))?.[1] ?? '';
 }
 
+const chapterStatus = curriculumText.match(/const c = \\(id: string, title: string, detail\\?: string\\): CurriculumChapter => \\([^\\n]*status: '([^']+)'/)?.[1] ?? 'a-verifier';
 const subjects = [];
 const subjectPattern = /id:\s*'([^']+)',\s*title:\s*'([^']+)'[\s\S]*?chapters:\s*\[([\s\S]*?)\]\s*\n\s*\}/g;
 for (const match of curriculumText.matchAll(subjectPattern)) {
   const [, id, title, chaptersBlock] = match;
-  const chapters = [...chaptersBlock.matchAll(/c\('([^']+)'\s*,\s*'([^']+)'/g)].map((x) => ({ id: x[1], title: x[2], status: 'a-verifier' }));
+  const chapters = [...chaptersBlock.matchAll(/c\('([^']+)'\s*,\s*'([^']+)'/g)].map((x) => ({ id: x[1], title: x[2], status: chapterStatus }));
   subjects.push({ id, title, chapters });
 }
 const resourceBlocks = [...resourcesText.matchAll(/^  '([^']+)': \{([\s\S]*?)(?=^  '[^']+': \{|^\};)/gm)];
@@ -68,7 +69,7 @@ for (const subject of subjects) {
     if (counts.sources < 1) issues.push('source institutionnelle absente');
     return { ...chapter, curriculumStatus: chapter.status, resource: true, ...counts, sourceNote: Boolean(getStringField(block, 'sourceNote')), validationStatus: getStringField(block, 'validationStatus') || 'non renseigné', resourceStatus: issues.length ? 'to_review' : 'structured', issues };
   });
-  rows.push({ id: subject.id, title: subject.title, chapters: chapters.length, resources: chapters.filter(x => x.resource).length, structured: chapters.filter(x => x.resourceStatus === 'structured').length, toReview: chapters.filter(x => x.resourceStatus === 'to_review').length, missing: chapters.filter(x => x.resourceStatus === 'missing').length, curriculumToVerify: chapters.filter(x => x.curriculumStatus === 'a-verifier').length, details: chapters });
+  rows.push({ id: subject.id, title: subject.title, chapters: chapters.length, resources: chapters.filter(x => x.resource).length, structured: chapters.filter(x => x.resourceStatus === 'structured').length, toReview: chapters.filter(x => x.resourceStatus === 'to_review').length, missing: chapters.filter(x => x.resourceStatus === 'missing').length, curriculumToVerify: chapters.filter(x => x.curriculumStatus === 'a-verifier').length, curriculumPlanned: chapters.filter(x => x.curriculumStatus === 'planifie').length, details: chapters });
 }
 const all = rows.flatMap(x => x.details);
 const report = {
@@ -84,6 +85,7 @@ const report = {
     structuredByMinimums: all.filter(x => x.resourceStatus === 'structured').length,
     chaptersToReview: all.filter(x => x.resourceStatus === 'to_review').length,
     chaptersAwaitingCurriculumReview: all.filter(x => x.curriculumStatus === 'a-verifier').length,
+    chaptersPlanned: all.filter(x => x.curriculumStatus === 'planifie').length,
     courseSections: all.reduce((n, x) => n + x.courseSections, 0),
     objectives: all.reduce((n, x) => n + x.objectives, 0),
     flashcards: all.reduce((n, x) => n + x.flashcards, 0),
@@ -112,6 +114,7 @@ const lines = [
   `- Seuils éditoriaux : ${report.thresholds.courseSections} sections de cours, ${report.thresholds.objectives} objectifs, ${report.thresholds.flashcards} flashcards, ${report.thresholds.quiz} questions, ${report.thresholds.exercises} exercices, ${report.thresholds.sources} source`,
   `- Chapitres sous les minima structurels : ${report.summary.chaptersToReview}`,
   `- Chapitres dont le programme reste à vérifier : ${report.summary.chaptersAwaitingCurriculumReview}`,
+  `- Chapitres planifiés : ${report.summary.chaptersPlanned}`,
   `- Sections de cours : ${report.summary.courseSections}`,
   `- Objectifs : ${report.summary.objectives}`,
   `- Flashcards : ${report.summary.flashcards}`,
