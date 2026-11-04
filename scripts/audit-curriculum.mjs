@@ -80,7 +80,7 @@ const report = {
     chapters: all.length,
     resources: all.filter(x => x.resource).length,
     missingResources: all.filter(x => !x.resource).length,
-    structuredByMinimums: all.filter(x => x.status === 'structured').length,
+    structuredByMinimums: all.filter(x => x.resourceStatus === 'structured').length,
     chaptersToReview: all.filter(x => x.resourceStatus === 'to_review').length,\n    chaptersAwaitingCurriculumReview: all.filter(x => x.curriculumStatus === 'a-verifier').length,
     courseSections: all.reduce((n, x) => n + x.courseSections, 0),
     objectives: all.reduce((n, x) => n + x.objectives, 0),
