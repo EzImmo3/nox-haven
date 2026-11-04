@@ -31,7 +31,7 @@ function getStringField(block, field) {
   return block.match(new RegExp(`${field}\\s*:\\s*['\"]([^'\"]*)['\"]`))?.[1] ?? '';
 }
 
-const chapterStatus = curriculumText.match(/const c = \\(id: string, title: string, detail\\?: string\\): CurriculumChapter => \\([^\\n]*status: '([^']+)'/)?.[1] ?? 'a-verifier';
+const chapterStatus = curriculumText.match(/const c = [^\\n]*status: '([^']+)'/)?.[1] ?? 'a-verifier';
 const subjects = [];
 const subjectPattern = /id:\s*'([^']+)',\s*title:\s*'([^']+)'[\s\S]*?chapters:\s*\[([\s\S]*?)\]\s*\n\s*\}/g;
 for (const match of curriculumText.matchAll(subjectPattern)) {
