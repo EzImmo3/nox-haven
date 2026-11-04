@@ -55,12 +55,12 @@ cacheStore.set('studyflow-shell-v4.9.0-1', new Map());
 await dispatch('install', {});
 const currentCache = `noxhaven-shell-v${pkg.version}-1`;
 assert.ok(cacheStore.has(currentCache), 'le cache courant est créé');
-assert.equal(calls.skipWaiting, 1, 'skipWaiting est appelé après le précache');
+assert.equal(calls.skipWaiting, 0, 'une mise à jour ne force pas la fermeture des anciens onglets');
 const precache = cacheStore.get(currentCache);
 assert.ok(precache.has(scope) && precache.has(`${scope}index.html`) && precache.has(`${scope}manifest.webmanifest`), 'les trois entrées essentielles sont précachées');
 await dispatch('activate', {});
 assert.ok(!cacheStore.has('studyflow-shell-v4.9.0-1'), 'les anciens caches StudyFlow sont supprimés');
-assert.equal(calls.claim, 1, 'clients.claim est appelé');
+assert.equal(calls.claim, 0, 'la nouvelle version ne prend pas immédiatement le contrôle des anciens onglets');
 
 const navRequest = { url: `${scope}une-route`, method: 'GET', mode: 'navigate' };
 const onlineNavigation = await dispatch('fetch', { request: navRequest });
