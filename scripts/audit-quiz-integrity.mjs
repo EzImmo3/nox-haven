@@ -37,13 +37,13 @@ for(let ri=0;ri<resources.length;ri++){
   if(issues.length)findings.push({id,question:q.slice(0,110),issue:issues.join('; ')});
   questions.push(q.toLocaleLowerCase('fr').replace(/\s+/g,' ').trim());
  }
- if(count<10){missing++;findings.push({id,issue:`Seulement ${count} QCM détectés`});}
+ if(count<20){missing++;findings.push({id,issue:`Seulement ${count}/20 QCM détectés`});}
  if(new Set(questions).size!==questions.length){duplicateQuestions++;findings.push({id,issue:'Énoncés de QCM répétés dans la ressource'});}
 }
 const validAnswers=distribution.reduce((a,b)=>a+b,0); const pct=distribution.map(n=>validAnswers?100*n/validAnswers:0);
 const report={version:pkg.version,chapters:resources.length,catalogue:ids.length,questions:total,distribution:distribution.map((n,i)=>({choice:['A','B','C','D'][i],count:n,percent:Number(pct[i].toFixed(1))})),metrics:{resourcesWithMissingOrFewQuizzes:missing,invalidAnswerIndexes:invalid,duplicateOptions,duplicateQuestionSets:duplicateQuestions,weakExplanations:weakExplanation},findings};
 mkdirSync(resolve(root,'docs'),{recursive:true});
-writeFileSync(resolve(root,'docs/AUDIT_INTEGRITE_QCM_V5.0.36.json'),JSON.stringify(report,null,2)+'\n');
-const md=`# Audit d'intégrité des QCM — NOX HAVEN ${pkg.version}\n\n- Chapitres : ${resources.length}/${ids.length}\n- Questions détectées : ${total}\n- Index de réponse invalides : ${invalid}\n- Choix dupliqués : ${duplicateOptions}\n- Ressources avec moins de 10 QCM : ${missing}\n- Explications de moins de 25 caractères : ${weakExplanation}\n\n## Distribution des index de réponse\n\n| Choix | Nombre | Part |\n|---|---:|---:|\n${report.distribution.map(x=>`| ${x.choice} | ${x.count} | ${x.percent}% |`).join('\n')}\n\n## Anomalies à examiner\n\n${findings.length?findings.slice(0,250).map(x=>`- **${x.id}**${x.question?` — « ${x.question} »`:''} : ${x.issue}`).join('\n'):'Aucune anomalie structurelle détectée.'}\n\n> Audit statique : il vérifie la cohérence formelle, pas la vérité des réponses ni la pertinence pédagogique. Les réponses ne sont jamais réordonnées automatiquement.\n`;
-writeFileSync(resolve(root,'docs/AUDIT_INTEGRITE_QCM_V5.0.36.md'),md);
+writeFileSync(resolve(root,'docs/AUDIT_INTEGRITE_QCM_V${pkg.version}.json'),JSON.stringify(report,null,2)+'\n');
+const md=`# Audit d'intégrité des QCM — NOX HAVEN ${pkg.version}\n\n- Chapitres : ${resources.length}/${ids.length}\n- Questions détectées : ${total}\n- Index de réponse invalides : ${invalid}\n- Choix dupliqués : ${duplicateOptions}\n- Ressources avec moins de 20 QCM : ${missing}\n- Explications de moins de 25 caractères : ${weakExplanation}\n\n## Distribution des index de réponse\n\n| Choix | Nombre | Part |\n|---|---:|---:|\n${report.distribution.map(x=>`| ${x.choice} | ${x.count} | ${x.percent}% |`).join('\n')}\n\n## Anomalies à examiner\n\n${findings.length?findings.slice(0,250).map(x=>`- **${x.id}**${x.question?` — « ${x.question} »`:''} : ${x.issue}`).join('\n'):'Aucune anomalie structurelle détectée.'}\n\n> Audit statique : il vérifie la cohérence formelle, pas la vérité des réponses ni la pertinence pédagogique. Les réponses ne sont jamais réordonnées automatiquement.\n`;
+writeFileSync(resolve(root,'docs/AUDIT_INTEGRITE_QCM_V${pkg.version}.md'),md);
 console.log(`Audit intégrité QCM ${pkg.version}: ${total} questions, ${findings.length} constats, ${invalid} index invalides, ${duplicateOptions} doublons de choix, ${weakExplanation} explications courtes.`);
