@@ -24,8 +24,8 @@ const checks = [
   { name: 'import vérifie l’empreinte avant restauration', ok: /actual!==checksum\.value/.test(readFileSync(join(root, 'src/App.tsx'), 'utf8')) },
 ];
 const report = { version: pkg.version, generatedAt: new Date().toISOString(), filesScanned: files.length, checks, findings, limitations: ['Audit statique uniquement : ne prouve pas l’absence de vulnérabilité.', 'Aucun test d’intrusion, dépendance ou serveur distant n’est couvert.', 'Les données locales ne sont pas synchronisées ni sauvegardées dans le cloud.'] };
-writeFileSync(join(root, 'docs/AUDIT_SECURITE_V5.0.39.json'), JSON.stringify(report, null, 2));
-writeFileSync(join(root, 'docs/AUDIT_SECURITE_V5.0.39.md'), `# Audit de sécurité statique — NOX HAVEN ${pkg.version}\n\nFichiers analysés : **${files.length}**\n\n${checks.map(x => `- ${x.ok ? 'OK' : 'À vérifier'} — ${x.name}`).join('\n')}\n\nConstats à examiner : **${findings.length}**\n${findings.length ? findings.map(x => `- ${x.code} — ${x.file}:${x.line} — ${x.message}`).join('\n') : '- Aucun motif ciblé détecté.'}\n\n## Limites\n${report.limitations.map(x => `- ${x}`).join('\n')}\n`);
+writeFileSync(join(root, `docs/AUDIT_SECURITE_V${pkg.version}.json`), JSON.stringify(report, null, 2));
+writeFileSync(join(root, `docs/AUDIT_SECURITE_V${pkg.version}.md`), `# Audit de sécurité statique — NOX HAVEN ${pkg.version}\n\nFichiers analysés : **${files.length}**\n\n${checks.map(x => `- ${x.ok ? 'OK' : 'À vérifier'} — ${x.name}`).join('\n')}\n\nConstats à examiner : **${findings.length}**\n${findings.length ? findings.map(x => `- ${x.code} — ${x.file}:${x.line} — ${x.message}`).join('\n') : '- Aucun motif ciblé détecté.'}\n\n## Limites\n${report.limitations.map(x => `- ${x}`).join('\n')}\n`);
 console.log(`AUDIT SÉCURITÉ ${pkg.version} — ${files.length} fichiers analysés`);
 for (const c of checks) console.log(`${c.ok ? 'OK' : 'À VÉRIFIER'} — ${c.name}`);
 console.log(`Constats à examiner : ${findings.length}`);
