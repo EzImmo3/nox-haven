@@ -1,6 +1,6 @@
-# NOX HAVEN 6.6.0 — Révise. Comprends. Progresse.
+# NOX HAVEN 7.1.0 — Révise. Comprends. Progresse.
 
-Version de l’application : **6.6.0**.
+Version de l’application : **7.1.0**.
 
 NOX HAVEN est un espace personnel d’apprentissage pour la Terminale : Bibliothèque de cours approfondis, espace Révisions (fiches et flashcards), espace Entraînement (quiz, QCM, exercices et sujets de Bac), notes scolaires, planning et suivi de progression. Son identité associe le calme de **Nox** (la nuit, en latin) à l’idée de refuge portée par **Haven**.
 
@@ -168,3 +168,42 @@ Consulte `docs/CONFIGURATION-CLOUD-V6.1.md` et exécute `supabase-schema.sql` da
 - L’objectif hebdomadaire est visible depuis l’accueil.
 - Les ressources pédagogiques sont chargées à la demande afin d’alléger le chargement initial sur mobile et ordinateur.
 - Les chunks pédagogiques sont conservés dans le cache du service worker après leur première consultation.
+
+\n## Évolutions de la version 6.9.0\n\n- Les ressources pédagogiques sont maintenant réparties en modules indépendants par matière.\n- Seules les matières actives du profil sont chargées à l’ouverture de la Bibliothèque, des Révisions ou de l’Entraînement.\n- Les modules restent compatibles avec le cache dynamique du service worker pour les visites hors connexion après chargement.\n- Le fichier `src/chapterResources.ts` est conservé comme source éditoriale de référence pour les scripts d’audit et de maintenance ; il n’est plus importé à l’exécution par l’application.\n- La synchronisation Supabase reste à configurer et à valider sur un vrai projet avant toute annonce de disponibilité.\n
+\n## Configuration Supabase (optionnelle)\n\nPour activer les comptes et la synchronisation, créer un projet Supabase, exécuter le schéma SQL fourni dans `supabase/schema.sql`, puis configurer les variables suivantes :\n\n- En local : copier `.env.example` vers `.env.local` et renseigner l’URL du projet ainsi que la clé publique `anon`/`publishable`.\n- Sur GitHub : dans **Settings → Secrets and variables → Actions**, créer les secrets `VITE_SUPABASE_URL` et `VITE_SUPABASE_ANON_KEY`. Le workflow de déploiement les transmet au build Vite.\n\nLa clé `service_role` ne doit jamais être ajoutée à `.env.local`, aux secrets utilisés par le build web, ni au code client. Après configuration, vérifier l’inscription, la confirmation e-mail, la connexion, la déconnexion et la synchronisation entre deux appareils. Tant que ces essais réels ne sont pas passés, le cloud doit être considéré comme non validé.\n
+
+## Évolutions de la version 6.9.0
+
+- Le moteur de maîtrise précise désormais la fiabilité de son estimation et les données réellement prises en compte.
+- Les dates de rappel ou de séance invalides sont ignorées au lieu d'être interprétées comme des échéances urgentes.
+- Le planning hebdomadaire peut répartir jusqu'à 24 propositions, au lieu de s'arrêter artificiellement aux six premières.
+- La recommandation du prochain chapitre affiche son niveau de fiabilité et son périmètre de données.
+- Les suggestions restent indicatives : une absence de données n'est jamais assimilée à un échec scolaire ni à une maîtrise confirmée.
+
+
+## Évolutions de la version 6.9.0
+
+- Ajout d'un tableau de santé des révisions : cartes dues, cartes en retard, rappels des sept prochains jours, erreurs ouvertes et cartes consolidées.
+- Les cartes dont la date de rappel est invalide sont signalées et exclues des échéances plutôt que de fausser les indicateurs.
+- Les statistiques hebdomadaires ignorent les dates de session mal formées.
+- Le calcul d'urgence reste numérique même lorsque des dates importées sont invalides.
+- Ajout de 16 assertions exécutables sur le moteur de révision, intégrées à `npm run test:all`.
+
+Les indicateurs restent descriptifs : ils reposent sur les cartes et erreurs réellement enregistrées et ne constituent pas une note scolaire ni une certification de maîtrise.
+
+
+## Évolutions de la version 7.1.0
+
+- Le cockpit présente désormais une progression détaillée par matière, triée pour faire ressortir les matières qui nécessitent le plus d’attention.
+- Chaque matière affiche les chapitres maîtrisés, en cours et à travailler, ainsi que la couverture des ressources disponibles.
+- Les indicateurs de révision affichent les cartes réellement dues et les erreurs non maîtrisées, sans assimiler une donnée absente à une réussite.
+- Les indicateurs s’appuient sur les matières actives du profil et les statuts enregistrés par l’élève.
+- La progression reste locale et sauvegardée avec les préférences existantes ; elle est également incluse dans le mécanisme de synchronisation cloud déjà prévu.
+
+
+## Évolutions de la version 7.1.0
+
+- Les bilans de quiz enregistrés depuis l’espace Entraînement conservent désormais le détail des réponses par chapitre et par matière.
+- Les statistiques affichent les chapitres les plus évalués, leur taux de réussite et le nombre de sessions associées.
+- Les anciennes sessions restent compatibles : elles continuent d’alimenter les indicateurs globaux sans être artificiellement attribuées à un chapitre.
+- Les métadonnées de version, le titre et le cache PWA sont alignés sur 7.1.0.

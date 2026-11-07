@@ -17,19 +17,57 @@ export type ChapterSignal = {
   score: number;
   label: 'Non évalué' | 'À consolider' | 'En progression' | 'Solide';
   reasons: string[];
+  confidence: 'faible' | 'moyenne' | 'bonne';
+  evidenceSummary: string;
 };
 
 /**
  * Estimation indicative fondée sur les traces disponibles pour un chapitre.
  * Elle ne remplace jamais la validation humaine du statut « maîtrisé ».
  */
+function validDateKey(value: string | null | undefined): string | null {
+  if (!value) return null;
+  const key = value.slice(0, 10);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(key)) return null;
+  const date = new Date(`${key}T12:00:00`);
+  return Number.isNaN(date.getTime()) || date.toISOString().slice(0, 10) !== key ? null : key;
+}
+
+/** Vue d'ensemble calculée uniquement à partir des cartes et erreurs réellement enregistrées. */
+export function getRevisionHealth(cards: Flashcard[], errors: ErrorEntry[], today: string) {
+  const todayKey = validDateKey(today);
+  const datedCards = cards.map(card => ({ card, dueDate: validDateKey(card.dueAt) }));
+  const validCards = datedCards.filter(item => item.dueDate !== null);
+  const dueCards = validCards.filter(item => item.dueDate! <= (todayKey ?? today));
+  const overdueCards = validCards.filter(item => todayKey !== null && item.dueDate! < todayKey);
+  const upcomingCards = validCards.filter(item => {
+    if (!todayKey || item.dueDate! <= todayKey) return false;
+    const delta = (Date.parse(`${item.dueDate}T12:00:00`) - Date.parse(`${todayKey}T12:00:00`)) / 86400000;
+    return delta <= 7;
+  });
+  const openErrors = errors.filter(error => error.status !== 'mastered');
+  return {
+    totalCards: cards.length,
+    dueCards: dueCards.length,
+    overdueCards: overdueCards.length,
+    upcomingCards: upcomingCards.length,
+    invalidDates: datedCards.length - validCards.length,
+    matureCards: cards.filter(card => card.repetitions >= 3).length,
+    openErrors: openErrors.length,
+    todoErrors: openErrors.filter(error => error.status === 'todo').length,
+    workingErrors: openErrors.filter(error => error.status === 'working').length,
+    evaluatedCards: validCards.length,
+    hasEvidence: cards.length > 0 || errors.length > 0
+  };
+}
+
 export function getChapterSignal(chapterId: string, cards: Flashcard[], errors: ErrorEntry[], today: string, subjectId?: string): ChapterSignal {
   const normalizedChapter = chapterId.trim().toLocaleLowerCase();
   const belongsToChapter = (entry: { chapter: string; subjectId: string }) => entry.chapter.trim().toLocaleLowerCase() === normalizedChapter && (!subjectId || entry.subjectId === subjectId);
   const chapterCards = cards.filter(belongsToChapter);
   const chapterErrors = errors.filter(error => belongsToChapter(error) && error.status !== 'mastered');
   const matureCards = chapterCards.filter(card => card.repetitions >= 3).length;
-  const dueCards = chapterCards.filter(card => { const date = card.dueAt.slice(0, 10); return /^\d{4}-\d{2}-\d{2}$/.test(date) && date <= today; }).length;
+  const dueCards = chapterCards.filter(card => { const date = validDateKey(card.dueAt); return Boolean(date && date <= today); }).length;
   const lapses = chapterCards.reduce((sum, card) => sum + card.lapses, 0);
   const openErrors = chapterErrors.length;
   const coverage = chapterCards.length ? matureCards / chapterCards.length : 0;
@@ -42,7 +80,11 @@ export function getChapterSignal(chapterId: string, cards: Flashcard[], errors: 
   if (lapses) reasons.push(`${lapses} oubli(s) enregistré(s)`);
   if (!chapterCards.length && !openErrors) reasons.push('aucune donnée de révision pour le moment');
   if (!reasons.length) reasons.push('continuer à entretenir les acquis');
-  return { chapterId, cards: chapterCards.length, matureCards, dueCards, lapses, openErrors, score, label, reasons };
+  const confidence: ChapterSignal['confidence'] = chapterCards.length >= 8 || (chapterCards.length >= 4 && openErrors >= 2) ? 'bonne' : chapterCards.length >= 3 || openErrors >= 2 ? 'moyenne' : 'faible';
+  const evidenceSummary = chapterCards.length
+    ? `${chapterCards.length} flashcard(s) analysée(s)${openErrors ? ` et ${openErrors} erreur(s) ouverte(s)` : ''}`
+    : openErrors ? `${openErrors} erreur(s) ouverte(s), sans historique de flashcards` : 'Aucune trace exploitable : maîtrise non évaluée';
+  return { chapterId, cards: chapterCards.length, matureCards, dueCards, lapses, openErrors, score, label, reasons, confidence, evidenceSummary };
 }
 
 /** Classe les chapitres sans inventer de résultats : les erreurs et rappels échus passent avant les chapitres vierges. */
@@ -64,7 +106,7 @@ export function getWeeklyLearningSummary(sessions: Array<{ date: string; duratio
   const start = new Date(end);
   start.setDate(start.getDate() - 6);
   const startKey = `${start.getFullYear()}-${String(start.getMonth()+1).padStart(2,'0')}-${String(start.getDate()).padStart(2,'0')}`;
-  const current = sessions.filter(session => session.date >= startKey && session.date <= today);
+  const current = sessions.filter(session => { const date = validDateKey(session.date); return Boolean(date && date >= startKey && date <= today); });
   const minutes = current.reduce((sum, session) => sum + session.durationMinutes, 0);
   const reviewed = current.reduce((sum, session) => sum + session.cardsReviewed, 0);
   const correct = current.reduce((sum, session) => sum + session.correct, 0);
@@ -83,15 +125,18 @@ export function getRevisionUrgency(input: {
 }): number {
   if (input.kind === 'chapter') return 10;
   if (input.kind === 'flashcards') {
-    const due = input.dueDate?.slice(0, 10) ?? input.today;
-    const lateDays = Math.max(0, Math.floor((Date.parse(`${input.today}T12:00:00`) - Date.parse(`${due}T12:00:00`)) / 86400000));
+    const today = validDateKey(input.today);
+    const due = validDateKey(input.dueDate) ?? today;
+    const delta = today && due ? (Date.parse(`${today}T12:00:00`) - Date.parse(`${due}T12:00:00`)) / 86400000 : 0;
+    const lateDays = Number.isFinite(delta) ? Math.max(0, Math.floor(delta)) : 0;
     return 60 + Math.min(25, lateDays * 3) + Math.min(15, Math.max(0, input.count ?? 0) * 2);
   }
   const statusWeight = input.errorStatus === 'todo' ? 45 : input.errorStatus === 'working' ? 32 : 0;
   const updated = input.updatedAt?.slice(0, 10);
-  const ageDays = updated && /^\d{4}-\d{2}-\d{2}$/.test(updated)
-    ? Math.max(0, Math.floor((Date.parse(`${input.today}T12:00:00`) - Date.parse(`${updated}T12:00:00`)) / 86400000))
-    : 0;
+  const today = validDateKey(input.today);
+  const updatedKey = validDateKey(updated);
+  const ageDelta = today && updatedKey ? (Date.parse(`${today}T12:00:00`) - Date.parse(`${updatedKey}T12:00:00`)) / 86400000 : 0;
+  const ageDays = Number.isFinite(ageDelta) ? Math.max(0, Math.floor(ageDelta)) : 0;
   return statusWeight + Math.min(15, ageDays) + Math.min(10, Math.max(0, input.count ?? 0) * 2);
 }
 
@@ -114,13 +159,14 @@ export function buildDailyStudyPlan(input: {
   today: string;
   limit?: number;
 }): StudyPlanSuggestion[] {
-  const limit = Math.max(0, Math.min(6, Math.floor(input.limit ?? 4)));
+  const limit = Math.max(0, Math.min(24, Math.floor(input.limit ?? 4)));
   const pendingTasks = input.tasks.filter(task => !task.completed);
   const alreadyPlanned = (subjectId: string, chapter: string) => pendingTasks.some(task => task.subjectId === subjectId && task.chapter.trim().toLocaleLowerCase() === chapter.trim().toLocaleLowerCase());
   const suggestions: StudyPlanSuggestion[] = [];
   const dueGroups = new Map<string, { subjectId: string; chapter: string; count: number }>();
   for (const card of input.cards) {
-    if (card.dueAt.slice(0, 10) > input.today) continue;
+    const dueDate = validDateKey(card.dueAt);
+    if (!dueDate || dueDate > input.today) continue;
     const key = `${card.subjectId}::${card.chapter.trim().toLocaleLowerCase()}`;
     const group = dueGroups.get(key) ?? { subjectId: card.subjectId, chapter: card.chapter, count: 0 };
     group.count += 1;
@@ -150,8 +196,8 @@ export function buildDailyStudyPlan(input: {
   const urgency = (item: StudyPlanSuggestion) => {
     if (item.kind === 'chapter') return getRevisionUrgency({ kind: 'chapter', today: input.today });
     if (item.kind === 'flashcards') {
-      const matching = input.cards.filter(card => card.subjectId === item.subjectId && card.chapter.trim().toLocaleLowerCase() === item.chapter.trim().toLocaleLowerCase() && card.dueAt.slice(0, 10) <= input.today);
-      const oldestDue = matching.map(card => card.dueAt.slice(0, 10)).sort()[0];
+      const matching = input.cards.filter(card => card.subjectId === item.subjectId && card.chapter.trim().toLocaleLowerCase() === item.chapter.trim().toLocaleLowerCase() && Boolean(validDateKey(card.dueAt) && validDateKey(card.dueAt)! <= input.today));
+      const oldestDue = matching.map(card => validDateKey(card.dueAt)).filter((date): date is string => Boolean(date)).sort()[0];
       return getRevisionUrgency({ kind: 'flashcards', count: matching.length, dueDate: oldestDue, today: input.today });
     }
     const matching = input.errors.filter(error => error.subjectId === item.subjectId && error.chapter.trim().toLocaleLowerCase() === item.chapter.trim().toLocaleLowerCase() && error.status !== 'mastered');
@@ -184,11 +230,11 @@ export function buildWeeklyStudyPlan(input: {
     recommendations: input.recommendations,
     tasks: input.tasks,
     today: input.today,
-    limit: 6
+    limit: 24
   });
   const loadByDay = new Map<string, number>();
   for (const task of input.tasks) {
-    if (task.completed || task.dueDate < input.today) continue;
+    if (task.completed || !validDateKey(task.dueDate) || task.dueDate < input.today) continue;
     loadByDay.set(task.dueDate, (loadByDay.get(task.dueDate) ?? 0) + task.durationMinutes);
   }
   const result: WeeklyStudySuggestion[] = [];
@@ -233,7 +279,7 @@ export function getWeeklyPlanSummary(
   const end = new Date(`${today}T12:00:00`);
   end.setDate(end.getDate() + 6);
   const endKey = `${end.getFullYear()}-${String(end.getMonth() + 1).padStart(2, '0')}-${String(end.getDate()).padStart(2, '0')}`;
-  const inRange = (date: string) => date >= today && date <= endKey;
+  const inRange = (date: string) => { const key = validDateKey(date); return Boolean(key && key >= today && key <= endKey); };
   const existing = tasks.filter(task => !task.completed && inRange(task.dueDate));
   const suggested = suggestions.filter(item => inRange(item.date));
   const minutesAlreadyPlanned = existing.reduce((sum, task) => sum + task.durationMinutes, 0);

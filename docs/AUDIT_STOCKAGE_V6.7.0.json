@@ -1,0 +1,55 @@
+{
+  "version": "6.7.0",
+  "generatedAt": "2026-11-05T22:06:51.526Z",
+  "summary": {
+    "passed": 8,
+    "total": 8
+  },
+  "checks": [
+    {
+      "id": "storage-api",
+      "label": "API de stockage du navigateur utilisée",
+      "status": "pass"
+    },
+    {
+      "id": "quota-estimate",
+      "label": "Estimation de l’espace utilisé et du quota",
+      "status": "pass"
+    },
+    {
+      "id": "persistent-status",
+      "label": "État de conservation persistante demandé",
+      "status": "pass"
+    },
+    {
+      "id": "persistent-request",
+      "label": "Demande de conservation persistante",
+      "status": "pass"
+    },
+    {
+      "id": "user-feedback",
+      "label": "Résultat expliqué dans les paramètres",
+      "status": "pass"
+    },
+    {
+      "id": "accessible-feedback",
+      "label": "Résultat annoncé comme statut accessible",
+      "status": "pass"
+    },
+    {
+      "id": "responsive-report",
+      "label": "Rapport de stockage stylé et intégré",
+      "status": "pass"
+    },
+    {
+      "id": "backup-still-available",
+      "label": "Export de sauvegarde conservé",
+      "status": "pass"
+    }
+  ],
+  "limitations": [
+    "Les estimations de quota varient selon le navigateur et peuvent être approximatives.",
+    "La demande de persistance peut être refusée par le navigateur ; cela ne remplace jamais les sauvegardes exportées.",
+    "Audit statique : le comportement doit être confirmé dans les navigateurs et appareils cibles."
+  ]
+}

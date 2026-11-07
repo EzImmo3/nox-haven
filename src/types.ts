@@ -26,6 +26,7 @@ export type RevisionTask = { id: string; title: string; subjectId: string; chapt
 export type StudySession = {
   id: string; date: string; startedAt: string; durationMinutes: number;
   cardsReviewed: number; correct: number; mode: 'flashcards' | 'quiz' | 'focus';
+  chapterBreakdown?: Array<{ subjectId: string; chapterId: string; chapterTitle: string; verified: number; correct: number }>;
 };
 export type StudyData = {
   version: 3; subjects: Subject[]; grades: Grade[];

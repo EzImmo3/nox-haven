@@ -117,6 +117,10 @@ const chapterErrors = [{ id:'e1', subjectId:'maths-spe', chapter:'Suites', title
 const signal = getChapterSignal('Suites', chapterCards, chapterErrors, '2026-11-01');
 assert(signal.cards === 3 && signal.matureCards === 2 && signal.dueCards === 1 && signal.openErrors === 1, 'Le signal de maîtrise doit agréger cartes, échéances et erreurs.');
 assert(signal.reasons.length >= 2, 'Le signal doit expliquer les raisons de sa recommandation.');
+assert(['faible','moyenne','bonne'].includes(signal.confidence) && signal.evidenceSummary.includes('flashcard'), 'Le signal doit préciser la fiabilité et les données réellement analysées.');
+const invalidDateCard = { ...baseCard, id:'invalid-date', chapter:'Dates', dueAt:'date-invalide' };
+const invalidDateSignal = getChapterSignal('Dates', [invalidDateCard], [], '2026-11-01');
+assert(invalidDateSignal.dueCards === 0, 'Une date de rappel invalide ne doit jamais être considérée comme échue.');
 assert(getRevisionUrgency({kind:'errors',errorStatus:'todo',count:1,today:'2026-11-02'}) > getRevisionUrgency({kind:'errors',errorStatus:'working',count:1,today:'2026-11-02'}), 'Une erreur non commencée doit être plus urgente qu’une erreur déjà travaillée.');
 assert(getRevisionUrgency({kind:'flashcards',count:2,dueDate:'2026-10-25',today:'2026-11-02'}) > getRevisionUrgency({kind:'flashcards',count:2,dueDate:'2026-11-02',today:'2026-11-02'}), 'Un rappel en retard doit gagner en priorité avec le nombre de jours écoulés.');
 
@@ -145,6 +149,9 @@ const weekly = buildWeeklyStudyPlan({
   today:'2026-11-01', dailyCapacityMinutes:60
 });
 assert(weekly.length > 0 && weekly.every(item => /^2026-11-0[1-7]$/.test(item.date)), 'Le plan hebdomadaire doit rester dans les sept jours demandés.');
+const manyChapters = Array.from({length:10},(_,i)=>({id:`c${i}`,title:`Chapitre ${i}`,subjectId:'maths-spe',status:'pending'}));
+const expandedWeek = buildWeeklyStudyPlan({cards:[],errors:[],recommendations:manyChapters,tasks:[],today:'2026-11-01',dailyCapacityMinutes:120});
+assert(expandedWeek.length === 10, 'Le plan hebdomadaire doit pouvoir répartir plus de six priorités sur la semaine.');
 assert(normalizeDailyCapacity('90') === 90 && normalizeDailyCapacity('999') === 60 && normalizeDailyCapacity('abc') === 60, 'La préférence de temps doit être normalisée avec une valeur de repli sûre.');
 const planSummary = getWeeklyPlanSummary(weekly, [{dueDate:'2026-11-01',durationMinutes:30,completed:false},{dueDate:'2026-10-31',durationMinutes:45,completed:false}], '2026-11-01', 60);
 assert(planSummary.minutesAlreadyPlanned === 30 && planSummary.suggestedMinutes === weekly.reduce((sum,item)=>sum+item.durationMinutes,0), 'Le bilan hebdomadaire doit distinguer les séances existantes des suggestions et exclure les dates passées.');

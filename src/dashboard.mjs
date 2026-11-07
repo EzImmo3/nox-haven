@@ -27,3 +27,22 @@ export function getTargetProgress(average, target) {
   if (target === null || average === null) return { average, target, gap: null, percent: null, reached: false };
   return { average, target, gap: Math.max(0, target - average), percent: Math.min(100, Math.round(average / Math.max(target, 0.01) * 100)), reached: average >= target };
 }
+
+/** Per-subject learning progress, based only on saved chapter statuses and revision data. */
+export function buildSubjectLearningProgress(subjects, chapterProgress, flashcards = [], errors = [], resources = {}, todayKey = new Date().toISOString().slice(0, 10)) {
+  return subjects.map(subject => {
+    const chapters = Array.isArray(subject.chapters) ? subject.chapters : [];
+    const mastered = chapters.filter(chapter => chapterProgress?.[chapter.id] === 'mastered').length;
+    const started = chapters.filter(chapter => chapterProgress?.[chapter.id] === 'started').length;
+    const subjectCards = flashcards.filter(card => card.subjectId === subject.id);
+    const subjectErrors = errors.filter(error => error.subjectId === subject.id && error.status !== 'mastered');
+    const availableResources = chapters.filter(chapter => Boolean(resources?.[chapter.id])).length;
+    return {
+      id: subject.id, name: subject.title ?? subject.name ?? subject.id,
+      total: chapters.length, mastered, started, pending: Math.max(0, chapters.length - mastered - started),
+      percentage: chapters.length ? Math.round(mastered / chapters.length * 100) : 0,
+      cards: subjectCards.length, dueCards: subjectCards.filter(card => typeof card.dueAt === 'string' && /^\d{4}-\d{2}-\d{2}/.test(card.dueAt) && card.dueAt.slice(0, 10) <= todayKey).length,
+      openErrors: subjectErrors.length, availableResources,
+    };
+  }).filter(subject => subject.total > 0).sort((a, b) => a.percentage - b.percentage || b.openErrors - a.openErrors || a.name.localeCompare(b.name, 'fr'));
+}
