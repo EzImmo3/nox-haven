@@ -11,7 +11,15 @@ export function configureCloudSync({ url, anonKey, fetchImpl = globalThis.fetch 
   if (!url || !anonKey || typeof fetchImpl !== 'function') throw new Error('Configuration cloud incomplète.');
   const normalized = new URL(url);
   if (normalized.protocol !== 'https:' && normalized.hostname !== 'localhost') throw new Error('Le serveur cloud doit utiliser HTTPS.');
-  config = { url: normalized.origin, anonKey, fetchImpl };
+  const safeFetch = fetchImpl === globalThis.fetch
+  ? fetchImpl.bind(globalThis)
+  : fetchImpl;
+
+config = {
+  url: normalized.origin,
+  anonKey,
+  fetchImpl: safeFetch
+};
   restoreSession();
 }
 
