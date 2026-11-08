@@ -7,7 +7,7 @@ const SESSION_KEY = 'nox-haven:cloud-session:v1';
 function persistSession() { try { if (session?.refreshToken) sessionStorage.setItem(SESSION_KEY, JSON.stringify(session)); else sessionStorage.removeItem(SESSION_KEY); } catch { /* Session persistence is best-effort; local study data remains independent. */ } }
 function restoreSession() { try { const raw = sessionStorage.getItem(SESSION_KEY); if (!raw) return; const saved = JSON.parse(raw); if (saved?.refreshToken && saved?.user?.id) session = saved; } catch { session = null; } }
 
-export function configureCloudSync({ url, anonKey, fetchImpl = globalThis.fetch }) {
+export function configureCloudSync({ url, anonKey, fetchImpl = (...args) => globalThis.fetch(...args) }) {
   if (!url || !anonKey || typeof fetchImpl !== 'function') throw new Error('Configuration cloud incomplète.');
   const normalized = new URL(url);
   if (normalized.protocol !== 'https:' && normalized.hostname !== 'localhost') throw new Error('Le serveur cloud doit utiliser HTTPS.');
