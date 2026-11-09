@@ -4,6 +4,8 @@ Version de l’application : **7.1.0**.
 
 NOX HAVEN est un espace personnel d’apprentissage pour la Terminale : Bibliothèque de cours approfondis, espace Révisions (fiches et flashcards), espace Entraînement (quiz, QCM, exercices et sujets de Bac), notes scolaires, planning et suivi de progression. Son identité associe le calme de **Nox** (la nuit, en latin) à l’idée de refuge portée par **Haven**.
 
+> **État de livraison :** la 7.1.0 est une version candidate consolidée. La synchronisation Supabase réelle reste à configurer et à valider sur deux appareils avant de la déclarer version finale. Voir `docs/PLAN_FINALISATION_VF_7.1.0.md`.
+
 ## Démarrer en local
 
 Prérequis : Node.js 20 ou plus récent.

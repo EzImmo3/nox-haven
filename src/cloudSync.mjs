@@ -7,19 +7,11 @@ const SESSION_KEY = 'nox-haven:cloud-session:v1';
 function persistSession() { try { if (session?.refreshToken) sessionStorage.setItem(SESSION_KEY, JSON.stringify(session)); else sessionStorage.removeItem(SESSION_KEY); } catch { /* Session persistence is best-effort; local study data remains independent. */ } }
 function restoreSession() { try { const raw = sessionStorage.getItem(SESSION_KEY); if (!raw) return; const saved = JSON.parse(raw); if (saved?.refreshToken && saved?.user?.id) session = saved; } catch { session = null; } }
 
-export function configureCloudSync({ url, anonKey, fetchImpl = (...args) => globalThis.fetch(...args) }) {
+export function configureCloudSync({ url, anonKey, fetchImpl = globalThis.fetch }) {
   if (!url || !anonKey || typeof fetchImpl !== 'function') throw new Error('Configuration cloud incomplète.');
   const normalized = new URL(url);
   if (normalized.protocol !== 'https:' && normalized.hostname !== 'localhost') throw new Error('Le serveur cloud doit utiliser HTTPS.');
-  const safeFetch = fetchImpl === globalThis.fetch
-  ? fetchImpl.bind(globalThis)
-  : fetchImpl;
-
-config = {
-  url: normalized.origin,
-  anonKey,
-  fetchImpl: safeFetch
-};
+  config = { url: normalized.origin, anonKey, fetchImpl: fetchImpl === globalThis.fetch ? fetchImpl.bind(globalThis) : fetchImpl };
   restoreSession();
 }
 
@@ -75,9 +67,22 @@ export async function signOut() {
   } else { session = null; persistSession(); }
 }
 
+function stableJsonStringify(value) {
+  if (value === null || typeof value !== 'object') {
+    const encoded = JSON.stringify(value);
+    if (encoded === undefined) throw new Error('Valeur incompatible avec le format JSON.');
+    return encoded;
+  }
+  if (Array.isArray(value)) return `[${value.map(stableJsonStringify).join(',')}]`;
+  return `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${stableJsonStringify(value[key])}`).join(',')}}`;
+}
+
 export async function checksumPayload(payload) {
   if (!globalThis.crypto?.subtle) throw new Error('Calcul cryptographique indisponible dans ce navigateur sécurisé.');
-  const bytes = new TextEncoder().encode(JSON.stringify(payload));
+  let normalized;
+  try { normalized = JSON.parse(JSON.stringify(payload)); }
+  catch { throw new Error('La sauvegarde contient des données qui ne peuvent pas être vérifiées.'); }
+  const bytes = new TextEncoder().encode(stableJsonStringify(normalized));
   const digest = await globalThis.crypto.subtle.digest('SHA-256', bytes);
   return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
 }
@@ -88,24 +93,25 @@ export async function createCloudSnapshot({ accountId, deviceId, revision, paren
 
 export async function readCloudSnapshot() {
   if (!session?.accessToken) throw new Error('Connecte-toi pour accéder à la synchronisation.');
-  const { body } = await request('/rest/v1/study_snapshots?select=account_id,device_id,revision,parent_revision,updated_at,checksum,payload&order=updated_at.desc&limit=1', { method: 'GET' }, session.accessToken);
+  const { body } = await request(`/rest/v1/study_snapshots?select=account_id,device_id,revision,parent_revision,updated_at,checksum,payload&account_id=eq.${encodeURIComponent(session.user.id)}&limit=1`, { method: 'GET' }, session.accessToken);
   if (!Array.isArray(body) || body.length === 0) return null;
   const row = body[0];
   const snapshot = { protocol: 1, accountId: row.account_id, deviceId: row.device_id, revision: row.revision, parentRevision: row.parent_revision, updatedAt: row.updated_at, checksum: row.checksum, payload: row.payload };
-  if (!validateSyncSnapshot(snapshot) || snapshot.accountId !== session.user.id || await checksumPayload(snapshot.payload) !== snapshot.checksum) throw new Error('La sauvegarde distante est invalide ou altérée.');
+  if (!validateSyncSnapshot(snapshot) || snapshot.accountId !== session.user.id || await checksumPayload(snapshot.payload) !== snapshot.checksum.toLowerCase()) throw new Error('La sauvegarde distante est invalide ou altérée.');
   return snapshot;
 }
 
-export async function uploadCloudSnapshot(snapshot, expectedRemoteRevision = null) {
+export async function uploadCloudSnapshot(snapshot, expectedRemoteRevision = null, expectedRemoteChecksum = null) {
   if (!session?.accessToken) throw new Error('Connecte-toi pour accéder à la synchronisation.');
   if (!validateSyncSnapshot(snapshot) || snapshot.accountId !== session.user.id) throw new Error('La copie à envoyer est invalide ou ne correspond pas au compte connecté.');
-  if (await checksumPayload(snapshot.payload) !== snapshot.checksum) throw new Error('La vérification d’intégrité locale a échoué.');
+  if (await checksumPayload(snapshot.payload) !== snapshot.checksum.toLowerCase()) throw new Error('La vérification d’intégrité locale a échoué.');
   const row = { account_id: snapshot.accountId, device_id: snapshot.deviceId, revision: snapshot.revision, parent_revision: snapshot.parentRevision, updated_at: snapshot.updatedAt, checksum: snapshot.checksum, payload: snapshot.payload };
   if (expectedRemoteRevision === null) {
     const { response } = await request('/rest/v1/study_snapshots', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: JSON.stringify(row) }, session.accessToken);
     return response.status === 201;
   }
-  const { response, body } = await request(`/rest/v1/study_snapshots?account_id=eq.${encodeURIComponent(session.user.id)}&revision=eq.${expectedRemoteRevision}`, { method: 'PATCH', headers: { Prefer: 'return=representation' }, body: JSON.stringify(row) }, session.accessToken);
+  const checksumFilter = typeof expectedRemoteChecksum === 'string' ? `&checksum=eq.${encodeURIComponent(expectedRemoteChecksum)}` : '';
+  const { response, body } = await request(`/rest/v1/study_snapshots?account_id=eq.${encodeURIComponent(session.user.id)}&revision=eq.${expectedRemoteRevision}${checksumFilter}`, { method: 'PATCH', headers: { Prefer: 'return=representation' }, body: JSON.stringify(row) }, session.accessToken);
   return response.status === 204 || (Array.isArray(body) && body.length > 0);
 }
 
@@ -115,7 +121,7 @@ export async function synchronizeSnapshot(localSnapshot, lastSyncedRevision) {
   const decision = decideSync({ local: localSnapshot, remote, lastSyncedRevision });
   if (decision.status === 'upload-local') {
     try {
-      const uploaded = await uploadCloudSnapshot(localSnapshot, remote?.revision ?? null);
+      const uploaded = await uploadCloudSnapshot(localSnapshot, remote?.revision ?? null, remote?.checksum ?? null);
       if (!uploaded) return { status: 'conflict', local: localSnapshot, remote: await readCloudSnapshot(), reason: 'La copie distante a changé pendant l’envoi. Relance une comparaison avant toute modification.' };
     } catch (error) {
       if (error?.status === 409) return { status: 'conflict', local: localSnapshot, remote: await readCloudSnapshot(), reason: 'La sauvegarde distante existe déjà. Aucune donnée n’a été écrasée.' };
@@ -133,3 +139,71 @@ export async function createAccount(email, password) { return signUp(email.trim(
 
 /** Retourne l'identité de session sans exposer les jetons. */
 export function getCloudSessionStatus() { return { configured: cloudSyncConfigured(), connected: Boolean(session?.accessToken), user: currentCloudUser() }; }
+
+
+/** Inspecte la ligne distante sans la modifier. */
+export async function inspectCloudSnapshot() {
+  if (!session?.accessToken) throw new Error('Connecte-toi pour accéder à la synchronisation.');
+  const { body } = await request(
+    `/rest/v1/study_snapshots?select=account_id,device_id,revision,parent_revision,updated_at,checksum,payload&account_id=eq.${encodeURIComponent(session.user.id)}&limit=1`,
+    { method: 'GET' },
+    session.accessToken
+  );
+  if (!Array.isArray(body) || body.length === 0) return { status: 'empty' };
+  const row = body[0];
+  const snapshot = {
+    protocol: 1,
+    accountId: row.account_id,
+    deviceId: row.device_id,
+    revision: row.revision,
+    parentRevision: row.parent_revision,
+    updatedAt: row.updated_at,
+    checksum: row.checksum,
+    payload: row.payload
+  };
+  let valid = false;
+  try {
+    valid = validateSyncSnapshot(snapshot)
+      && snapshot.accountId === session.user.id
+      && (await checksumPayload(snapshot.payload)) === snapshot.checksum.toLowerCase();
+  } catch { valid = false; }
+  if (!valid) {
+    if (!Number.isSafeInteger(row.revision) || row.revision < 0 || typeof row.checksum !== 'string' || !row.checksum.length) {
+      throw new Error('La sauvegarde distante est invalide et ne peut pas être remplacée automatiquement en toute sécurité.');
+    }
+    return { status: 'invalid', revision: row.revision, checksum: row.checksum };
+  }
+  return { status: 'valid', snapshot };
+}
+
+/** Remplace une ligne invalide uniquement si sa révision et son empreinte sont inchangées. */
+export async function replaceInvalidCloudSnapshot({ snapshot, expectedRevision, expectedChecksum }) {
+  if (!session?.accessToken) throw new Error('Connecte-toi pour accéder à la synchronisation.');
+  if (!validateSyncSnapshot(snapshot) || snapshot.accountId !== session.user.id
+      || !Number.isSafeInteger(expectedRevision) || expectedRevision < 0
+      || typeof expectedChecksum !== 'string' || !expectedChecksum.length) {
+    throw new Error('Les informations de remplacement sont invalides.');
+  }
+  if ((await checksumPayload(snapshot.payload)) !== snapshot.checksum.toLowerCase()) {
+    throw new Error('La vérification d’intégrité locale a échoué.');
+  }
+  const row = {
+    account_id: snapshot.accountId,
+    device_id: snapshot.deviceId,
+    revision: snapshot.revision,
+    parent_revision: snapshot.parentRevision,
+    updated_at: snapshot.updatedAt,
+    checksum: snapshot.checksum,
+    payload: snapshot.payload
+  };
+  const path = `/rest/v1/study_snapshots?account_id=eq.${encodeURIComponent(session.user.id)}&revision=eq.${expectedRevision}&checksum=eq.${encodeURIComponent(expectedChecksum)}`;
+  const { body } = await request(path, {
+    method: 'PATCH',
+    headers: { Prefer: 'return=representation' },
+    body: JSON.stringify(row)
+  }, session.accessToken);
+  if (!Array.isArray(body) || body.length === 0) {
+    throw new Error('La sauvegarde distante a changé depuis son inspection. Relance une comparaison ; aucune ligne n’a été remplacée.');
+  }
+  return true;
+}

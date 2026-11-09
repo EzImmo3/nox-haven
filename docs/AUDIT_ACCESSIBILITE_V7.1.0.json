@@ -1,6 +1,6 @@
 {
   "version": "7.1.0",
-  "generatedAt": "2026-11-07T17:42:50.644Z",
+  "generatedAt": "2026-11-09T18:51:23.949Z",
   "scope": [
     "index.html",
     "src/App.tsx",
@@ -70,7 +70,7 @@
       "id": "button-names",
       "label": "Noms accessibles des boutons",
       "status": "pass",
-      "detail": "0 bouton(s) sans nom accessible détecté(s) parmi 85; le texte visible est accepté."
+      "detail": "0 bouton(s) sans nom accessible détecté(s) parmi 87; le texte visible est accepté."
     },
     {
       "id": "field-names",

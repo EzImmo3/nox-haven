@@ -38,14 +38,14 @@
     {
       "name": "typescript",
       "declared": "~5.6.2",
-      "installed": false,
-      "installedVersion": null
+      "installed": true,
+      "installedVersion": "5.8.3"
     }
   ],
   "summary": {
     "required": 6,
-    "installed": 0,
-    "missing": 6
+    "installed": 1,
+    "missing": 5
   },
   "status": "blocked",
   "guidance": "Les dépendances déclarées ne sont pas toutes présentes. Installer les dépendances depuis le dossier racine du projet, puis relancer npm run build. Ne pas interpréter les erreurs JSX/TS2307 comme des défauts de composants tant que React et ses types sont absents."

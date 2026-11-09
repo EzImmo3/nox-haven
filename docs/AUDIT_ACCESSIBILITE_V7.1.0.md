@@ -1,6 +1,6 @@
 # Audit accessibilité — NOX HAVEN V7.1.0
 
-Généré le 2026-11-07T17:42:50.644Z.
+Généré le 2026-11-09T18:51:23.949Z.
 Résultat : 11/11 heuristiques positives ; 0 à vérifier.
 
 | Contrôle | Statut | Détail |
@@ -14,7 +14,7 @@ Résultat : 11/11 heuristiques positives ; 0 à vérifier.
 | Lien visible au focus | À première vue OK | Le lien d’évitement doit devenir visible au clavier. |
 | Réduction des animations | À première vue OK | Prévoir prefers-reduced-motion. |
 | Navigation nommée | À première vue OK | La navigation principale doit posséder un nom accessible. |
-| Noms accessibles des boutons | À première vue OK | 0 bouton(s) sans nom accessible détecté(s) parmi 85; le texte visible est accepté. |
+| Noms accessibles des boutons | À première vue OK | 0 bouton(s) sans nom accessible détecté(s) parmi 87; le texte visible est accepté. |
 | Noms accessibles des champs | À première vue OK | 0 champ(s) sans association label/id ou nom ARIA détecté(s) parmi 22. |
 
 ## Limites

@@ -1,6 +1,7 @@
 import { readFileSync, existsSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-const root = new URL('../', import.meta.url).pathname;
+import { fileURLToPath } from 'node:url';
+const root = fileURLToPath(new URL('../', import.meta.url));
 const read = p => readFileSync(join(root, p), 'utf8');
 const pkg = JSON.parse(read('package.json'));
 const manifest = JSON.parse(read('public/manifest.webmanifest'));
@@ -22,8 +23,8 @@ const checks = [
   { name: 'exclusion des requêtes cross-origin', ok: /url\.origin !== self\.location\.origin/.test(sw) },
 ];
 const report = { version: pkg.version, generatedAt: new Date().toISOString(), checks, icons: icons.map(x => ({ src:x.src, sizes:x.sizes, exists:x.exists, bytes:x.exists ? statSync(join(root,'public',x.src.replace(/^\.\//,''))).size : 0 })), limitations: ['Audit statique : aucun test réel sur Android, iOS ou navigateur de bureau.', 'La disponibilité hors ligne dépend des pages et ressources effectivement mises en cache après une première visite.', 'La synchronisation cloud multi-appareils et la publication publique ne sont pas fournies par cet audit.'] };
-writeFileSync(join(root, 'docs/AUDIT_PWA_V${pkg.version}.json'), JSON.stringify(report, null, 2));
-writeFileSync(join(root, 'docs/AUDIT_PWA_V${pkg.version}.md'), `# Audit PWA — NOX HAVEN ${pkg.version}
+writeFileSync(join(root, `docs/AUDIT_PWA_V${pkg.version}.json`), JSON.stringify(report, null, 2));
+writeFileSync(join(root, `docs/AUDIT_PWA_V${pkg.version}.md`), `# Audit PWA — NOX HAVEN ${pkg.version}
 
 ${checks.map(c => `- ${c.ok ? 'OK' : 'À corriger'} — ${c.name}`).join('\n')}
 

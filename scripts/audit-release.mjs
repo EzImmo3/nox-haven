@@ -24,8 +24,9 @@ const tasks = [
   ['Export du planning vers calendrier', 'audit:calendar'],
   ['Tests du format iCalendar', 'audit:calendar-unit'],
 ];
+const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 const results = tasks.map(([label, script]) => {
-  const run = spawnSync('npm', ['run', script], { cwd: root, encoding: 'utf8', timeout: 120000, maxBuffer: 8 * 1024 * 1024 });
+  const run = spawnSync(npmCommand, ['run', script], { cwd: root, encoding: 'utf8', timeout: 120000, maxBuffer: 8 * 1024 * 1024, shell: process.platform === 'win32' });
   const output = `${run.stdout || ''}${run.stderr || ''}`.trim();
   return { label, script, status: run.status === 0 ? 'pass' : 'review', exitCode: run.status, signal: run.signal || null, output: output.slice(-12000) };
 });

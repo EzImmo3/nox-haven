@@ -1,0 +1,73 @@
+{
+  "version": "7.1.0",
+  "generatedAt": "2026-11-09T18:50:32.668Z",
+  "checks": [
+    {
+      "name": "manifeste JSON lisible",
+      "ok": true
+    },
+    {
+      "name": "nom court adapté au lanceur mobile",
+      "ok": true
+    },
+    {
+      "name": "mode standalone",
+      "ok": true
+    },
+    {
+      "name": "scope et démarrage relatifs",
+      "ok": true
+    },
+    {
+      "name": "langue française déclarée",
+      "ok": true
+    },
+    {
+      "name": "icône 192 présente",
+      "ok": true
+    },
+    {
+      "name": "icône 512 présente",
+      "ok": true
+    },
+    {
+      "name": "cache versionné",
+      "ok": true
+    },
+    {
+      "name": "nettoyage des anciens caches applicatifs",
+      "ok": true
+    },
+    {
+      "name": "repli hors ligne sur index mis en cache",
+      "ok": true
+    },
+    {
+      "name": "limitation aux requêtes GET",
+      "ok": true
+    },
+    {
+      "name": "exclusion des requêtes cross-origin",
+      "ok": true
+    }
+  ],
+  "icons": [
+    {
+      "src": "./icons/nox-haven-192.png",
+      "sizes": "192x192",
+      "exists": true,
+      "bytes": 47780
+    },
+    {
+      "src": "./icons/nox-haven-512.png",
+      "sizes": "512x512",
+      "exists": true,
+      "bytes": 302255
+    }
+  ],
+  "limitations": [
+    "Audit statique : aucun test réel sur Android, iOS ou navigateur de bureau.",
+    "La disponibilité hors ligne dépend des pages et ressources effectivement mises en cache après une première visite.",
+    "La synchronisation cloud multi-appareils et la publication publique ne sont pas fournies par cet audit."
+  ]
+}

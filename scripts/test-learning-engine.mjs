@@ -8,7 +8,7 @@ import { spawnSync } from 'node:child_process';
 const output = mkdtempSync(join(tmpdir(), 'nox-learning-'));
 try {
   const tscPath = resolve('node_modules/typescript/bin/tsc');
-const compile = spawnSync(process.execPath, [tscPath, '--target','ES2022','--module','ES2022','--moduleResolution','bundler','--skipLibCheck','--outDir',output,'src/learningEngine.ts'], { encoding:'utf8' });
+  const compile = spawnSync(process.execPath, [tscPath, '--target','ES2022','--module','ES2022','--moduleResolution','bundler','--skipLibCheck','--outDir',output,'src/learningEngine.ts'], { encoding:'utf8' });
   assert.equal(compile.status, 0, `Compilation du moteur impossible : ${compile.stdout}\n${compile.stderr}`);
   const engine = await import(pathToFileURL(join(output, 'learningEngine.js')).href);
   const card = (id, dueAt, repetitions = 0) => ({ id, subjectId:'maths-spe', chapter:'Suites', front:'Q', back:'R', tags:[], createdAt:'2026-11-01T10:00:00Z', dueAt, interval:1, ease:2.5, repetitions, lapses:0, lastReviewedAt:null });
