@@ -25,7 +25,8 @@ const scripts = ['build', 'dev', 'preview', 'doctor', 'audit:release'];
 for (const name of scripts) checks.push({ id: `script:${name}`, ok: typeof pkg.scripts?.[name] === 'string', detail: pkg.scripts?.[name] ?? 'script absent' });
 const node = process.versions.node.split('.').map(Number);
 checks.push({ id: 'runtime:node', ok: node[0] >= 20, detail: `Node ${process.versions.node} (minimum projet 20)` });
-const npm = spawnSync('npm', ['--version'], { encoding: 'utf8' });
+const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+const npm = spawnSync(npmCommand, ['--version'], { encoding: 'utf8', shell: process.platform === 'win32' });
 checks.push({ id: 'runtime:npm', ok: npm.status === 0, detail: npm.stdout?.trim() || 'npm indisponible' });
 const failed = checks.filter(x => !x.ok);
 const report = {

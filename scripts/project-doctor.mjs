@@ -16,7 +16,8 @@ const checks = required.map(name => {
 });
 const missing = checks.filter(x => !x.installed);
 const lockfiles = ['package-lock.json', 'pnpm-lock.yaml', 'yarn.lock'].filter(fs.existsSync);
-const npmVersion = spawnSync('npm', ['--version'], { encoding: 'utf8' }).stdout?.trim() ?? 'indisponible';
+const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+const npmVersion = spawnSync(npmCommand, ['--version'], { encoding: 'utf8', shell: process.platform === 'win32' }).stdout?.trim() ?? 'indisponible';
 const report = {
   version: pkg.version,
   node: process.version,
