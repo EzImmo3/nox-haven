@@ -1,0 +1,65 @@
+{
+  "version": "7.5.0",
+  "generatedAt": "2026-11-09T20:35:28.090Z",
+  "summary": {
+    "passed": 10,
+    "total": 10
+  },
+  "checks": [
+    {
+      "id": "icalendar-container",
+      "label": "Conteneur iCalendar 2.0",
+      "status": "pass"
+    },
+    {
+      "id": "all-day-dates",
+      "label": "Séances exportées comme dates sans horaire inventé",
+      "status": "pass"
+    },
+    {
+      "id": "exclusive-end",
+      "label": "Fin exclusive calculée au lendemain",
+      "status": "pass"
+    },
+    {
+      "id": "task-details",
+      "label": "Titre, matière, chapitre et durée exportés",
+      "status": "pass"
+    },
+    {
+      "id": "escaping",
+      "label": "Caractères spéciaux et retours à la ligne échappés",
+      "status": "pass"
+    },
+    {
+      "id": "utf8-folding",
+      "label": "Lignes repliées à 75 octets UTF-8",
+      "status": "pass"
+    },
+    {
+      "id": "date-validation",
+      "label": "Dates impossibles rejetées",
+      "status": "pass"
+    },
+    {
+      "id": "download",
+      "label": "Téléchargement .ics depuis le planning",
+      "status": "pass"
+    },
+    {
+      "id": "empty-state",
+      "label": "Export désactivé si aucune séance",
+      "status": "pass"
+    },
+    {
+      "id": "status",
+      "label": "Statut VEVENT conforme et compatibilité VEVENT historique préservée",
+      "status": "pass"
+    }
+  ],
+  "limitations": [
+    "Audit statique et tests de structure : ils ne remplacent pas des essais d’import sur Google Calendar, Outlook ou Apple Calendar.",
+    "Les séances restent des événements sur la journée entière : aucune heure de début n’est connue.",
+    "L’export est un instantané ; un nouvel export est nécessaire après modification du planning."
+  ]
+}

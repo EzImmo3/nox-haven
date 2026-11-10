@@ -1,4 +1,4 @@
-const CACHE_PREFIX = 'noxhaven-shell-v7.1.0-';
+const CACHE_PREFIX = 'noxhaven-shell-v8.0.0-';
 const ALL_APP_CACHES = /^(?:studyflow|noxhaven)-shell-v/;
 const CACHE_NAME = `${CACHE_PREFIX}1`;
 const APP_SCOPE = self.registration.scope;

@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const app=fs.readFileSync('src/App.tsx','utf8');
+const css=fs.readFileSync('src/styles.css','utf8');
+assert(app.includes("event.key==='ArrowDown'"),'La recherche doit permettre de descendre dans les résultats.');
+assert(app.includes("event.key==='ArrowUp'"),'La recherche doit permettre de remonter dans les résultats.');
+assert(app.includes("event.key==='Escape'"),'La recherche doit pouvoir être fermée au clavier.');
+assert(app.includes('aria-activedescendant'),'Le résultat actif doit être annoncé au lecteur d’écran.');
+assert(app.includes('role="listbox"')&&app.includes('role="option"'),'Les résultats doivent exposer une sémantique de liste accessible.');
+assert(app.includes("document.activeElement===last")&&app.includes('last.focus()'),'Le focus doit rester dans la fenêtre modale.');
+assert(app.includes('previous?.focus?.()'),'Le focus doit revenir à son emplacement précédent à la fermeture.');
+assert(app.includes('href="#studyflow-main"'),'Un lien d’évitement doit mener au contenu principal.');
+assert(app.includes("key==='f'")&&app.includes("setTab('focus')"),'Le raccourci Alt+Maj+F doit ouvrir Focus.');
+assert(css.includes('.quick-search-results button.is-active'),'Le résultat sélectionné doit être visible.');
+console.log('NAVIGATION CLAVIER & ACCESSIBILITÉ — 10/10 assertions réussies.');

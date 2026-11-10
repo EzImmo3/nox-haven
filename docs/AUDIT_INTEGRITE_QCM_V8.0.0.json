@@ -1,0 +1,36 @@
+{
+  "version": "8.0.0",
+  "chapters": 120,
+  "catalogue": 120,
+  "questions": 2405,
+  "distribution": [
+    {
+      "choice": "A",
+      "count": 1519,
+      "percent": 63.2
+    },
+    {
+      "choice": "B",
+      "count": 339,
+      "percent": 14.1
+    },
+    {
+      "choice": "C",
+      "count": 286,
+      "percent": 11.9
+    },
+    {
+      "choice": "D",
+      "count": 261,
+      "percent": 10.9
+    }
+  ],
+  "metrics": {
+    "resourcesWithMissingOrFewQuizzes": 0,
+    "invalidAnswerIndexes": 0,
+    "duplicateOptions": 0,
+    "duplicateQuestionSets": 0,
+    "weakExplanations": 0
+  },
+  "findings": []
+}

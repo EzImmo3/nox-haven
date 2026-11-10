@@ -1,0 +1,152 @@
+{
+  "version": "7.5.0",
+  "chapters": 120,
+  "catalogue": 120,
+  "questions": 2405,
+  "distribution": [
+    {
+      "choice": "A",
+      "count": 1519,
+      "percent": 63.2
+    },
+    {
+      "choice": "B",
+      "count": 339,
+      "percent": 14.1
+    },
+    {
+      "choice": "C",
+      "count": 286,
+      "percent": 11.9
+    },
+    {
+      "choice": "D",
+      "count": 261,
+      "percent": 10.9
+    }
+  ],
+  "metrics": {
+    "resourcesWithMissingOrFewQuizzes": 0,
+    "invalidAnswerIndexes": 0,
+    "duplicateOptions": 0,
+    "duplicateQuestionSets": 0,
+    "weakExplanations": 23
+  },
+  "findings": [
+    {
+      "id": "maths-primitives",
+      "question": "Si y’=2y et y(1)=e², alors y vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-integrales",
+      "question": "∫₀² x dx vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-integrales",
+      "question": "∫₀²(3x²−1)dx vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "Calculer (1;2;−1)·(2;0;2).",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "La norme de (2;−3;6) vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "La distance de O à A(2;−1;2) vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "A(1;0;−2), B(4;4;−2). AB vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "A(−1;2;3), B(−1;−2;6). AB vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "H(0;1;−1) appartient au plan x+y+z=0 :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "A(0;0;0), B(1;2;2), C(2;0;1). AB·AC vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-orthogonalite",
+      "question": "A(1;1;1), B(3;2;−1). AB vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-parametrique",
+      "question": "Le point A(1;2;−1) appartient au plan x+y+z−2=0 :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-algo",
+      "question": "Une boucle divise une longueur par 2 à chaque tour. Après 5 tours, une longueur initiale de 96 vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "maths-algo",
+      "question": "On initialise s=0 puis on ajoute les entiers pairs de 2 à 8 inclus. Quelle valeur obtient-on ?",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-synthese",
+      "question": "Une étape donne 12 mmol de produit alors que la quantité théorique est 15 mmol. Quel est le rendement ?",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-electricite",
+      "question": "Une charge de 12 C traverse un conducteur en 3 s. Quelle est l’intensité moyenne ?",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-electricite",
+      "question": "À t = τ pendant une charge, uC vaut environ…",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-electricite",
+      "question": "À t = τ pendant une décharge, uC vaut environ…",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-energie",
+      "question": "Une température de 27 °C correspond environ à :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-energie",
+      "question": "Un système reçoit W=+300 J et Q=−100 J. ΔU vaut :",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-energie",
+      "question": "Un système reçoit 500 J de travail et cède 200 J par transfert thermique. Sa variation d’énergie interne vaut ",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-ondes",
+      "question": "Une onde met 0,15 s pour parcourir 51 m. Quelle est sa célérité ?",
+      "issue": "explication trop courte (<25 caractères)"
+    },
+    {
+      "id": "pc-lumiere",
+      "question": "Le grandissement est défini par :",
+      "issue": "explication trop courte (<25 caractères)"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "nox-haven",
   "private": true,
-  "version": "7.1.0",
+  "version": "8.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -28,7 +28,7 @@
     "audit:manifest": "node scripts/audit-manifest.mjs",
     "audit:version": "node scripts/audit-version-coherence.mjs",
     "test:quiz-shuffle": "node scripts/test-quiz-shuffle.mjs",
-    "test:all": "npm run test:durable-storage && npm run audit:backup && npm run audit:storage-health && npm run test:smoke && npm run test:quiz-shuffle && npm run test:calendar-unit && npm run test:pwa && npm run test:service-worker-runtime && npm run test:mobile && npm run test:sync && npm run test:cloud-sync && npm run audit:cloud-config && npm run test:dashboard && npm run test:learning-engine && npm run test:chapter-analytics && npm run test:focus-session && npm run test:resource-separation && npm run test:resource-code-splitting && npm run audit:pedagogy && npm run audit:course-depth && npm run audit:curriculum && npm run audit:platform && npm run audit:accessibility && npm run audit:version",
+    "test:all": "npm run audit:content && npm run audit:quiz-integrity && npm run test:bac-simulator && npm run test:smart-reminders && npm run test:error-boundary && npm run test:v740-progress-accessibility && npm run test:durable-storage && npm run audit:backup && npm run audit:storage-health && npm run test:smoke && npm run test:quiz-shuffle && npm run test:calendar-unit && npm run test:pwa && npm run test:service-worker-runtime && npm run test:mobile && npm run test:sync && npm run test:cloud-sync && npm run audit:cloud-config && npm run test:dashboard && npm run test:learning-engine && npm run test:chapter-analytics && npm run test:focus-session && npm run test:focus-energy && npm run test:keyboard-navigation && npm run test:resource-separation && npm run test:resource-code-splitting && npm run audit:pedagogy && npm run audit:course-depth && npm run audit:curriculum && npm run audit:platform && npm run audit:accessibility && npm run audit:accessibility-advanced && npm run audit:version",
     "audit:pedagogy": "node scripts/audit-pedagogy.mjs",
     "test:pwa": "node scripts/test-pwa.mjs",
     "test:calendar-unit": "node scripts/test-calendar-export.mjs",
@@ -44,7 +44,14 @@
     "test:resource-code-splitting": "node scripts/test-resource-code-splitting.mjs",
     "audit:cloud-config": "node scripts/audit-cloud-config.mjs",
     "test:learning-engine": "node scripts/test-learning-engine.mjs",
-    "test:chapter-analytics": "node scripts/test-chapter-analytics.mjs"
+    "test:chapter-analytics": "node scripts/test-chapter-analytics.mjs",
+    "test:bac-simulator": "node scripts/test-bac-simulator.mjs",
+    "test:focus-energy": "node scripts/test-focus-energy.mjs",
+    "test:keyboard-navigation": "node scripts/test-keyboard-navigation.mjs",
+    "test:v740-progress-accessibility": "node scripts/test-v740-progress-accessibility.mjs",
+    "test:smart-reminders": "node scripts/test-smart-reminders.mjs",
+    "test:error-boundary": "node scripts/test-error-boundary.mjs",
+    "audit:accessibility-advanced": "node scripts/audit-accessibility-advanced.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

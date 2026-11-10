@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const boundary=fs.readFileSync('src/ErrorBoundary.tsx','utf8');
+const entry=fs.readFileSync('src/main.tsx','utf8');
+assert.match(boundary,/static getDerivedStateFromError/);
+assert.match(boundary,/componentDidCatch/);
+assert.match(boundary,/role="alert"/);
+assert.match(boundary,/Tes données enregistrées ne sont pas supprimées/);
+assert.match(boundary,/Réessayer l’affichage/);
+assert.match(entry,/<ErrorBoundary><App \/><\/ErrorBoundary>/);
+console.log('ERROR BOUNDARY — 6/6 assertions réussies.');

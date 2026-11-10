@@ -1,0 +1,37 @@
+{
+  "version": "7.5.0",
+  "generatedAt": "2026-11-09T20:35:26.441Z",
+  "filesScanned": 32,
+  "checks": [
+    {
+      "name": "cache du service worker versionné",
+      "ok": true
+    },
+    {
+      "name": "navigation hors ligne avec repli cache",
+      "ok": true
+    },
+    {
+      "name": "manifest servi en mode standalone",
+      "ok": true
+    },
+    {
+      "name": "scope PWA relatif",
+      "ok": true
+    },
+    {
+      "name": "export de sauvegarde avec SHA-256",
+      "ok": true
+    },
+    {
+      "name": "import vérifie l’empreinte avant restauration",
+      "ok": true
+    }
+  ],
+  "findings": [],
+  "limitations": [
+    "Audit statique uniquement : ne prouve pas l’absence de vulnérabilité.",
+    "Aucun test d’intrusion, dépendance ou serveur distant n’est couvert.",
+    "Les données locales ne sont pas synchronisées ni sauvegardées dans le cloud."
+  ]
+}

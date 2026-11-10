@@ -378,3 +378,121 @@ button,a,input,select,textarea{ -webkit-tap-highlight-color:transparent }
 
 /* V7.0.0 — per-subject learning progress */
 .subject-learning-progress{margin-bottom:17px}.subject-progress-row{padding:13px 0;border-top:1px solid var(--line)}.subject-progress-heading,.subject-progress-meta{display:flex;justify-content:space-between;align-items:center;gap:12px}.subject-progress-heading strong{font-size:13px}.subject-progress-heading span,.subject-progress-meta{font-size:10px;color:var(--muted)}.subject-progress-row .progress-track{height:7px;margin:9px 0 6px}.subject-progress-meta{flex-wrap:wrap}.subject-progress-row>.text-btn{margin-top:5px;padding-left:0}@media(max-width:650px){.subject-progress-heading{align-items:flex-start;flex-direction:column;gap:3px}.subject-progress-meta{align-items:flex-start;flex-direction:column;gap:3px}}
+
+/* Simulateur du baccalauréat */
+.bac-notice{display:flex;align-items:flex-start;gap:12px;color:var(--muted);}
+.bac-notice svg{flex:0 0 auto;margin-top:2px;color:var(--accent);}
+.bac-notice p{margin:0;line-height:1.55;}
+.bac-summary{margin-bottom:18px;}
+.bac-projection{margin-bottom:18px;}
+.bac-projection h2,.bac-footer h2{margin:0 0 7px;font-size:1.05rem;}
+.bac-projection>p,.bac-footer p{margin:0;color:var(--muted);line-height:1.55;}
+.bac-target-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px;}
+.bac-target{display:flex;flex-direction:column;gap:5px;padding:14px;border:1px solid var(--border);border-radius:12px;}
+.bac-target strong{font-size:.88rem;}
+.bac-target span{font-size:1.35rem;font-weight:750;}
+.bac-target small{color:var(--muted);}
+.bac-group{margin-bottom:18px;}
+.bac-grade-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px;}
+.bac-grade-field{margin:0;}
+.bac-grade-field>span{display:flex;flex-direction:column;gap:3px;}
+.bac-grade-field small{color:var(--muted);font-size:.78rem;font-weight:500;}
+.bac-grade-input{display:flex;align-items:center;gap:8px;}
+.bac-grade-input input{width:100%;min-width:0;}
+.bac-grade-input>span{color:var(--muted);font-size:.85rem;}
+.bac-footer{display:flex;align-items:center;justify-content:space-between;gap:18px;}
+@media(max-width:640px){.bac-target-grid{grid-template-columns:1fr;}.bac-grade-grid{grid-template-columns:1fr;}.bac-footer{align-items:stretch;flex-direction:column;}}
+
+/* V7.2 — Oral, urgence contrôle et carnet de connaissances */
+.oral-layout{display:grid;grid-template-columns:minmax(220px,.72fr) minmax(0,1.8fr);gap:16px;align-items:start;margin-bottom:18px}
+.oral-list,.oral-editor,.oral-guide,.notebook-editor,.urgency-config{min-width:0}
+.oral-list-item{display:flex;width:100%;flex-direction:column;gap:5px;text-align:left;padding:12px;border:1px solid var(--line);border-radius:11px;background:transparent;color:var(--text);margin:8px 0;cursor:pointer}
+.oral-list-item.selected{border-color:var(--accent);background:var(--surface-soft,var(--bg))}
+.oral-list-item strong{font-size:13px}.oral-list-item span{font-size:11px;color:var(--muted)}
+.oral-progress{font-weight:750;color:var(--accent);font-size:1.15rem}
+.oral-editor .field-label{margin:13px 0}.oral-editor textarea,.notebook-editor textarea{resize:vertical;line-height:1.65}
+.oral-guide{margin-bottom:18px}.oral-guide h2{font-size:1.05rem;margin:0 0 14px}
+.oral-guide-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.oral-guide-grid>div{padding:13px;border:1px solid var(--line);border-radius:11px}.oral-guide-grid strong{font-size:13px}.oral-guide-grid p{font-size:12px;line-height:1.6;color:var(--muted);margin:7px 0 0}
+.notebook-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}
+.notebook-filters{display:grid;grid-template-columns:minmax(180px,1fr) minmax(150px,.4fr) minmax(150px,.4fr);gap:10px;margin:12px 0 16px}
+.notebook-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.notebook-card{min-width:0;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.notebook-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.notebook-card h3{font-size:14px;margin:6px 0 0}.notebook-card>p{font-size:12px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--muted)}
+.notebook-tags{display:flex;flex-wrap:wrap;gap:6px}.notebook-tags span{padding:4px 8px;border-radius:20px;background:var(--surface-soft,var(--bg));font-size:10px;color:var(--muted)}
+.urgency-duration{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;color:var(--accent);font-weight:700}
+.urgency-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.urgency-fields .field-label{margin:0}
+.urgency-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:15px;padding-top:14px;border-top:1px solid var(--line)}
+.urgency-stats>div{display:flex;flex-direction:column;gap:3px}.urgency-stats strong{font-size:1.35rem}.urgency-stats span{font-size:11px;color:var(--muted)}
+.urgency-timeline{display:grid;gap:12px}.urgency-timeline>div{display:flex;gap:12px;align-items:flex-start}.urgency-timeline>div>span{display:grid;place-items:center;width:27px;height:27px;flex:0 0 auto;border-radius:50%;background:var(--surface-soft,var(--bg));color:var(--accent);font-weight:750}.urgency-timeline section strong{font-size:13px}.urgency-timeline p{margin:4px 0 0;color:var(--muted);font-size:12px;line-height:1.6}
+.urgency-content-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.urgency-item{padding:11px 0;border-bottom:1px solid var(--line)}.urgency-item summary{cursor:pointer;display:flex;flex-direction:column;gap:4px}.urgency-item summary strong{font-size:12px}.urgency-item summary span{font-size:10px;color:var(--muted)}.urgency-item p{font-size:12px;line-height:1.6;color:var(--muted)}.urgency-reminder{display:flex;gap:10px;align-items:flex-start;color:var(--muted)}.urgency-reminder svg{flex:0 0 auto;color:var(--accent)}.urgency-reminder p{margin:0;line-height:1.6;font-size:12px}
+.danger-text{color:var(--danger,var(--muted))}
+@media(max-width:760px){.oral-layout,.urgency-content-grid{grid-template-columns:1fr}.oral-guide-grid{grid-template-columns:1fr}.notebook-filters{grid-template-columns:1fr}.notebook-list{grid-template-columns:1fr}.urgency-fields{grid-template-columns:1fr}.notebook-fields{grid-template-columns:1fr}}
+
+@media(min-width:701px){.desktop-nav{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-right:3px}.sidebar{overflow:hidden}}
+
+/* Recherche globale et raccourcis clavier */
+.quick-search-trigger{display:inline-flex;align-items:center;gap:7px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--muted);font-size:10px}
+.quick-search-trigger kbd,.quick-search-input kbd{padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--surface-soft,var(--bg));font:10px ui-monospace,monospace;color:var(--muted)}
+.quick-search-backdrop{position:fixed;inset:0;z-index:40;background:#071426a8;display:flex;justify-content:center;align-items:flex-start;padding:12vh 16px 20px}
+.quick-search-dialog{width:min(620px,100%);max-height:72vh;overflow:hidden;border:1px solid var(--line);border-radius:15px;background:var(--panel);box-shadow:0 25px 80px #0005;display:flex;flex-direction:column}
+.quick-search-input{display:flex;align-items:center;gap:11px;padding:15px 17px;border-bottom:1px solid var(--line);color:var(--muted)}
+.quick-search-input input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--text);font-size:14px}
+.quick-search-results{overflow:auto;padding:7px}.quick-search-results>button{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 12px;border:0;border-radius:9px;background:transparent;color:var(--text);text-align:left}.quick-search-results>button:hover,.quick-search-results>button:focus-visible{background:var(--surface-soft,var(--bg))}.quick-search-results>button span{display:flex;flex-direction:column;gap:4px;min-width:0}.quick-search-results strong{font-size:12px}.quick-search-results small{font-size:10px;color:var(--muted)}.quick-search-results>button>svg{flex:0 0 auto;color:var(--muted)}.quick-search-results>p{padding:15px;color:var(--muted);font-size:12px}.quick-search-dialog footer{padding:10px 15px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}
+@media(max-width:700px){.quick-search-trigger span,.quick-search-trigger kbd{display:none}.quick-search-trigger{width:32px;height:32px;justify-content:center;padding:0}.top-actions{gap:6px}}
+@media print{.sidebar,.mobile-dock,.topbar,.toast,.settings-pop,.quick-search-backdrop,.page-heading>.primary-btn,.card-actions,.footer{display:none!important}.main-area{margin:0!important}.page-content{max-width:none!important;padding:0!important}.panel{box-shadow:none!important;break-inside:avoid}.app-shell{background:#fff!important;color:#111!important}}
+
+/* NOX HAVEN V7.3 — Focus & énergie, suivi de concentration non culpabilisant */
+.focus-stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 16px}.focus-session-panel{margin-bottom:16px}.focus-setup-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.focus-session-panel .field-label{display:flex;flex-direction:column;gap:7px;margin:12px 0;color:var(--muted);font-size:11px;font-weight:650}.focus-session-panel .field-label input:not([type=range]),.focus-session-panel .field-label select,.focus-session-panel .field-label textarea{width:100%;min-width:0;border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:var(--soft);color:var(--text);font:inherit}.focus-session-panel input[type=range]{width:100%;accent-color:var(--accent)}.focus-session-panel .field-label strong{color:var(--accent)}.focus-clock-row{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;margin:22px 0;padding:22px;border-radius:14px;background:var(--soft)}.focus-clock{font:800 clamp(38px,8vw,58px)/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:-2px;font-variant-numeric:tabular-nums;color:var(--accent)}.focus-clock.is-complete{color:#27966b}.focus-clock-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.focus-clock-actions p{flex-basis:100%;margin:0;color:var(--muted);font-size:11px}.focus-reflection{padding:15px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}.focus-reflection h3{margin:0 0 10px;font-size:14px}.focus-history-item{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.focus-history-item:last-child{border-bottom:0}.focus-history-item>div{min-width:0}.focus-history-item strong,.focus-history-item span{display:block}.focus-history-item strong{font-size:12px}.focus-history-item span,.focus-history-item small,.focus-history-item p{font-size:10px;color:var(--muted)}.focus-history-item span{margin-top:4px}.focus-history-item p{margin:7px 0 0;line-height:1.5}.focus-history-item small{white-space:nowrap}.focus-launch-panel{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:0 0 17px}.focus-launch-panel h2{margin:0 0 5px;font-size:14px}.focus-launch-panel p{margin:0;color:var(--muted);font-size:11px;line-height:1.6}
+@media(max-width:760px){.focus-stats-grid{grid-template-columns:1fr}.focus-setup-grid{grid-template-columns:1fr}.focus-clock-row{flex-direction:column;gap:16px}.focus-clock-actions{justify-content:center}.focus-launch-panel{align-items:flex-start;flex-direction:column}.focus-launch-panel .secondary-btn{width:100%}.focus-history-item{flex-direction:column}.focus-history-item small{white-space:normal}}
+
+.quick-search-results button.is-active{background:var(--accent-soft);color:var(--accent);outline:2px solid var(--accent);outline-offset:-2px}.quick-search-results button[aria-selected=true] strong{color:var(--accent)}.quick-search-dialog:focus-within{outline:none}.quick-search-results{max-height:min(56vh,480px);overflow-y:auto;overscroll-behavior:contain}
+
+/* NOX HAVEN V7.4 — lisibilité des pourcentages, confort tactile et focus */
+.progress-explainer{margin:9px 0 0;color:var(--muted);font-size:10px;line-height:1.6}
+.goal-progress-line{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:13px;font-size:12px;color:var(--muted)}
+.goal-progress-line strong{font-size:16px;color:var(--accent);font-variant-numeric:tabular-nums}
+.target-coaching .progress-track,.personal-goal-panel .progress-track{height:8px}
+.progress-track[role="progressbar"]{overflow:hidden}
+@media(max-width:700px){
+  .page-content button,.page-content a{min-height:44px}
+  .page-content button.icon-btn,.page-content .mini-actions button{min-width:44px;min-height:44px}
+  .page-content input:not([type=checkbox]):not([type=radio]),.page-content select,.page-content textarea{min-height:44px;max-width:100%;font-size:16px}
+  .goal-editor>div{gap:8px}
+  .goal-editor>div button{flex:1 1 100%}
+  .chapter-progress-panel .metric-line{gap:10px}
+  .chapter-progress-panel .metric-line strong{font-variant-numeric:tabular-nums}
+  .progress-explainer{font-size:11px}
+}
+@media(max-width:360px){.goal-progress-line{align-items:flex-start;flex-direction:column;gap:4px}.chapter-progress-panel .panel-heading{align-items:flex-start}}
+
+
+/* NOX HAVEN V7.5 — rappels contextualisés, impression et protection d’interface */
+.smart-reminders-panel{margin:0 0 17px}
+.smart-reminders-list{display:grid;gap:0}
+.smart-reminder-item{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
+.smart-reminder-item:last-child{border-bottom:0}
+.smart-reminder-copy{min-width:0}
+.smart-reminder-copy strong{display:block;font-size:12px}
+.smart-reminder-copy p,.smart-reminders-empty{margin:5px 0 0;color:var(--muted);font-size:11px;line-height:1.55}
+.smart-reminder-item .text-btn{flex:0 0 auto}
+.app-error-screen{min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--bg,#071426);color:var(--text,#f4f7fb)}
+.app-error-card{width:min(100%,560px);padding:clamp(22px,5vw,38px);border:1px solid var(--line,#26384e);border-radius:18px;background:var(--panel,#10233a);box-shadow:0 18px 60px #0003}
+.app-error-card h1{margin:12px 0;font-size:clamp(24px,5vw,34px);line-height:1.15}
+.app-error-card p{color:var(--muted);font-size:13px;line-height:1.65}
+.app-error-detail{overflow-wrap:anywhere;font-size:11px!important}
+.app-error-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+@media(max-width:600px){.smart-reminder-item{align-items:flex-start;flex-direction:column}.smart-reminder-item .text-btn{align-self:flex-start}.app-error-actions>*{width:100%}}
+@media print{
+  @page{size:auto;margin:14mm}
+  html,body,#root,.app-shell{height:auto!important;min-height:0!important;background:#fff!important;color:#111!important}
+  .sidebar,.mobile-dock,.mobile-more-panel,.topbar,.toast,.settings-pop,.quick-search-backdrop,.page-heading>.primary-btn,.card-actions,.footer,.icon-btn,.text-btn,.primary-btn,.secondary-btn,.mini-actions,.focus-clock-actions{display:none!important}
+  .main-area{margin:0!important;padding:0!important}
+  .page-content{max-width:none!important;padding:0!important}
+  .panel,.stat-card,.learning-section,.course-deep-section{box-shadow:none!important;break-inside:avoid;border-color:#bbb!important;background:#fff!important;color:#111!important}
+  .panel p,.panel span,.panel li,.page-content p,.page-content span{color:#333!important}
+  .progress-track{border:1px solid #aaa!important;background:#eee!important}
+  .progress-fill{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  a{color:#111!important;text-decoration:underline}
+  input,textarea,select{border:1px solid #aaa!important;background:#fff!important;color:#111!important}
+}

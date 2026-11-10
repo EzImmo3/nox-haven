@@ -1,6 +1,6 @@
 # Audit de sécurité statique — NOX HAVEN 7.1.0
 
-Fichiers analysés : **29**
+Fichiers analysés : **30**
 
 - OK — cache du service worker versionné
 - OK — navigation hors ligne avec repli cache

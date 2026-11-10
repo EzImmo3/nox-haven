@@ -28,6 +28,16 @@ export function getTargetProgress(average, target) {
   return { average, target, gap: Math.max(0, target - average), percent: Math.min(100, Math.round(average / Math.max(target, 0.01) * 100)), reached: average >= target };
 }
 
+/** Overall mastery summary for the exact set of active curriculum subjects supplied by the caller. */
+export function getChapterProgressSummary(subjects, chapterProgress = {}) {
+  const chapters = (Array.isArray(subjects) ? subjects : []).flatMap(subject => Array.isArray(subject.chapters) ? subject.chapters : []);
+  const mastered = chapters.filter(chapter => chapterProgress?.[chapter.id] === 'mastered').length;
+  const started = chapters.filter(chapter => chapterProgress?.[chapter.id] === 'started').length;
+  const total = chapters.length;
+  const pending = Math.max(0, total - mastered - started);
+  return { total, mastered, started, pending, percentage: total ? Math.round(mastered / total * 100) : 0 };
+}
+
 /** Per-subject learning progress, based only on saved chapter statuses and revision data. */
 export function buildSubjectLearningProgress(subjects, chapterProgress, flashcards = [], errors = [], resources = {}, todayKey = new Date().toISOString().slice(0, 10)) {
   return subjects.map(subject => {

@@ -26,9 +26,13 @@ const tasks = [
 ];
 const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 const results = tasks.map(([label, script]) => {
-  const run = spawnSync(npmCommand, ['run', script], { cwd: root, encoding: 'utf8', timeout: 120000, maxBuffer: 8 * 1024 * 1024, shell: process.platform === 'win32' });
+  const npmScript = pkg.scripts?.[script] ?? '';
+  const directNodeScript = npmScript.match(/^node\s+(.+\.mjs)$/);
+  const command = directNodeScript ? process.execPath : npmCommand;
+  const args = directNodeScript ? [path.resolve(root, directNodeScript[1])] : ['run', script];
+  const run = spawnSync(command, args, { cwd: root, encoding: 'utf8', timeout: 30000, maxBuffer: 8 * 1024 * 1024, shell: false });
   const output = `${run.stdout || ''}${run.stderr || ''}`.trim();
-  return { label, script, status: run.status === 0 ? 'pass' : 'review', exitCode: run.status, signal: run.signal || null, output: output.slice(-12000) };
+  return { label, script, status: run.status === 0 ? 'pass' : 'review', exitCode: run.status, signal: run.signal || null, timedOut: run.error?.code === 'ETIMEDOUT', output: output.slice(-12000) };
 });
 const report = {
   version: pkg.version,

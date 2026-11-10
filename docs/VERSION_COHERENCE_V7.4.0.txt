@@ -1,0 +1,9 @@
+COHÉRENCE DE VERSION 7.4.0 — 8/8
+OK package-version (package.json)
+OK manifest (public/manifest.webmanifest)
+OK service-worker-cache (public/sw.js)
+OK backup-export (src/App.tsx)
+OK footer-version (src/App.tsx)
+OK html-title (index.html)
+OK readme-heading (README.md)
+OK readme-changelog (README.md)

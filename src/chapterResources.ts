@@ -867,7 +867,7 @@ export const CHAPTER_RESOURCES: Record<string, ChapterResource> = {
 {level:"Intermédiaire",question:"Une primitive de cos(x) est :",choices:["−sin(x)","sin(x)","−cos(x)"],answer:1,explanation:"La dérivée de sin(x) est cos(x)."},
 {level:"Intermédiaire",question:"Une primitive de e^(5x) est :",choices:["5e^(5x)","e^(5x)/5","−e^(5x)/5"],answer:1,explanation:"La dérivée de e^(5x)/5 vaut e^(5x)."},
 {level:"Intermédiaire",question:"Les solutions de y’=−3y sont :",choices:["Ce^(−3x)","Ce^(3x)","C−3x"],answer:0,explanation:"Pour y’=ay, la solution générale est Ce^(ax)."},
-{level:"Intermédiaire",question:"Si y’=2y et y(1)=e², alors y vaut :",choices:["e^(2x)","e^(2x+2)","2e^x"],answer:0,explanation:"C e^(2)=e² donne C=1."},
+{level:"Intermédiaire",question:"Si y’=2y et y(1)=e², alors y vaut :",choices:["e^(2x)","e^(2x+2)","2e^x"],answer:0,explanation:"La solution générale est y=Ce^{2x}. En x=1, e²=Ce², donc C=1 et y=e^{2x}."},
 {level:"Intermédiaire",question:"Une primitive de 2x(x²+1)³ est :",choices:["(x²+1)⁴/4","(x²+1)³","2(x²+1)⁴"],answer:0,explanation:"La dérivée de (x²+1)⁴/4 est 2x(x²+1)³."},
 {level:"Intermédiaire",question:"Une solution constante de y’=5y−10 est :",choices:["−2","2","10"],answer:1,explanation:"Pour une constante, 0=5y−10 donc y=2."},
 {level:"Intermédiaire",question:"La solution générale de y’=3y+6 est :",choices:["Ce^(3x)−2","Ce^(3x)+2","Ce^(−3x)−2"],answer:0,explanation:"Une solution particulière constante vaut −2."},
@@ -946,10 +946,10 @@ export const CHAPTER_RESOURCES: Record<string, ChapterResource> = {
     quiz:[
 {level:"Facile",question:"Si F est une primitive de f, ∫₀²f(x)dx vaut :",choices:["F(2)−F(0)", "F(0)−F(2)", "F(2)+F(0)"],answer:0,explanation:"On applique le théorème fondamental."},
 {level:"Facile",question:"∫₁³ 2 dx vaut :",choices:["4", "2", "6"],answer:0,explanation:"Une primitive de 2 est 2x."},
-{level:"Intermédiaire",question:"∫₀² x dx vaut :",choices:["2", "4", "1"],answer:0,explanation:"Une primitive est x²/2."},
+{level:"Intermédiaire",question:"∫₀² x dx vaut :",choices:["2", "4", "1"],answer:0,explanation:"Une primitive est F(x)=x²/2. Ainsi F(2)-F(0)=2-0=2."},
 {level:"Intermédiaire",question:"Si f≥0 sur [a,b], alors son intégrale est :",choices:["positive ou nulle", "toujours négative", "toujours nulle"],answer:0,explanation:"L’intégrale d’une fonction positive est positive ou nulle."},
 {level:"Difficile",question:"La valeur moyenne de f sur [0,4] si son intégrale vaut 12 est :",choices:["3", "12", "48"],answer:0,explanation:"Diviser l’intégrale par la longueur 4."},
-{level:"Difficile",question:"∫₀²(3x²−1)dx vaut :",choices:["6", "7", "5"],answer:0,explanation:"Une primitive est x³−x."},
+{level:"Difficile",question:"∫₀²(3x²−1)dx vaut :",choices:["6", "7", "5"],answer:0,explanation:"Une primitive est F(x)=x³−x. Ainsi F(2)-F(0)=8-2=6."},
 {level:"Intermédiaire",question:"∫₂⁵ 3 dx vaut :",choices:["9", "3", "15"],answer:0,explanation:"Une primitive de 3 est 3x ; 3×(5−2)=9."},
 {level:"Intermédiaire",question:"Si F’=f, ∫₁⁴f(x)dx vaut :",choices:["F(4)−F(1)", "F(1)−F(4)", "F(4)+F(1)"],answer:0,explanation:"Le théorème fondamental impose la borne supérieure moins la borne inférieure."},
 {level:"Intermédiaire",question:"∫₀² 2x dx vaut :",choices:["4", "2", "8"],answer:0,explanation:"Une primitive est x² ; 2²−0²=4."},
@@ -1080,26 +1080,26 @@ export const CHAPTER_RESOURCES: Record<string, ChapterResource> = {
 {front:"Piège fréquent dans un produit scalaire ?",back:"Oublier une coordonnée ou se tromper de signe."}
 ],
     quiz:[
-{level:"Facile",question:"Calculer (1;2;−1)·(2;0;2).",choices:["0","2","4","−2"],answer:0,explanation:"2−2=0."},
-{level:"Facile",question:"La norme de (2;−3;6) vaut :",choices:["7","√41","11","5"],answer:0,explanation:"√(4+9+36)=7."},
-{level:"Facile",question:"La distance de O à A(2;−1;2) vaut :",choices:["3","5","√5","√7"],answer:0,explanation:"√(4+1+4)=3."},
+{level:"Facile",question:"Calculer (1;2;−1)·(2;0;2).",choices:["0","2","4","−2"],answer:0,explanation:"Le produit scalaire vaut 1×2+2×0+(−1)×2=2−2=0."},
+{level:"Facile",question:"La norme de (2;−3;6) vaut :",choices:["7","√41","11","5"],answer:0,explanation:"La norme vaut √(2²+(−3)²+6²)=√49=7."},
+{level:"Facile",question:"La distance de O à A(2;−1;2) vaut :",choices:["3","5","√5","√7"],answer:0,explanation:"La distance OA vaut √(2²+(−1)²+2²)=√9=3."},
 {level:"Facile",question:"Deux vecteurs sont orthogonaux si leur produit scalaire vaut :",choices:["0","1","−1","leur norme"],answer:0,explanation:"Le produit scalaire nul caractérise l’orthogonalité."},
 {level:"Facile",question:"u·u est égal à :",choices:["||u||²","||u||","0 toujours","2||u||"],answer:0,explanation:"Par définition, u·u=||u||²."},
-{level:"Intermédiaire",question:"A(1;0;−2), B(4;4;−2). AB vaut :",choices:["5","7","√13","4"],answer:0,explanation:"√(3²+4²)=5."},
+{level:"Intermédiaire",question:"A(1;0;−2), B(4;4;−2). AB vaut :",choices:["5","7","√13","4"],answer:0,explanation:"Le vecteur AB=(3;4;0), donc AB=√(3²+4²+0²)=5."},
 {level:"Intermédiaire",question:"u=(1;2;1), v=(2;−1;0) sont :",choices:["orthogonaux","colinéaires","égaux","de même norme"],answer:0,explanation:"Le produit scalaire vaut 2−2=0."},
 {level:"Intermédiaire",question:"Un vecteur normal à 2x−y+3z−4=0 est :",choices:["(2;−1;3)","(2;1;3)","(−1;3;−4)","(2;−1;−4)"],answer:0,explanation:"Les coefficients de x, y et z forment un vecteur normal."},
 {level:"Intermédiaire",question:"Pour prouver qu’une droite est orthogonale à un plan, son directeur est orthogonal :",choices:["à deux directions non colinéaires du plan","à un point","à une droite quelconque","au vecteur position"],answer:0,explanation:"Deux directions indépendantes caractérisent le plan."},
 {level:"Intermédiaire",question:"Si u·v=0, alors :",choices:["u et v sont orthogonaux","u=v","ils sont colinéaires","leurs normes sont égales"],answer:0,explanation:"C’est la caractérisation par le produit scalaire."},
-{level:"Intermédiaire",question:"A(−1;2;3), B(−1;−2;6). AB vaut :",choices:["5","7","√7","4"],answer:0,explanation:"√(0²+(-4)²+3²)=5."},
+{level:"Intermédiaire",question:"A(−1;2;3), B(−1;−2;6). AB vaut :",choices:["5","7","√7","4"],answer:0,explanation:"Le vecteur AB=(0;−4;3), donc AB=√(0²+16+9)=5."},
 {level:"Intermédiaire",question:"Le carré de AB est :",choices:["la somme des carrés des différences de coordonnées","la somme des coordonnées","le produit scalaire des positions","la somme des différences"],answer:0,explanation:"C’est la formule de distance euclidienne."},
 {level:"Difficile",question:"P dirigé par u=(1;1;0), v=(0;1;1). Un vecteur normal est :",choices:["(1;−1;1)","(1;1;1)","(0;1;0)","(1;0;1)"],answer:0,explanation:"Les deux produits scalaires avec u et v sont nuls."},
-{level:"Difficile",question:"H(0;1;−1) appartient au plan x+y+z=0 :",choices:["Oui","Non, somme 1","Non, somme 3","Impossible à savoir"],answer:0,explanation:"0+1−1=0."},
+{level:"Difficile",question:"H(0;1;−1) appartient au plan x+y+z=0 :",choices:["Oui","Non, somme 1","Non, somme 3","Impossible à savoir"],answer:0,explanation:"On remplace les coordonnées : 0+1+(−1)=0. L’égalité est vérifiée."},
 {level:"Difficile",question:"Si u⊥v, ||u+v||² vaut :",choices:["||u||²+||v||²","||u||+||v||","||u||²−||v||²","0"],answer:0,explanation:"Développer (u+v)·(u+v), le terme croisé est nul."},
 {level:"Difficile",question:"Deux droites aux directeurs orthogonaux sont :",choices:["orthogonales même si non sécantes","nécessairement sécantes","parallèles","confondues"],answer:0,explanation:"L’orthogonalité des directions n’impose pas la coplanarité."},
 {level:"Difficile",question:"Une droite orthogonale au plan 3x−2y+z+5=0 peut avoir pour directeur :",choices:["(3;−2;1)","(1;1;1)","(2;3;0)","(−2;3;1)"],answer:0,explanation:"Ce vecteur est normal au plan."},
-{level:"Difficile",question:"A(0;0;0), B(1;2;2), C(2;0;1). AB·AC vaut :",choices:["4","2","5","0"],answer:0,explanation:"(1;2;2)·(2;0;1)=2+0+2=4."},
+{level:"Difficile",question:"A(0;0;0), B(1;2;2), C(2;0;1). AB·AC vaut :",choices:["4","2","5","0"],answer:0,explanation:"On multiplie les coordonnées puis on additionne : 1×2+2×0+2×1=4."},
 {level:"Difficile",question:"Le projeté H de M sur un plan vérifie :",choices:["H appartient au plan et MH est perpendiculaire au plan","MH parallèle au plan","H le plus éloigné","M,H et origine alignés"],answer:0,explanation:"C’est la définition du pied de la perpendiculaire."},
-{level:"Difficile",question:"A(1;1;1), B(3;2;−1). AB vaut :",choices:["3","√6","√8","4"],answer:0,explanation:"√(2²+1²+(-2)²)=3."}
+{level:"Difficile",question:"A(1;1;1), B(3;2;−1). AB vaut :",choices:["3","√6","√8","4"],answer:0,explanation:"Le vecteur AB=(2;1;−2). Sa norme vaut √(4+1+4)=3."}
 ],
     exercises:[
 {title:"Produit scalaire direct",level:"Facile",statement:"Calculer (3;−2;1)·(2;1;4).",correction:"3×2−2×1+1×4=8.",skills:["Produit scalaire","Orthogonalité et distances"]},
@@ -1167,7 +1167,7 @@ export const CHAPTER_RESOURCES: Record<string, ChapterResource> = {
     ],
     quiz:[
 {level:"Facile",question:"Un vecteur normal au plan 3x−2y+z+5=0 est :",choices:["(3;−2;1)", "(3;2;1)", "(−2;1;5)"],answer:0,explanation:"Les coefficients de x, y et z forment un vecteur normal."},
-{level:"Facile",question:"Le point A(1;2;−1) appartient au plan x+y+z−2=0 :",choices:["Oui", "Non", "On ne peut pas conclure"],answer:0,explanation:"1+2−1−2=0."},
+{level:"Facile",question:"Le point A(1;2;−1) appartient au plan x+y+z−2=0 :",choices:["Oui", "Non", "On ne peut pas conclure"],answer:0,explanation:"En remplaçant x, y et z, on obtient 1+2−1−2=0 : A vérifie l’équation."},
 {level:"Facile",question:"Un plan paramétré par A+su+tv nécessite :",choices:["u et v non colinéaires", "u et v égaux", "u et v de norme 1"],answer:0,explanation:"Deux directions indépendantes sont nécessaires pour engendrer un plan."},
 {level:"Facile",question:"Un vecteur normal n à un plan dirigé par u et v vérifie :",choices:["n·u=n·v=0", "n=u+v", "n·u=n·v=1"],answer:0,explanation:"Le normal est orthogonal aux deux directions du plan."},
 {level:"Facile",question:"Deux plans de vecteurs normaux colinéaires sont :",choices:["parallèles ou confondus", "toujours sécants", "toujours perpendiculaires"],answer:0,explanation:"Leurs directions normales sont parallèles."},
@@ -1525,8 +1525,8 @@ export const CHAPTER_RESOURCES: Record<string, ChapterResource> = {
 {level:"Intermédiaire",question:"Quelle affirmation distingue correctement print et return ?",choices:["print affiche, return renvoie une valeur","print renvoie toujours une valeur au programme appelant","return affiche nécessairement à l’écran"],answer:0,explanation:"L’affichage et le renvoi d’une valeur sont deux opérations différentes."},
 {level:"Intermédiaire",question:"Après deux étapes de dichotomie, par combien la longueur initiale est-elle divisée ?",choices:["4","2","8"],answer:0,explanation:"Chaque étape divise par 2 ; après deux étapes, le facteur est 2²=4."},
 {level:"Intermédiaire",question:"Quel test est le plus pertinent pour une fonction définie sur [0,10] ?",choices:["Tester aussi 0 et 10","Tester uniquement 5","Ne tester aucune borne"],answer:0,explanation:"Les bornes sont des cas limites importants pour vérifier le domaine et les conditions."},
-{level:"Difficile",question:"Une boucle divise une longueur par 2 à chaque tour. Après 5 tours, une longueur initiale de 96 vaut :",choices:["3","6","12"],answer:0,explanation:"96/2⁵=96/32=3."},
-{level:"Difficile",question:"On initialise s=0 puis on ajoute les entiers pairs de 2 à 8 inclus. Quelle valeur obtient-on ?",choices:["20","18","24"],answer:0,explanation:"2+4+6+8=20."},
+{level:"Difficile",question:"Une boucle divise une longueur par 2 à chaque tour. Après 5 tours, une longueur initiale de 96 vaut :",choices:["3","6","12"],answer:0,explanation:"Chaque tour divise par 2 : après cinq tours, 96÷2⁵=96÷32=3."},
+{level:"Difficile",question:"On initialise s=0 puis on ajoute les entiers pairs de 2 à 8 inclus. Quelle valeur obtient-on ?",choices:["20","18","24"],answer:0,explanation:"La boucle additionne les quatre entiers pairs 2, 4, 6 et 8 : leur somme est 20."},
 {level:"Difficile",question:"Pourquoi une fonction de dichotomie doit-elle vérifier que les bornes encadrent bien la solution ?",choices:["Pour garantir que la solution reste dans l’intervalle conservé","Pour éviter toute comparaison","Pour rendre le nombre d’itérations nul"],answer:0,explanation:"La conservation d’un encadrement valide fonde la correction de la méthode."},
 {level:"Difficile",question:"Une boucle while utilise i=0 et répète tant que i<4, avec i=i+1 à chaque tour. Combien de tours ?",choices:["4","5","3"],answer:0,explanation:"Les valeurs de i au début des tours sont 0, 1, 2 et 3."},
 {level:"Difficile",question:"Quelle propriété permet de justifier l’arrêt d’une boucle de dichotomie à précision ε ?",choices:["La longueur de l’intervalle devient inférieure ou égale à ε","La fonction renvoie toujours un entier","La variable de boucle reste constante"],answer:0,explanation:"Le critère de sortie porte sur la largeur de l’encadrement."},
@@ -3117,7 +3117,7 @@ export const CHAPTER_RESOURCES: Record<string, ChapterResource> = {
       { level: "Facile", question: "À quoi sert un spectre infrarouge en analyse organique ?", choices: ["À obtenir des informations sur les liaisons et groupes caractéristiques", "À mesurer directement le rendement global", "À déterminer toujours la masse exacte", "À mesurer le volume du réacteur"], answer: 0, explanation: "Les bandes d’absorption renseignent sur certaines liaisons." },
       { level: "Intermédiaire", question: "Quel est l’intérêt d’une purification après synthèse ?", choices: ["Éliminer des impuretés et résidus", "Augmenter la quantité théorique", "Modifier les coefficients stœchiométriques", "Éviter de caractériser le produit"], answer: 0, explanation: "La purification améliore la pureté en séparant le produit des espèces indésirables." },
       { level: "Intermédiaire", question: "Quel choix est le plus pertinent pour comparer deux stratégies ?", choices: ["Examiner rendement, sécurité, déchets, coût et nombre d’étapes", "Comparer uniquement la couleur des produits", "Choisir toujours la voie la plus longue", "Ne considérer que le volume de solvant"], answer: 0, explanation: "Une comparaison pertinente repose sur plusieurs critères complémentaires." },
-      { level: "Difficile", question: "Une étape donne 12 mmol de produit alors que la quantité théorique est 15 mmol. Quel est le rendement ?", choices: ["80 %", "125 %", "3 %", "27 %"], answer: 0, explanation: "12/15 × 100 = 80 %." },
+      { level: "Difficile", question: "Une étape donne 12 mmol de produit alors que la quantité théorique est 15 mmol. Quel est le rendement ?", choices: ["80 %", "125 %", "3 %", "27 %"], answer: 0, explanation: "Le rendement est le rapport obtenu/théorique : (12÷15)×100=80 %." },
       { level: "Facile", question: "Quel document décrit les dangers et précautions liés à un réactif ?", choices: ["La fiche de données de sécurité", "Le tableau périodique seul", "Le cahier de notes seul", "Le spectre IR"], answer: 0, explanation: "La fiche de données de sécurité rassemble les informations de prévention." },
       { level: "Intermédiaire", question: "Pourquoi limiter les étapes d’une synthèse peut-il être avantageux ?", choices: ["Cela peut réduire pertes, durée, coûts et déchets", "Cela garantit toujours un rendement de 100 %", "Cela rend inutile toute purification", "Cela supprime les risques chimiques"], answer: 0, explanation: "Moins d’étapes peut réduire les opérations et les pertes, sans garantir à lui seul la sécurité." },
       { level: "Difficile", question: "Une réaction concurrente forme un sous-produit. Quelle notion décrit la préférence de formation du produit souhaité ?", choices: ["La sélectivité", "La masse volumique", "La conductivité", "La pression"], answer: 0, explanation: "La sélectivité caractérise la préférence pour une voie ou un produit." },
@@ -3357,7 +3357,7 @@ export const CHAPTER_RESOURCES: Record<string, ChapterResource> = {
         "36 A"
       ],
       answer: 0,
-      explanation: "I = Q/Δt = 12/3 = 4 A."
+      explanation: "L’intensité moyenne est I=Q/Δt. Avec 12 C en 3 s, I=12÷3=4 A."
     },
     {
       level: "Facile",
@@ -3441,7 +3441,7 @@ export const CHAPTER_RESOURCES: Record<string, ChapterResource> = {
         "0,95 E"
       ],
       answer: 0,
-      explanation: "1 − e⁻¹ ≈ 0,632."
+      explanation: "À t=τ, la charge atteint 1−e⁻¹ de sa valeur finale, soit environ 63,2 %."
     },
     {
       level: "Intermédiaire",
@@ -3453,7 +3453,7 @@ export const CHAPTER_RESOURCES: Record<string, ChapterResource> = {
         "0,05 U0"
       ],
       answer: 0,
-      explanation: "e⁻¹ ≈ 0,368."
+      explanation: "À t=τ, la décharge conserve e⁻¹ de sa valeur initiale, soit environ 36,8 %."
     },
     {
       level: "Intermédiaire",
@@ -4678,7 +4678,7 @@ export const CHAPTER_RESOURCES: Record<string, ChapterResource> = {
           "3100 K"
         ],
         answer: 0,
-        explanation: "T = 27 + 273,15 ≈ 300 K.",
+        explanation: "Pour passer en kelvins, on ajoute 273,15 : T=27+273,15=300,15 K, soit environ 300 K.",
         skill: "Conversion"
       },
       {
@@ -4769,7 +4769,7 @@ export const CHAPTER_RESOURCES: Record<string, ChapterResource> = {
           "−400 J"
         ],
         answer: 0,
-        explanation: "ΔU=W+Q=300−100=+200 J.",
+        explanation: "Avec la convention reçue positive, ΔU=W+Q=300+(−100)=+200 J.",
         skill: "Premier principe"
       },
       {
@@ -4834,7 +4834,7 @@ export const CHAPTER_RESOURCES: Record<string, ChapterResource> = {
           "−700 J"
         ],
         answer: 0,
-        explanation: "ΔU=W+Q=500−200=+300 J.",
+        explanation: "Le système reçoit W=+500 J et cède Q=−200 J : ΔU=W+Q=+300 J.",
         skill: "Premier principe"
       },
       {
@@ -5410,7 +5410,7 @@ export const CHAPTER_RESOURCES: Record<string, ChapterResource> = {
         "765 m·s⁻¹"
       ],
       answer: 2,
-      explanation: "v = 51/0,15 = 340 m·s⁻¹."
+      explanation: "La célérité est v=d/Δt. Ici, v=51÷0,15=340 m·s⁻¹."
     },
     {
       level: "Difficile",
@@ -5804,7 +5804,7 @@ export const CHAPTER_RESOURCES: Record<string, ChapterResource> = {
         "f′/AB"
       ],
       answer: 1,
-      explanation: "γ = A′B′/AB."
+      explanation: "Le grandissement compare la taille image à la taille objet : γ=A′B′/AB, avec des longueurs algébriques."
     },
     {
       level: "Facile",

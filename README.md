@@ -1,10 +1,12 @@
-# NOX HAVEN 7.1.0 — Révise. Comprends. Progresse.
+# NOX HAVEN 8.0.0 — Révise. Comprends. Progresse.
 
-Version de l’application : **7.1.0**.
+Version de l’application : **8.0.0**.
 
 NOX HAVEN est un espace personnel d’apprentissage pour la Terminale : Bibliothèque de cours approfondis, espace Révisions (fiches et flashcards), espace Entraînement (quiz, QCM, exercices et sujets de Bac), notes scolaires, planning et suivi de progression. Son identité associe le calme de **Nox** (la nuit, en latin) à l’idée de refuge portée par **Haven**.
 
-> **État de livraison :** la 7.1.0 est une version candidate consolidée. La synchronisation Supabase réelle reste à configurer et à valider sur deux appareils avant de la déclarer version finale. Voir `docs/PLAN_FINALISATION_VF_7.1.0.md`.
+> **État de livraison :** version source NOX HAVEN 8.0.0. Le périmètre fonctionnel essentiel est intégré et les tests automatisés indépendants passent. La compilation de production et les essais réels multi-appareils doivent encore être exécutés dans un environnement où les dépendances npm sont installées, avant toute publication.
+
+Consulter [`docs/FINAL_RELEASE_CHECKLIST_V8.0.0.md`](docs/FINAL_RELEASE_CHECKLIST_V8.0.0.md) pour distinguer les contrôles automatisés réussis des validations locales et appareils encore nécessaires.
 
 ## Démarrer en local
 
@@ -209,3 +211,45 @@ Les indicateurs restent descriptifs : ils reposent sur les cartes et erreurs ré
 - Les statistiques affichent les chapitres les plus évalués, leur taux de réussite et le nombre de sessions associées.
 - Les anciennes sessions restent compatibles : elles continuent d’alimenter les indicateurs globaux sans être artificiellement attribuées à un chapitre.
 - Les métadonnées de version, le titre et le cache PWA sont alignés sur 7.1.0.
+
+
+## Évolutions de la version 7.3.0
+
+- Ajout d’un espace Focus & énergie avec minuteur réglable, pause/reprise et bilan de séance.
+- Enregistrement facultatif de la matière, de l’intention et du ressenti avant/après la séance.
+- Historique et indicateurs calculés uniquement à partir des sessions réellement enregistrées.
+- Recommandation de durée indicative selon l’énergie déclarée, sans imposer de rythme.
+- Recherche rapide pilotable entièrement au clavier : flèches, Entrée, Échap et retour du focus.
+- Métadonnées de session rétrocompatibles : les anciennes sessions restent valides.
+
+## Évolutions de la version 7.4.0
+
+- Le pourcentage global de maîtrise est désormais calculé uniquement sur les chapitres des matières actives du profil, et non sur tout le catalogue.
+- Le cockpit distingue clairement les chapitres maîtrisés, en cours et à travailler ; le calcul du pourcentage est expliqué.
+- Les pourcentages par matière restent visibles, avec les ressources disponibles, les cartes dues et les erreurs ouvertes.
+- Le pourcentage vers l’objectif de moyenne dispose d’une barre accessible et d’une explication : c’est un indicateur de progression, pas une prédiction de la moyenne finale.
+- Renforcement du confort tactile mobile, de la lisibilité des indicateurs et des repères d’accessibilité.
+- Ajout de 17 assertions dédiées à la progression et à l’accessibilité.
+
+
+## NOX HAVEN 7.5.0 — fiabilité et finitions
+
+- Rappels contextualisés : tâches en retard ou prévues aujourd’hui, cartes dues, erreurs ouvertes et échéances d’orientation proches.
+- Les rappels sont calculés uniquement depuis les données enregistrées et les matières actives ; aucune faiblesse ni activité n’est inventée.
+- Error Boundary React : une erreur d’affichage est isolée avec une possibilité de réessai ou de rechargement, sans effacer les données.
+- Impression et enregistrement PDF : mise en page dédiée, masquage des commandes et meilleure lisibilité sur papier.
+- Modèle `.env.example` fourni avec des valeurs fictives ; aucune clé privée ou `service_role` n’est incluse.
+- Les notifications en arrière-plan ne sont pas promises : les rappels sont visibles dans le cockpit lorsque l’application est ouverte.
+
+
+## NOX HAVEN 7.6.0 — accessibilité avancée
+
+- Audit complémentaire des repères, du lien d’évitement, du focus clavier, de la réduction des animations, des annonces dynamiques, des barres de progression, des images et des liens externes.
+- 10 contrôles statiques automatisés ; ils ne remplacent pas un essai avec lecteur d’écran ni une mesure WCAG du contraste.
+
+## NOX HAVEN 8.0.0 — version source finale
+
+- Regroupement des fonctionnalités essentielles des versions 7.2 à 7.6.
+- Vérification de cohérence de la version, de la configuration cloud, du stockage, des sauvegardes, du programme, des outils Bac et des expériences mobile/clavier.
+- Les dépendances ne sont pas embarquées dans l’archive. Exécuter `npm install`, puis `npm run build` et `npm run test:all` avant publication.
+- La validation réelle de la synchronisation Supabase et les essais sur PC/téléphone restent indispensables ; les tests cloud automatisés utilisent un serveur simulé.

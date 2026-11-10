@@ -27,9 +27,25 @@ export type StudySession = {
   id: string; date: string; startedAt: string; durationMinutes: number;
   cardsReviewed: number; correct: number; mode: 'flashcards' | 'quiz' | 'focus';
   chapterBreakdown?: Array<{ subjectId: string; chapterId: string; chapterTitle: string; verified: number; correct: number }>;
+  subjectId?: string; intention?: string; energyBefore?: number; energyAfter?: number; reflection?: string;
+};
+export type OralQuestion = {
+  id: string; title: string; subjectId: string; question: string;
+  introduction: string; plan: string; conclusion: string; sources: string;
+  rehearsalNotes: string; status: 'draft' | 'ready'; updatedAt: string;
+};
+export type NotebookEntry = {
+  id: string; subjectId: string; category: 'formule'|'definition'|'date'|'auteur'|'methode'|'autre';
+  title: string; content: string; tags: string[]; createdAt: string; updatedAt: string;
+};
+export type OrientationEntry = {
+  id: string; formation: string; establishment: string; city: string; url: string;
+  status: 'a_etudier'|'favori'|'dossier'|'acceptee'|'refusee'; deadline: string; notes: string;
+  createdAt: string; updatedAt: string;
 };
 export type StudyData = {
-  version: 3; subjects: Subject[]; grades: Grade[];
+  version: 3; subjects: Subject[]; grades: Grade[]; bacGrades: Record<string, number>;
+  grandOral: OralQuestion[]; notebook: NotebookEntry[]; orientation: OrientationEntry[];
   notes: RevisionNote[]; flashcards: Flashcard[]; errors: ErrorEntry[];
   sessions: StudySession[]; tasks: RevisionTask[];
 };

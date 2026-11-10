@@ -34,13 +34,13 @@ Un contrôle réussi indique uniquement que le script correspondant a terminé s
 > nox-haven@7.1.0 doctor
 > node scripts/project-doctor.mjs
 
-DIAGNOSTIC PROJET 7.1.0 — 1/6 dépendances principales présentes.
+DIAGNOSTIC PROJET 7.1.0 — 0/6 dépendances principales présentes.
 ABSENTE react: déclaré ^18.3.1, installé non
 ABSENTE react-dom: déclaré ^18.3.1, installé non
 ABSENTE lucide-react: déclaré ^0.468.0, installé non
 ABSENTE vite: déclaré ^6.0.1, installé non
 ABSENTE @vitejs/plugin-react: déclaré ^4.3.4, installé non
-OK typescript: déclaré ~5.6.2, installé 5.8.3
+ABSENTE typescript: déclaré ~5.6.2, installé non
 Fichier(s) de verrouillage : aucun
 Les dépendances déclarées ne sont pas toutes présentes. Installer les dépendances depuis le dossier racine du projet, puis relancer npm run build. Ne pas interpréter les erreurs JSX/TS2307 comme des défauts de composants tant que React et ses types sont absents.
 ```
@@ -325,7 +325,7 @@ Audit intégrité QCM 7.1.0: 2405 questions, 23 constats, 0 index invalides, 0 d
 > nox-haven@7.1.0 audit:security
 > node scripts/audit-security.mjs
 
-AUDIT SÉCURITÉ 7.1.0 — 29 fichiers analysés
+AUDIT SÉCURITÉ 7.1.0 — 30 fichiers analysés
 OK — cache du service worker versionné
 OK — navigation hors ligne avec repli cache
 OK — manifest servi en mode standalone
@@ -393,8 +393,8 @@ OK — Validation des matières et notes
 > nox-haven@7.1.0 audit:typescript
 > node scripts/audit-typescript.mjs
 
-Audit TypeScript : 1652 diagnostic(s), code de sortie 1.
-environment: 1652
+Audit TypeScript : 0 diagnostic(s), code de sortie 1.
+environment: 0
 contentTyping: 0
 applicationTyping: 0
 other: 0

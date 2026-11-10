@@ -20,7 +20,7 @@ export const DEFAULT_SUBJECTS: Subject[] = [
   { id: 'eps', name: 'EPS', category: 'tronc', weight: 1, includeInAverage: true, active: true, calculationMode: 'normal', bonusThreshold: 10, bonusCoefficient: 1 },
   { id: 'francais-eaf', name: 'Français — Épreuves anticipées', category: 'autre', weight: 1, includeInAverage: false, active: false, calculationMode: 'excluded', bonusThreshold: 10, bonusCoefficient: 1 },
 ];
-export const EMPTY_DATA: StudyData = { version: 3, subjects: DEFAULT_SUBJECTS, grades: [], notes: [], flashcards: [], errors: [], sessions: [], tasks: [] };
+export const EMPTY_DATA: StudyData = { version: 3, subjects: DEFAULT_SUBJECTS, grades: [], bacGrades: {}, grandOral: [], notebook: [], orientation: [], notes: [], flashcards: [], errors: [], sessions: [], tasks: [] };
 export const makeId = () => typeof crypto !== 'undefined' && 'randomUUID' in crypto ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 export const today = () => { const d = new Date(); const pad = (n: number) => String(n).padStart(2, '0'); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
 export const isValidDateKey = (value: string) => { if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false; const [year, month, day] = value.split('-').map(Number); const date = new Date(year, month - 1, day, 12); return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day; };
@@ -60,6 +60,8 @@ export function migrateData(value: unknown): StudyData {
   if (!isRecord(value) || !Array.isArray(value.subjects) || !Array.isArray(value.grades)) throw new Error('Sauvegarde StudyFlow invalide.');
   const subjects = (value.subjects as any[]).map(s => isRecord(s) ? ({ ...s, calculationMode: s.calculationMode ?? (s.id === 'maths-exp' ? 'bonus' : (s.includeInAverage ? 'normal' : 'excluded')), bonusThreshold: Number.isFinite(s.bonusThreshold) ? s.bonusThreshold : 10, bonusCoefficient: Number.isFinite(s.bonusCoefficient) ? s.bonusCoefficient : (s.id === 'maths-exp' ? 3 : 1) }) : s) as Subject[];
   const grades = (value.grades as any[]).map(g => isRecord(g) ? ({ ...g, status: g.status ?? 'normal', bonusThreshold: Number.isFinite(g.bonusThreshold) ? g.bonusThreshold : 10 }) : g) as StudyData['grades'];
+  const bacGrades = value.bacGrades === undefined ? {} : value.bacGrades;
+  if (!isRecord(bacGrades) || Object.entries(bacGrades).some(([id, score]) => !id.trim() || typeof score !== 'number' || !Number.isFinite(score) || score < 0 || score > 20)) throw new Error('Notes du simulateur du Bac invalides dans la sauvegarde.');
   if (value.version !== 1 && value.version !== 2 && value.version !== 3) throw new Error('Version de sauvegarde non prise en charge.');
   const subjectIds = new Set<string>();
   for (const s of subjects) {
@@ -73,6 +75,9 @@ export function migrateData(value: unknown): StudyData {
       typeof g.title !== 'string' || !g.title.trim() || !['normal','facultative','bonus'].includes(g.status) || !Number.isFinite(g.bonusThreshold) || !Number.isFinite(g.score) || !Number.isFinite(g.outOf) || g.outOf <= 0 || g.score < 0 || g.score > g.outOf || !Number.isFinite(g.coefficient) || g.coefficient <= 0 || typeof g.date !== 'string' || typeof g.comment !== 'string') throw new Error('Note invalide dans la sauvegarde.');
     gradeIds.add(g.id);
   }
+  const grandOral = Array.isArray(value.grandOral) ? value.grandOral : [];
+  const notebook = Array.isArray(value.notebook) ? value.notebook : [];
+  const orientation = Array.isArray(value.orientation) ? value.orientation : [];
   const notes = Array.isArray(value.notes) ? value.notes : [];
   const flashcards = Array.isArray(value.flashcards) ? value.flashcards : [];
   const errors = Array.isArray(value.errors) ? value.errors : [];
@@ -85,7 +90,18 @@ export function migrateData(value: unknown): StudyData {
       ids.add(x.id);
     }
   };
-  checkLinked(notes,'Fiche'); checkLinked(flashcards,'Flashcard'); checkLinked(errors,'Erreur');
+  checkLinked(notes,'Fiche'); checkLinked(flashcards,'Flashcard'); checkLinked(errors,'Erreur'); checkLinked(grandOral,'Question Grand oral'); checkLinked(notebook,'Carnet de formules');
+  for (const oral of grandOral) {
+    if (typeof oral.title !== 'string' || !oral.title.trim() || typeof oral.question !== 'string' || typeof oral.introduction !== 'string' || typeof oral.plan !== 'string' || typeof oral.conclusion !== 'string' || typeof oral.sources !== 'string' || typeof oral.rehearsalNotes !== 'string' || !['draft','ready'].includes(oral.status) || typeof oral.updatedAt !== 'string') throw new Error('Préparation du Grand oral invalide dans la sauvegarde.');
+  }
+  for (const entry of notebook) {
+    if (typeof entry.title !== 'string' || !entry.title.trim() || typeof entry.content !== 'string' || !entry.content.trim() || !['formule','definition','date','auteur','methode','autre'].includes(entry.category) || !Array.isArray(entry.tags) || entry.tags.some((tag: unknown) => typeof tag !== 'string') || typeof entry.createdAt !== 'string' || typeof entry.updatedAt !== 'string') throw new Error('Entrée du carnet de formules invalide dans la sauvegarde.');
+  }
+  const orientationIds = new Set<string>();
+  for (const item of orientation) {
+    if (!isRecord(item) || typeof item.id !== 'string' || !item.id.trim() || orientationIds.has(item.id) || typeof item.formation !== 'string' || !item.formation.trim() || typeof item.establishment !== 'string' || typeof item.city !== 'string' || typeof item.url !== 'string' || !['a_etudier','favori','dossier','acceptee','refusee'].includes(item.status) || typeof item.deadline !== 'string' || (item.deadline && !/^\d{4}-\d{2}-\d{2}$/.test(item.deadline)) || typeof item.notes !== 'string' || typeof item.createdAt !== 'string' || typeof item.updatedAt !== 'string') throw new Error('Entrée du carnet d’orientation invalide dans la sauvegarde.');
+    orientationIds.add(item.id);
+  }
   for (const note of notes) {
     if (typeof note.title !== 'string' || !note.title.trim() || typeof note.chapter !== 'string' || typeof note.content !== 'string' || !Array.isArray(note.tags) || note.tags.some((tag: unknown) => typeof tag !== 'string') || typeof note.favorite !== 'boolean' || typeof note.createdAt !== 'string' || typeof note.updatedAt !== 'string') throw new Error('Fiche invalide dans la sauvegarde.');
   }
@@ -97,7 +113,7 @@ export function migrateData(value: unknown): StudyData {
   }
   const sessionIds = new Set<string>();
   for (const session of sessions) {
-    if (!isRecord(session) || typeof session.id !== 'string' || !session.id.trim() || sessionIds.has(session.id) || typeof session.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(session.date) || typeof session.startedAt !== 'string' || Number.isNaN(Date.parse(session.startedAt)) || !Number.isInteger(session.durationMinutes) || session.durationMinutes < 0 || !Number.isInteger(session.cardsReviewed) || session.cardsReviewed < 0 || !Number.isInteger(session.correct) || session.correct < 0 || !['flashcards','quiz','focus'].includes(session.mode) || (session.mode === 'focus' ? session.cardsReviewed !== 0 || session.correct !== 0 : session.cardsReviewed < 1 || session.correct > session.cardsReviewed)) throw new Error('Session de révision invalide dans la sauvegarde.');
+    if (!isRecord(session) || typeof session.id !== 'string' || !session.id.trim() || sessionIds.has(session.id) || typeof session.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(session.date) || typeof session.startedAt !== 'string' || Number.isNaN(Date.parse(session.startedAt)) || !Number.isInteger(session.durationMinutes) || session.durationMinutes < 0 || !Number.isInteger(session.cardsReviewed) || session.cardsReviewed < 0 || !Number.isInteger(session.correct) || session.correct < 0 || !['flashcards','quiz','focus'].includes(session.mode) || (session.mode === 'focus' ? session.cardsReviewed !== 0 || session.correct !== 0 : session.cardsReviewed < 1 || session.correct > session.cardsReviewed) || (session.subjectId !== undefined && (typeof session.subjectId !== 'string' || !subjectIds.has(session.subjectId))) || (session.intention !== undefined && (typeof session.intention !== 'string' || session.intention.length > 240)) || (session.reflection !== undefined && (typeof session.reflection !== 'string' || session.reflection.length > 1000)) || (session.energyBefore !== undefined && (!Number.isInteger(session.energyBefore) || session.energyBefore < 1 || session.energyBefore > 5)) || (session.energyAfter !== undefined && (!Number.isInteger(session.energyAfter) || session.energyAfter < 1 || session.energyAfter > 5))) throw new Error('Session de révision invalide dans la sauvegarde.');
     sessionIds.add(session.id);
   }
   const taskIds = new Set<string>();
@@ -105,7 +121,7 @@ export function migrateData(value: unknown): StudyData {
     if (!isRecord(task) || typeof task.id !== 'string' || taskIds.has(task.id) || !subjectIds.has(task.subjectId) || typeof task.title !== 'string' || !task.title.trim() || typeof task.chapter !== 'string' || typeof task.dueDate !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(task.dueDate) || !Number.isInteger(task.durationMinutes) || task.durationMinutes < 5 || task.durationMinutes > 600 || typeof task.completed !== 'boolean' || typeof task.createdAt !== 'string') throw new Error('Séance de planning invalide dans la sauvegarde.');
     taskIds.add(task.id);
   }
-  return { version: 3, subjects, grades, notes, flashcards, errors, sessions, tasks };
+  return { version: 3, subjects, grades, bacGrades, grandOral, notebook, orientation, notes, flashcards, errors, sessions, tasks };
 }
 export function loadData(): StudyData {
   try { const raw = localStorage.getItem(STORAGE_KEY); return raw ? migrateData(JSON.parse(raw)) : EMPTY_DATA; }

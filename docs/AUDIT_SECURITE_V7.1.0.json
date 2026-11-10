@@ -1,7 +1,7 @@
 {
   "version": "7.1.0",
-  "generatedAt": "2026-11-09T18:50:32.543Z",
-  "filesScanned": 29,
+  "generatedAt": "2026-11-09T19:44:37.571Z",
+  "filesScanned": 30,
   "checks": [
     {
       "name": "cache du service worker versionné",

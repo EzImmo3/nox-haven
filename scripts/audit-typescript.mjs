@@ -16,7 +16,11 @@ for (const line of diagnostics) {
   const match = line.match(/error (TS\d+):/);
   const code = match?.[1] ?? 'unknown';
   counts.set(code, (counts.get(code) ?? 0) + 1);
-  if (['TS2307', 'TS2875', 'TS7026'].includes(code) || (!reactTypesAvailable && ['TS7006', 'TS7031', 'TS7005'].includes(code))) groups.environment.push(line);
+  const reactContextDiagnostic = !reactTypesAvailable && (
+    (code === 'TS18046' && /App\.tsx/.test(line)) ||
+    (code === 'TS2339' && /ErrorBoundary\.tsx/.test(line))
+  );
+  if (['TS2307', 'TS2875', 'TS7026'].includes(code) || reactContextDiagnostic || (!reactTypesAvailable && ['TS7006', 'TS7031', 'TS7005'].includes(code))) groups.environment.push(line);
   else if (code === 'TS2322' && /chapterResources\.ts/.test(line)) groups.contentTyping.push(line);
   else if (['TS7006', 'TS7031', 'TS7005'].includes(code)) groups.applicationTyping.push(line);
   else groups.other.push(line);

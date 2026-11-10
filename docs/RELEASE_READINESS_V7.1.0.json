@@ -1,6 +1,6 @@
 {
   "version": "7.1.0",
-  "generatedAt": "2026-11-09T18:50:35.897Z",
+  "generatedAt": "2026-11-09T19:44:48.255Z",
   "summary": {
     "passed": 16,
     "needsReview": 3,
@@ -13,7 +13,7 @@
       "status": "review",
       "exitCode": 1,
       "signal": null,
-      "output": "> nox-haven@7.1.0 doctor\n> node scripts/project-doctor.mjs\n\nDIAGNOSTIC PROJET 7.1.0 — 1/6 dépendances principales présentes.\nABSENTE react: déclaré ^18.3.1, installé non\nABSENTE react-dom: déclaré ^18.3.1, installé non\nABSENTE lucide-react: déclaré ^0.468.0, installé non\nABSENTE vite: déclaré ^6.0.1, installé non\nABSENTE @vitejs/plugin-react: déclaré ^4.3.4, installé non\nOK typescript: déclaré ~5.6.2, installé 5.8.3\nFichier(s) de verrouillage : aucun\nLes dépendances déclarées ne sont pas toutes présentes. Installer les dépendances depuis le dossier racine du projet, puis relancer npm run build. Ne pas interpréter les erreurs JSX/TS2307 comme des défauts de composants tant que React et ses types sont absents."
+      "output": "> nox-haven@7.1.0 doctor\n> node scripts/project-doctor.mjs\n\nDIAGNOSTIC PROJET 7.1.0 — 0/6 dépendances principales présentes.\nABSENTE react: déclaré ^18.3.1, installé non\nABSENTE react-dom: déclaré ^18.3.1, installé non\nABSENTE lucide-react: déclaré ^0.468.0, installé non\nABSENTE vite: déclaré ^6.0.1, installé non\nABSENTE @vitejs/plugin-react: déclaré ^4.3.4, installé non\nABSENTE typescript: déclaré ~5.6.2, installé non\nFichier(s) de verrouillage : aucun\nLes dépendances déclarées ne sont pas toutes présentes. Installer les dépendances depuis le dossier racine du projet, puis relancer npm run build. Ne pas interpréter les erreurs JSX/TS2307 comme des défauts de composants tant que React et ses types sont absents."
     },
     {
       "label": "Cohérence du manifeste et des dépendances",
@@ -101,7 +101,7 @@
       "status": "pass",
       "exitCode": 0,
       "signal": null,
-      "output": "> nox-haven@7.1.0 audit:security\n> node scripts/audit-security.mjs\n\nAUDIT SÉCURITÉ 7.1.0 — 29 fichiers analysés\nOK — cache du service worker versionné\nOK — navigation hors ligne avec repli cache\nOK — manifest servi en mode standalone\nOK — scope PWA relatif\nOK — export de sauvegarde avec SHA-256\nOK — import vérifie l’empreinte avant restauration\nConstats à examiner : 0"
+      "output": "> nox-haven@7.1.0 audit:security\n> node scripts/audit-security.mjs\n\nAUDIT SÉCURITÉ 7.1.0 — 30 fichiers analysés\nOK — cache du service worker versionné\nOK — navigation hors ligne avec repli cache\nOK — manifest servi en mode standalone\nOK — scope PWA relatif\nOK — export de sauvegarde avec SHA-256\nOK — import vérifie l’empreinte avant restauration\nConstats à examiner : 0"
     },
     {
       "label": "PWA",
@@ -133,7 +133,7 @@
       "status": "review",
       "exitCode": 1,
       "signal": null,
-      "output": "> nox-haven@7.1.0 audit:typescript\n> node scripts/audit-typescript.mjs\n\nAudit TypeScript : 1652 diagnostic(s), code de sortie 1.\nenvironment: 1652\ncontentTyping: 0\napplicationTyping: 0\nother: 0"
+      "output": "> nox-haven@7.1.0 audit:typescript\n> node scripts/audit-typescript.mjs\n\nAudit TypeScript : 0 diagnostic(s), code de sortie 1.\nenvironment: 0\ncontentTyping: 0\napplicationTyping: 0\nother: 0"
     },
     {
       "label": "Santé du stockage",
