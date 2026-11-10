@@ -1,29 +1,29 @@
 {
   "version": "8.0.0",
-  "generatedAt": "2026-11-10T05:06:07.204Z",
+  "generatedAt": "2026-11-09T20:48:09.151Z",
   "summary": {
-    "passed": 19,
-    "needsReview": 0,
+    "passed": 16,
+    "needsReview": 3,
     "total": 19
   },
   "results": [
     {
       "label": "Diagnostic environnement projet",
       "script": "doctor",
-      "status": "pass",
-      "exitCode": 0,
+      "status": "review",
+      "exitCode": 1,
       "signal": null,
       "timedOut": false,
-      "output": "DIAGNOSTIC PROJET 8.0.0 — 6/6 dépendances principales présentes.\nOK react: déclaré ^18.3.1, installé 18.3.1\nOK react-dom: déclaré ^18.3.1, installé 18.3.1\nOK lucide-react: déclaré ^0.468.0, installé 0.468.0\nOK vite: déclaré ^6.0.1, installé 6.4.5\nOK @vitejs/plugin-react: déclaré ^4.3.4, installé 4.7.0\nOK typescript: déclaré ~5.6.2, installé 5.6.3\nFichier(s) de verrouillage : package-lock.json\nLes dépendances principales sont présentes. Lancer npm run build pour vérifier les types et le bundle.\n(node:28368) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.\n(Use `node --trace-deprecation ...` to show where the warning was created)"
+      "output": "DIAGNOSTIC PROJET 8.0.0 — 1/6 dépendances principales présentes.\nABSENTE react: déclaré ^18.3.1, installé non\nABSENTE react-dom: déclaré ^18.3.1, installé non\nABSENTE lucide-react: déclaré ^0.468.0, installé non\nABSENTE vite: déclaré ^6.0.1, installé non\nABSENTE @vitejs/plugin-react: déclaré ^4.3.4, installé non\nOK typescript: déclaré ~5.6.2, installé 5.8.3\nFichier(s) de verrouillage : aucun\nLes dépendances déclarées ne sont pas toutes présentes. Installer les dépendances depuis le dossier racine du projet, puis relancer npm run build. Ne pas interpréter les erreurs JSX/TS2307 comme des défauts de composants tant que React et ses types sont absents."
     },
     {
       "label": "Cohérence du manifeste et des dépendances",
       "script": "audit:manifest",
-      "status": "pass",
-      "exitCode": 0,
+      "status": "review",
+      "exitCode": 1,
       "signal": null,
       "timedOut": false,
-      "output": "AUDIT MANIFESTE 8.0.0 — 21/21 ; 0 à corriger.\nOK dependency:react: ^18.3.1\nOK dependency:react-dom: ^18.3.1\nOK dependency:lucide-react: ^0.468.0\nOK dependency:vite: ^6.0.1\nOK dependency:@vitejs/plugin-react: ^4.3.4\nOK dependency:typescript: ~5.6.2\nOK lockfile:present: package-lock v3\nOK lockfile:root-version: package 8.0.0 / projet 8.0.0\nOK lockfile:react: déclaré ^18.3.1 / verrouillé ^18.3.1\nOK lockfile:react-dom: déclaré ^18.3.1 / verrouillé ^18.3.1\nOK lockfile:lucide-react: déclaré ^0.468.0 / verrouillé ^0.468.0\nOK lockfile:vite: déclaré ^6.0.1 / verrouillé ^6.0.1\nOK lockfile:@vitejs/plugin-react: déclaré ^4.3.4 / verrouillé ^4.3.4\nOK lockfile:typescript: déclaré ~5.6.2 / verrouillé ~5.6.2\nOK script:build: tsc -b && vite build\nOK script:dev: vite\nOK script:preview: vite preview\nOK script:doctor: node scripts/project-doctor.mjs\nOK script:audit:release: node scripts/audit-release.mjs\nOK runtime:node: Node 26.13.0 (minimum projet 20)\nOK runtime:npm: 11.20.0\n(node:33340) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.\n(Use `node --trace-deprecation ...` to show where the warning was created)"
+      "output": "AUDIT MANIFESTE 8.0.0 — 13/14 ; 1 à corriger.\nOK dependency:react: ^18.3.1\nOK dependency:react-dom: ^18.3.1\nOK dependency:lucide-react: ^0.468.0\nOK dependency:vite: ^6.0.1\nOK dependency:@vitejs/plugin-react: ^4.3.4\nOK dependency:typescript: ~5.6.2\nÀ CORRIGER lockfile:present: package-lock.json absent ou illisible\nOK script:build: tsc -b && vite build\nOK script:dev: vite\nOK script:preview: vite preview\nOK script:doctor: node scripts/project-doctor.mjs\nOK script:audit:release: node scripts/audit-release.mjs\nOK runtime:node: Node 22.16.0 (minimum projet 20)\nOK runtime:npm: 10.9.2"
     },
     {
       "label": "Cohérence des versions",
@@ -113,7 +113,7 @@
       "exitCode": 0,
       "signal": null,
       "timedOut": false,
-      "output": "AUDIT SÉCURITÉ 8.0.0 — 33 fichiers analysés\nOK — cache du service worker versionné\nOK — navigation hors ligne avec repli cache\nOK — manifest servi en mode standalone\nOK — scope PWA relatif\nOK — export de sauvegarde avec SHA-256\nOK — import vérifie l’empreinte avant restauration\nConstats à examiner : 0"
+      "output": "AUDIT SÉCURITÉ 8.0.0 — 32 fichiers analysés\nOK — cache du service worker versionné\nOK — navigation hors ligne avec repli cache\nOK — manifest servi en mode standalone\nOK — scope PWA relatif\nOK — export de sauvegarde avec SHA-256\nOK — import vérifie l’empreinte avant restauration\nConstats à examiner : 0"
     },
     {
       "label": "PWA",
@@ -145,11 +145,11 @@
     {
       "label": "Diagnostic TypeScript",
       "script": "audit:typescript",
-      "status": "pass",
-      "exitCode": 0,
+      "status": "review",
+      "exitCode": 1,
       "signal": null,
       "timedOut": false,
-      "output": "Audit TypeScript : 0 diagnostic(s), code de sortie 0.\nenvironment: 0\ncontentTyping: 0\napplicationTyping: 0\nother: 0"
+      "output": "Audit TypeScript : 2504 diagnostic(s), code de sortie 1.\nenvironment: 2504\ncontentTyping: 0\napplicationTyping: 0\nother: 0"
     },
     {
       "label": "Santé du stockage",

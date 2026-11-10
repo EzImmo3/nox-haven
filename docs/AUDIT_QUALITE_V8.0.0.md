@@ -1,6 +1,6 @@
 # Audit qualité pédagogique — NOX HAVEN 8.0.0
 
-Date de contrôle : 2026-11-10
+Date de contrôle : 2026-11-09
 
 - Chapitres catalogue : 120
 - Ressources dédiées : 120
