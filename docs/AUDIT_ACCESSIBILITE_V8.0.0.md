@@ -1,6 +1,6 @@
 # Audit accessibilité — NOX HAVEN V8.0.0
 
-Généré le 2026-11-09T20:48:04.973Z.
+Généré le 2026-11-10T05:05:56.489Z.
 Résultat : 11/11 heuristiques positives ; 0 à vérifier.
 
 | Contrôle | Statut | Détail |

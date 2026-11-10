@@ -1,9 +1,9 @@
 # Revue de préparation de livraison — NOX HAVEN 8.0.0
 
-**16/19** commandes terminées sans erreur ; **3** à examiner.
+**19/19** commandes terminées sans erreur ; **0** à examiner.
 
-- À EXAMINER — Diagnostic environnement projet (`doctor`)
-- À EXAMINER — Cohérence du manifeste et des dépendances (`audit:manifest`)
+- OK — Diagnostic environnement projet (`doctor`)
+- OK — Cohérence du manifeste et des dépendances (`audit:manifest`)
 - OK — Cohérence des versions (`audit:version`)
 - OK — Catalogue pédagogique (`audit:content`)
 - OK — Audit pédagogique approfondi (`audit:pedagogy`)
@@ -17,7 +17,7 @@
 - OK — PWA (`audit:pwa`)
 - OK — Accessibilité (`audit:accessibility`)
 - OK — Sauvegardes (`audit:backup`)
-- À EXAMINER — Diagnostic TypeScript (`audit:typescript`)
+- OK — Diagnostic TypeScript (`audit:typescript`)
 - OK — Santé du stockage (`audit:storage-health`)
 - OK — Export du planning vers calendrier (`audit:calendar`)
 - OK — Tests du format iCalendar (`audit:calendar-unit`)
@@ -31,35 +31,46 @@ Un contrôle réussi indique uniquement que le script correspondant a terminé s
 ### Diagnostic environnement projet
 
 ```text
-DIAGNOSTIC PROJET 8.0.0 — 1/6 dépendances principales présentes.
-ABSENTE react: déclaré ^18.3.1, installé non
-ABSENTE react-dom: déclaré ^18.3.1, installé non
-ABSENTE lucide-react: déclaré ^0.468.0, installé non
-ABSENTE vite: déclaré ^6.0.1, installé non
-ABSENTE @vitejs/plugin-react: déclaré ^4.3.4, installé non
-OK typescript: déclaré ~5.6.2, installé 5.8.3
-Fichier(s) de verrouillage : aucun
-Les dépendances déclarées ne sont pas toutes présentes. Installer les dépendances depuis le dossier racine du projet, puis relancer npm run build. Ne pas interpréter les erreurs JSX/TS2307 comme des défauts de composants tant que React et ses types sont absents.
+DIAGNOSTIC PROJET 8.0.0 — 6/6 dépendances principales présentes.
+OK react: déclaré ^18.3.1, installé 18.3.1
+OK react-dom: déclaré ^18.3.1, installé 18.3.1
+OK lucide-react: déclaré ^0.468.0, installé 0.468.0
+OK vite: déclaré ^6.0.1, installé 6.4.5
+OK @vitejs/plugin-react: déclaré ^4.3.4, installé 4.7.0
+OK typescript: déclaré ~5.6.2, installé 5.6.3
+Fichier(s) de verrouillage : package-lock.json
+Les dépendances principales sont présentes. Lancer npm run build pour vérifier les types et le bundle.
+(node:28368) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
 ```
 
 ### Cohérence du manifeste et des dépendances
 
 ```text
-AUDIT MANIFESTE 8.0.0 — 13/14 ; 1 à corriger.
+AUDIT MANIFESTE 8.0.0 — 21/21 ; 0 à corriger.
 OK dependency:react: ^18.3.1
 OK dependency:react-dom: ^18.3.1
 OK dependency:lucide-react: ^0.468.0
 OK dependency:vite: ^6.0.1
 OK dependency:@vitejs/plugin-react: ^4.3.4
 OK dependency:typescript: ~5.6.2
-À CORRIGER lockfile:present: package-lock.json absent ou illisible
+OK lockfile:present: package-lock v3
+OK lockfile:root-version: package 8.0.0 / projet 8.0.0
+OK lockfile:react: déclaré ^18.3.1 / verrouillé ^18.3.1
+OK lockfile:react-dom: déclaré ^18.3.1 / verrouillé ^18.3.1
+OK lockfile:lucide-react: déclaré ^0.468.0 / verrouillé ^0.468.0
+OK lockfile:vite: déclaré ^6.0.1 / verrouillé ^6.0.1
+OK lockfile:@vitejs/plugin-react: déclaré ^4.3.4 / verrouillé ^4.3.4
+OK lockfile:typescript: déclaré ~5.6.2 / verrouillé ~5.6.2
 OK script:build: tsc -b && vite build
 OK script:dev: vite
 OK script:preview: vite preview
 OK script:doctor: node scripts/project-doctor.mjs
 OK script:audit:release: node scripts/audit-release.mjs
-OK runtime:node: Node 22.16.0 (minimum projet 20)
-OK runtime:npm: 10.9.2
+OK runtime:node: Node 26.13.0 (minimum projet 20)
+OK runtime:npm: 11.20.0
+(node:33340) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
 ```
 
 ### Cohérence des versions
@@ -289,7 +300,7 @@ Audit intégrité QCM 8.0.0: 2405 questions, 0 constats, 0 index invalides, 0 do
 ### Sécurité statique
 
 ```text
-AUDIT SÉCURITÉ 8.0.0 — 32 fichiers analysés
+AUDIT SÉCURITÉ 8.0.0 — 33 fichiers analysés
 OK — cache du service worker versionné
 OK — navigation hors ligne avec repli cache
 OK — manifest servi en mode standalone
@@ -345,8 +356,8 @@ OK — Validation des matières et notes
 ### Diagnostic TypeScript
 
 ```text
-Audit TypeScript : 2504 diagnostic(s), code de sortie 1.
-environment: 2504
+Audit TypeScript : 0 diagnostic(s), code de sortie 0.
+environment: 0
 contentTyping: 0
 applicationTyping: 0
 other: 0

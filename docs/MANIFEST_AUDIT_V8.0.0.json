@@ -1,10 +1,10 @@
 {
   "version": "8.0.0",
-  "generatedAt": "2026-11-09T20:48:01.991Z",
+  "generatedAt": "2026-11-10T05:05:51.532Z",
   "summary": {
-    "passed": 13,
-    "failed": 1,
-    "total": 14
+    "passed": 21,
+    "failed": 0,
+    "total": 21
   },
   "checks": [
     {
@@ -39,8 +39,43 @@
     },
     {
       "id": "lockfile:present",
-      "ok": false,
-      "detail": "package-lock.json absent ou illisible"
+      "ok": true,
+      "detail": "package-lock v3"
+    },
+    {
+      "id": "lockfile:root-version",
+      "ok": true,
+      "detail": "package 8.0.0 / projet 8.0.0"
+    },
+    {
+      "id": "lockfile:react",
+      "ok": true,
+      "detail": "déclaré ^18.3.1 / verrouillé ^18.3.1"
+    },
+    {
+      "id": "lockfile:react-dom",
+      "ok": true,
+      "detail": "déclaré ^18.3.1 / verrouillé ^18.3.1"
+    },
+    {
+      "id": "lockfile:lucide-react",
+      "ok": true,
+      "detail": "déclaré ^0.468.0 / verrouillé ^0.468.0"
+    },
+    {
+      "id": "lockfile:vite",
+      "ok": true,
+      "detail": "déclaré ^6.0.1 / verrouillé ^6.0.1"
+    },
+    {
+      "id": "lockfile:@vitejs/plugin-react",
+      "ok": true,
+      "detail": "déclaré ^4.3.4 / verrouillé ^4.3.4"
+    },
+    {
+      "id": "lockfile:typescript",
+      "ok": true,
+      "detail": "déclaré ~5.6.2 / verrouillé ~5.6.2"
     },
     {
       "id": "script:build",
@@ -70,17 +105,16 @@
     {
       "id": "runtime:node",
       "ok": true,
-      "detail": "Node 22.16.0 (minimum projet 20)"
+      "detail": "Node 26.13.0 (minimum projet 20)"
     },
     {
       "id": "runtime:npm",
       "ok": true,
-      "detail": "10.9.2"
+      "detail": "11.20.0"
     }
   ],
   "nextSteps": [
-    "Générer et contrôler package-lock.json depuis un environnement réseau stable.",
-    "Installer les dépendances avec npm ci.",
+    "Exécuter npm ci depuis la racine.",
     "Exécuter npm run build puis npm run audit:release."
   ],
   "note": "Cet audit contrôle le manifeste et les métadonnées locales ; il ne prouve ni la disponibilité du registre npm, ni la réussite du build."

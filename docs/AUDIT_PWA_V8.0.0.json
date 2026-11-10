@@ -1,6 +1,6 @@
 {
   "version": "8.0.0",
-  "generatedAt": "2026-11-09T20:48:04.925Z",
+  "generatedAt": "2026-11-10T05:05:56.281Z",
   "checks": [
     {
       "name": "manifeste JSON lisible",
