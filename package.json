@@ -51,7 +51,8 @@
     "test:v740-progress-accessibility": "node scripts/test-v740-progress-accessibility.mjs",
     "test:smart-reminders": "node scripts/test-smart-reminders.mjs",
     "test:error-boundary": "node scripts/test-error-boundary.mjs",
-    "audit:accessibility-advanced": "node scripts/audit-accessibility-advanced.mjs"
+    "audit:accessibility-advanced": "node scripts/audit-accessibility-advanced.mjs",
+    "release:verify": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/verify-release.ps1"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
