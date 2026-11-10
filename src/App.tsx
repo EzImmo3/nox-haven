@@ -15,7 +15,7 @@ import { getStableOptionOrder } from './quizOptions.mjs';
 import { buildChapterQuizStats } from './chapterAnalytics.mjs';
 import { buildMonthlyAverageTrend, buildSubjectLearningProgress, getChapterProgressSummary, getSubjectPerformance, getTargetProgress } from './dashboard.mjs';
 import { buildSmartReminders } from './reminderAnalytics.mjs';
-import BacSimulator from './BacSimulator';
+import BacSimulator from './BacSimulatorView';
 import { createGeneralBac2027Model } from './bacSimulator.mjs';
 import { FormulaNotebook, GrandOralStudio, UrgencySession, OrientationTracker, FocusStudio } from './extraFeatures';
 
